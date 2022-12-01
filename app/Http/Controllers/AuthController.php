@@ -39,8 +39,6 @@ class AuthController extends Controller
         if($fields['role'] == 'Responder'){
             
             $user = User::create($fields);
-            $token = $user->createToken('appToken')->plainTextToken;
-
             $responderFields = $request->validate([
                 'type' => 'required',
             ]);
@@ -52,18 +50,15 @@ class AuthController extends Controller
              $response = [
                 'message' => 'Responder Registered!',
                 'user' => $user,
-                'token' => $token,
                 'responder' => $responder,
             ];
         }else{
 
             $user = User::create($fields);
-            $token = $user->createToken('appToken')->plainTextToken;
 
             $response = [
             'message' => 'User Registered!',
             'user' => $user,
-            'token' => $token,
             ];
         }
         return response($response, 201);
@@ -77,7 +72,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $fields = $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
         
@@ -88,17 +83,13 @@ class AuthController extends Controller
             return response([
                 'message' => 'Invalid Credentials'
             ], 401);
-
-        }else{
-            Auth::login($user);
-            $token = $user->createToken('appToken')->plainTextToken;
-            // dd($user->tokens);
+        }
             return response([
                 'message' => 'Logged In', 
                 'user' => $user,
-                'token' => $token,
+                'token' => $user->createToken('appToken')->plainTextToken
             ], 200);
-        }
+            // return $user->createToken('appToken')->plainTextToken;
     }
 
     /**
@@ -109,11 +100,17 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        // dd(PersonalAccessToken::where('tokenable_id', 1)->delete());
-        // dd($request->bearerToken());
-        // dd($request->user()->tokens()->delete());
+        $bToken = $request->bearerToken();
+        $separator = "|";
+        $output = explode($separator, $bToken);
+        $accessToken = PersonalAccessToken::findToken($output[1]);
+        // $user = User::find($accessToken->tokenable_id);
+        if($accessToken->delete()){
+            return response(['message'=> 'Logged out'], 200);
+        }else{
+            return response(['message'=> "Can't log out. Something went wrong."], 400);
+        }
         
-        // return response(['message'=> 'Logged out'], 200);
     }
 
 }
