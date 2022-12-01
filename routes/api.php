@@ -26,16 +26,12 @@ Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
     return $request->user();
 });
 
-//Public Routes
-// @ Register - create user account
-// @ Login - to log in user into his account for access & provide his token for authorization of actions
-
 Route::post('/register', [AuthController::class,'register']);
 Route::post('/login', [AuthController::class,'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
-// Route::group(['middleware' => ['auth:sanctum']], function (){ 
-    //     //Users
+
+ //Users
     Route::get('/users', [UserController::class, 'indexUsers']);
     Route::get('/users/responders', [UserController::class, 'indexResponders']);
     Route::get('/users/admins', [UserController::class, 'indexAdmins']);
@@ -43,7 +39,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::put('/users/{id}', [UserController::class, 'update']);
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
-    //     //Requests
+  //Requests
         Route::get('/requests', [RequestsInfoController::class, 'index']);
         Route::get('/requests/{id}', [RequestsInfoController::class, 'show']);
         Route::post('/requests', [RequestsInfoController::class, 'store']); //A.K.A create
@@ -53,9 +49,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::get('/requests/search/status/{status}', [RequestsInfoController::class, 'searchStatus']);
         Route::get('/requests/search/location/{location}', [RequestsInfoController::class, 'searchLocation']);
     
-    // });
-    
-    // Route::prefix('responder')->middleware('auth')->group(function(){
+
         Route::get('/responders', [ResponderController::class, 'index']);
         Route::get('/responders/{id}', [ResponderController::class, 'show']);
         Route::put('/responders/{id}', [ResponderController::class, 'update']);
@@ -68,7 +62,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::put('/responders/responses/status/{id}', [ResponseController::class, 'updateStatus']);
         Route::put('/responders/responses/location/{id}', [ResponseController::class, 'updateLocation']);
         Route::delete('/responders/responses/{id}', [ResponseController::class, 'destroy']);
-// });
 
         Route::get('/archive/users', [ArchiveController::class, 'usersArchive']);
         Route::get('/archive/responders', [ArchiveController::class, 'respondersArchive']);
