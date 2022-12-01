@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArchiveController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -27,7 +28,7 @@ use App\Http\Controllers\RequestsInfoController;
 
 Route::post('/register', [AuthController::class,'register']);
 Route::post('/login', [AuthController::class,'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
+
 
 
 // Private Routes
@@ -77,6 +78,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/users/{id}', [UserController::class, 'show']);
         Route::put('/users/{id}', [UserController::class, 'update']);
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
+    Route::post('/logout', [AuthController::class, 'logout']);
     
     //     //Requests
         Route::get('/requests', [RequestsInfoController::class, 'index']);
@@ -105,6 +107,18 @@ Route::post('/logout', [AuthController::class, 'logout']);
         Route::delete('/responders/responses/{id}', [ResponseController::class, 'destroy']);
 // });
 
+        Route::get('/archive/users', [ArchiveController::class, 'usersArchive']);
+        Route::get('/archive/responders', [ArchiveController::class, 'respondersArchive']);
+        Route::get('archive/requests', [ArchiveController::class, 'requestsArchive']);
+        Route::get('archive/responses', [ArchiveController::class, 'responsesArchive']);
+
+        Route::get('/archive/users/{id}', [ArchiveController::class, 'findArchivedUser']);
+        Route::get('/archive/responders/{id}', [ArchiveController::class, 'findArchivedResponder']);
+        Route::get('archive/requests/{id}', [ArchiveController::class, 'findArchivedRequest']);
+        Route::get('archive/responses/{id}', [ArchiveController::class, 'findArchivedResponses']);
+        
+        Route::get('archive/requests/search/{id}', [ArchiveController::class, 'searchRequestArchive']);
+        Route::get('archive/responses/search/{id}', [ArchiveController::class, 'searchResponsesArchive']);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     //once logged in, you have to return the token to get the users information from this route.

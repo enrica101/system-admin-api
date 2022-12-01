@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+Route::get('/register', [AdminController::class, 'create']);
+
+//Login User
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+

@@ -31,13 +31,14 @@ class ResponseController extends Controller
     {
         $requestInfo = RequestsInfo::find($request['requestId']);
         $responder = Responder::find($request['responderId']);
-        $user = User::find($requestInfo->userId);
-
+        
         if(empty($requestInfo) || empty($responder)){
             return response([
                 'message' => 'Request or Responder does not exist.',
-            ], 400);
+            ], 205);
         }
+
+        $user = User::find($requestInfo->userId);
 
         if($requestInfo->type === $responder->type){
             $fields = $request->validate([
@@ -61,7 +62,7 @@ class ResponseController extends Controller
         }else{
             return response([
                 'message' => 'Request and Responder should be of the same type.',
-            ], 406);
+            ], 205);
         }
 
     }
@@ -79,7 +80,7 @@ class ResponseController extends Controller
         if(empty($responseInfo)){
             return response([
                 'message' => 'Not Found'
-            ], 400);
+            ], 204);
         }else{
             // dd($responseInfo['requestId']);
             $requestInfo = RequestsInfo::find($responseInfo->requestId);
@@ -102,6 +103,7 @@ class ResponseController extends Controller
     public function updateStatus(Request $request, $id)
     {   
         //should receive a requestId to serach through responses table 
+        if(RequestsInfo::find($id)){
         $trigger = $request->trigger;
         switch($trigger){
             case '3':
@@ -143,7 +145,9 @@ class ResponseController extends Controller
                 if($responseUpdated){
                     $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => 'Completed!']);
                     if($requestUpdated){
-                        $message = "Succesfully updated request and response statuses.";
+                        if(RequestsInfo::where('id', $id)->delete()){
+                            $message = "Request is completed and is moved to archives.";
+                        }
                     }
                 }else{
                     $message = "Something went wrong. Cannot update.";
@@ -163,14 +167,19 @@ class ResponseController extends Controller
             default:
             $message = "Something went wrong. Invalid trigger input";
          
+            }
+            $responseInfo = Response::where('requestId', $id)->first();
+            $requestInfo = RequestsInfo::find($id)->first();
+            return response([
+                'message' => $message,
+                'response' => $responseInfo,
+                'requestInfo' => $requestInfo
+            ], 200);
+        }else{
+            return response([
+                'message' => 'Not Found',
+            ], 204);
         }
-        $responseInfo = Response::where('requestId', $id)->first();
-        $requestInfo = RequestsInfo::find($id)->first();
-        return response([
-            'message' => $message,
-            'response' => $responseInfo,
-            'requestInfo' => $requestInfo
-        ], 200);
     }
 
        /**
@@ -181,27 +190,29 @@ class ResponseController extends Controller
      */
     public function updateLocation(Request $request, $id)
     {
-        $responseInfo = Response::find($id);
+        if($req=RequestsInfo::find($id)){
+            $fields = $request->validate([
+                'location' => ['required'],
+                'lat' => ['required'],
+                'lng' => ['required']
+            ]);
+    
+            if($responseInfo = Response::where('requestId', $req->id)->update($fields)){
 
-        $fields = $request->validate([
-            'location' => ['required'],
-            'lat' => ['required'],
-            'lng' => ['required']
-        ]);
-
-        if($responseInfo->update($fields)){
-
-            $requestInfo = RequestsInfo::find($responseInfo->requestId);
-
-            return response([
-                'message' => 'Update Succesful',
-                'response' => $responseInfo,
-                'request' => $requestInfo
-            ], 200);
+                return response([
+                    'message' => 'Update Succesful',
+                    'response' => $responseInfo,
+                    'request' => $req
+                ], 200);
+            }else{
+                return response([
+                    'message' => 'Unable to update.',
+                ], 400);
+            }
         }else{
             return response([
-                'message' => 'Unable to update.',
-            ], 400);
+                'message' => 'Not Found',
+            ], 204);
         }
     }
 

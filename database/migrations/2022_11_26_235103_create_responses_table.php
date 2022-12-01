@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('responses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('requestId')->references('id')->on('requests_infos')->cascadeOnDelete();
-            $table->foreignId('responderId')->references('id')->on('responders')->cascadeOnDelete();
+            $table->foreignId('requestId')->references('id')->on('requests_infos');
+            $table->foreignId('responderId')->references('id')->on('responders');
             $table->string('location');
             $table->string('lat');
             $table->string('lng');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

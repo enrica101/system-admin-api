@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -89,8 +90,9 @@ class AuthController extends Controller
             ], 401);
 
         }else{
+            Auth::login($user);
             $token = $user->createToken('appToken')->plainTextToken;
-
+            // dd($user->tokens);
             return response([
                 'message' => 'Logged In', 
                 'user' => $user,
@@ -107,13 +109,11 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $user = User::find($request->id);
-
-        $user->tokens->each(function($token, $key) {
-            $token->delete();
-        });
+        // dd(PersonalAccessToken::where('tokenable_id', 1)->delete());
+        // dd($request->bearerToken());
+        // dd($request->user()->tokens()->delete());
         
-        return response(['message'=> 'Logged out'], 200);
+        // return response(['message'=> 'Logged out'], 200);
     }
 
 }

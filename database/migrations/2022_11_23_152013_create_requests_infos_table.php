@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('requests_infos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('userId')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('userId')->references('id')->on('users');
             $table->string('type');
             $table->string('location');
             $table->string('lat');
             $table->string('lng');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

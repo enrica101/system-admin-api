@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('responders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('userId')->references('id')->on('users')->cascadeOnDelete();
-            // $table->foreignId('userId')->constrained('users')->onDelete('cascade');
+            $table->foreignId('userId')->references('id')->on('users');
+            // $table->foreignId('userId')->references('id')->on('users')->cascadeOnDelete();
             $table->string('type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('contactNumber', 13)->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
