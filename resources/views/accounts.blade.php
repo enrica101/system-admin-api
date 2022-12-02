@@ -189,6 +189,7 @@
     const allBtn = document.querySelector('.all');
     const secondBtn = document.querySelector('.second');
     const tables = document.querySelectorAll('.table');
+    const rowSelect = document.querySelectorAll('.table-row');
 
     
     profileBtn.addEventListener('click', () => {
@@ -210,6 +211,13 @@
         secondBtn.classList.add('active')
         console.log('second button is clicked')
     })
+
+
+    rowSelect.forEach(row => {
+        row.addEventListener('click', (e) => {
+            console.log(e.target.id)
+        })
+})
 
 </script>
 </x-layout>

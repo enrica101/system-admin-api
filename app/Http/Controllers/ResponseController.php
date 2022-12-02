@@ -29,6 +29,16 @@ class ResponseController extends Controller
     //has to pass requestId and responderId
     public function store(Request $request)
     {
+        if(Response::where('requestId', $request['requestId'])->get()){
+            return response([
+                'message' => 'Request is already assigned to a first responder.',
+            ], 205);
+        }else if(Response::where('responderId', $request['responderId'])->get()){
+            return response([
+                'message' => 'Responder is already assigned to a request.',
+            ], 205);
+        }
+        
         $requestInfo = RequestsInfo::find($request['requestId']);
         $responder = Responder::find($request['responderId']);
         
@@ -51,7 +61,7 @@ class ResponseController extends Controller
             ]);
             $fields['status'] = 'Received Request';
             $responseInfo = Response::create($fields);
-            RequestsInfo::where('id', $requestInfo->id)->update(['status' => 'Responder Found']);
+            RequestsInfo::where('id', $request->requestId)->update(['status' => 'Responder Found']);
 
             return response([
                 'message' => 'Response for Request Created!',
@@ -171,7 +181,7 @@ class ResponseController extends Controller
          
             }
             $responseInfo = Response::where('requestId', $id)->first();
-            $requestInfo = RequestsInfo::find($id)->first();
+            $requestInfo = RequestsInfo::find($id);
             return response([
                 'message' => $message,
                 'response' => $responseInfo,
@@ -226,7 +236,8 @@ class ResponseController extends Controller
      */
     public function destroy(Response $response, $id)
     {
-        $responseInfo = Response::destroy($id);
+
+        $responseInfo = Response::where('responderId', $id)->delete();
 
         if($responseInfo){
             return response([

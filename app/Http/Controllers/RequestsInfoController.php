@@ -40,6 +40,11 @@ class RequestsInfoController extends Controller
      */
     public function store(Request $request)
     {
+        if(RequestsInfo::where('userId', $request['userId'])->get()->isNotEmpty()){
+            return response([
+                'message' => 'A user already has an ongoing request.',
+            ], 205);
+        }
         // dd($request['userId']);
         $fields = $request->validate([
             'userId' => ['required'],
@@ -121,30 +126,19 @@ class RequestsInfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   
-        $responseExist = Response::where('requestId', $id)->first();
-        if($responseExist){
-            if(Response::destroy($responseExist->id)){
-
-                if(RequestsInfo::destroy($id)){
-                   $message = 'Deleted';
-                }else{
-                    $message = 'Does not exist.';
+    {  
+            $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => 'Cancelled']);
+            if($requestUpdated){
+                if(RequestsInfo::where('id', $id)->delete()){
+                    $message = "Request is completed and is moved to archives.";
                 }
-            }
-        }else{
-            $bool = RequestsInfo::destroy($id);
-
-            if($bool == 1){
-                $message = 'Deleted';
-            }else if($bool == 0){
-                $message = 'Does not exist.';
-            }
+            }else{
+            $message = "Something went wrong. Cannot update.";
         }
 
         return response([
             'message' => $message
-        ]);
+        ], 200);
         
     }
 
