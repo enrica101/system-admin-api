@@ -20,11 +20,11 @@
                 <img src="img/default-img-dark.png" alt="">
                 <h3>Register for an Admin Account</h3>
             </span>
-            <form method="POST" action="/users" enctype="multipart/form-data">
+            <form method="POST" action="/create" enctype="multipart/form-data">
                 @csrf
                 <div class="field">
-                    <label for="accountType">Account Type*</label>
-                    <input type="text" name="accountType" id="accountType" value="Admin" readonly>
+                    <label for="role">Account Type*</label>
+                    <input type="text" name="role" id="role" value="Admin" readonly>
                 </div>
                 <div class="field">
                     <label for="email">Email Address*</label>

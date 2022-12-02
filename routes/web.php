@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +22,19 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+Route::get('/map', function () {
+    return view('map');
+});
 
+Route::get('/accounts', function () {
+    return view('accounts');
+});
+Route::get('/accounts', [AdminController::class, 'getRoleUsers']);
+
+Route::post('/create', [AdminController::class, 'store']);
 Route::get('/register', [AdminController::class, 'create']);
+Route::post('/users/authenticate', [AdminController::class, 'authenticate']);
 
-//Login User
-Route::post('/users/authenticate', [UserController::class, 'authenticate']);
-
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});

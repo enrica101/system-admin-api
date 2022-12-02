@@ -41,6 +41,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
   //Requests
         Route::get('/requests', [RequestsInfoController::class, 'index']);
+        Route::get('/requests/available', [RequestsInfoController::class, 'indexAvailable']);
         Route::get('/requests/{id}', [RequestsInfoController::class, 'show']);
         Route::post('/requests', [RequestsInfoController::class, 'store']); //A.K.A create
         Route::put('/requests/{id}', [RequestsInfoController::class, 'update']);

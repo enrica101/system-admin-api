@@ -21,6 +21,18 @@ class RequestsInfoController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexAvailable()
+    {
+       
+        return RequestsInfo::where('status', 'like', '%'.'Searching'.'%')->get();
+        
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
