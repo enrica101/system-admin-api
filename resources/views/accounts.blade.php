@@ -136,13 +136,13 @@
                         @forEach($users as $user)
     
                             <div class="table-row" id="{{$user['id']}}">
-                            <div class="table-cols" >{{$user['id']}}</div>
-                            <div class="table-cols">{{$user['fname']}} {{$user['lname']}}</div>
-                            <div class="table-cols">{{$user['gender']}}</div>
-                            <div class="table-cols">{{$user['age']}}</div>
-                            <div class="table-cols">{{$user['contactNumber']}}</div>
-                            <div class="table-cols">{{$user['email']}}</div>
-                            <div class="table-cols">{{$user['created_at']}}</div>
+                            <div class="table-cols"  id="{{$user['id']}}" >{{$user['id']}}</div>
+                            <div class="table-cols"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</div>
+                            <div class="table-cols"  id="{{$user['id']}}"  >{{$user['gender']}}</div>
+                            <div class="table-cols"  id="{{$user['id']}}" >{{$user['age']}}</div>
+                            <div class="table-cols"  id="{{$user['id']}}"  >{{$user['contactNumber']}}</div>
+                            <div class="table-cols"  id="{{$user['id']}}"  >{{$user['email']}}</div>
+                            <div class="table-cols"  id="{{$user['id']}}"  >{{$user['created_at']}}</div>
                             </div>
     
                         @endforeach
@@ -163,10 +163,10 @@
                         @forEach($users as $user)
     
                             <div class="table-row" id="{{$user['id']}}">
-                            <div class="table-cols" style="width: 60px;">{{$user['id']}}</div>
-                            <div class="table-cols" style="width: 190px; text-align:center;">{{$user['fname']}} {{$user['lname']}}</div>
-                            <div class="table-cols" style="width: 190px; text-align:center;">{{$user['completedRequests']}}</div>
-                            <div class="table-cols" style="width: 150px; text-align:right;">{{$user['cancelledRequests']}}</div>
+                            <div class="table-cols" style="width: 60px;"   id="{{$user['id']}}" >{{$user['id']}}</div>
+                            <div class="table-cols" style="width: 190px; text-align:center;"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</div>
+                            <div class="table-cols" style="width: 190px; text-align:center;" id="{{$user['id']}}">{{$user['completedRequests']}}</div>
+                            <div class="table-cols" style="width: 150px; text-align:right;"  id="{{$user['id']}}" >{{$user['cancelledRequests']}}</div>
                             
                             </div>
     
@@ -180,7 +180,8 @@
                 
             </div>
             <div class="right">
-                <h4>Select a user to see more information.</h4>
+                {{-- <h4>Select a user to see more information.</h4> --}}
+                
             </div>
         </div>
 <script>
@@ -216,8 +217,16 @@
     rowSelect.forEach(row => {
         row.addEventListener('click', (e) => {
             console.log(e.target.id)
+            getUserInformation(e.target.id)
         })
 })
+
+function getUserInformation(userId){
+    axios.get('api/users/'+userId,{
+    }).then(res =>{
+        console.log(res.data['user'])
+    }).catch(err => console.log(err))
+}
 
 </script>
 </x-layout>

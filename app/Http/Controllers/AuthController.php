@@ -84,6 +84,15 @@ class AuthController extends Controller
                 'message' => 'Invalid Credentials'
             ], 401);
         }
+        if($user->role == 'Responder' || $user->role == 'responder'){
+            $responder = Responder::where('userId', $user->id)->first();
+            return response([
+                'message' => 'Logged In', 
+                'user' => $user,
+                'token' => $user->createToken('appToken')->plainTextToken,
+                'responder' => $responder,
+            ], 200);
+        }
             return response([
                 'message' => 'Logged In', 
                 'user' => $user,
