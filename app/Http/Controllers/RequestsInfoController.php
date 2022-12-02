@@ -54,7 +54,7 @@ class RequestsInfoController extends Controller
             'lng' => ['required'],
             'status' => ['required'],
         ]);
-
+        $fields['status'] = 'Searching Responder';
         $user = User::where('id', $request['userId'])->first();
         // dd($fields['userId']);
         (int)$fields['userId'] = $user->id;
