@@ -180,7 +180,7 @@
                 
             </div>
             <div class="right">
-                {{-- <h4>Select a user to see more information.</h4> --}}
+                <h4>Select a user to see more information.</h4>
                 
             </div>
         </div>
@@ -191,6 +191,8 @@
     const secondBtn = document.querySelector('.second');
     const tables = document.querySelectorAll('.table');
     const rowSelect = document.querySelectorAll('.table-row');
+    const rightViewer = document.querySelector('.right')
+    
 
     
     profileBtn.addEventListener('click', () => {
@@ -217,6 +219,7 @@
     rowSelect.forEach(row => {
         row.addEventListener('click', (e) => {
             console.log(e.target.id)
+            rightViewer.innerHTML = ''
             getUserInformation(e.target.id)
         })
 })
@@ -224,8 +227,56 @@
 function getUserInformation(userId){
     axios.get('api/users/'+userId,{
     }).then(res =>{
-        console.log(res.data['user'])
+        console.log(res)
+        // displayUserInfo(res.data['user'])
     }).catch(err => console.log(err))
+}
+
+function displayUserInfo(data){
+        console.log(data)
+        rightViewer.innerHTML =
+        `<div class="row-view">
+                    <div class="top">
+                        <img src="img/avatar.png" alt="">
+                        <span>
+                            <h3>${data['fname']} ${data['lname']}</h3>
+                            <h4>${data['email']}</h4>
+                        </span>
+                        
+                    </div>
+                    <div class="middle">
+                        <h4>Requests</h4>
+                        <div class="statusCounts">
+                            <span>
+                               <h3>${data['ongoingRequest']}</h3>
+                            <h5>Ongoing</h5> 
+                            </span>
+                            <span>
+                               <h3>${parseInt(data['completedRequests'])}</h3>
+                            <h5>Completed</h5> 
+                            </span>
+                            <span>
+                                <h3>${data['cancelledRequests']}</h3>
+                            <h5>Cancelled</h5>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div>
+                            Contact Number: <p>${data['contactNumber']}</p>
+                        </div>
+                        <div>
+                            Gender: <p>${data['gender']}</p>
+                        </div>
+                        <div>
+                            Age: <p>${data['age']}</p>
+                        </div>
+                        <div>
+                            Joined: <p>${data['joined']}</p>
+                        </div>
+                    </div>
+                </div>`
+
 }
 
 </script>

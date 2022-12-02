@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -16,7 +17,62 @@ class UserController extends Controller
      */
     public function indexUsers()
     {
-        return User::where('role', 'like',  '%'.'User'.'%')->get();
+        $users = User::where('role', 'like',  '%'.'User'.'%')->get();
+        $usersInfo = [];
+        $today = date("Y-m-d");
+        
+        
+        for($i = 0; $i<count($users); $i++){
+            $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userID', $users[$i]['id'])->get();
+
+            $completed = 0;
+            $cancelled = 0;
+
+            if(!empty($requestsFromArchive)){
+                for($j=0;$j<count($requestsFromArchive);$j++){
+                    if($requestsFromArchive[$j]->status == 'Cancelled'){
+                        $cancelled++;
+                    }else if($requestsFromArchive[$j]->status == 'Completed'){
+                        $completed++;
+                    }
+                    
+                }
+            }
+
+            $ongoingRequest = RequestsInfo::where('userId', $users[$i]['id'])->get();
+            if($ongoingRequest->isNotEmpty()){
+                $ongoing = 1;
+            }else{
+                $ongoing = 0;
+            }
+            
+            $diff = date_diff(date_create($users[$i]['birthdate']), date_create($today));
+            $age = $diff->format('%y');
+
+            $createDate = date("Y-m-d H:i:s",strtotime($users[$i]['created_at']));
+            // dd($users[$i]['fname']);
+            array_push($usersInfo, [
+                'id' => $users[$i]['id'],
+                'accountType' => $users[$i]['role'],
+                'email' => $users[$i]['email'],
+                'fname' => $users[$i]['fname'],
+                'mname' => $users[$i]['mname'],
+                'lname' => $users[$i]['lname'],
+                'gender' => $users[$i]['gender'],
+                'birthdate' => $users[$i]['birthdate'],
+                'age' => $age,
+                'contactNumber' => $users[$i]['contactNumber'],
+                'created_at' => $createDate,
+                'completedRequests' => $completed,
+                'cancelledRequests' => $cancelled,
+                'ongoingRequest' => $ongoing,
+                'joined' => $users[$i]['created_at'],
+            ]);
+        }
+        return response([
+            'message' => 'Found',
+            'users' => $usersInfo
+        ]);
     }
 
     /**

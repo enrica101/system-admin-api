@@ -12,9 +12,10 @@ class AdminController extends Controller
 {
     public function getRoleUsers(){
     
-        $users = app(UserController::class)->indexUsers();
+        $users = User::where('role', 'like',  '%'.'User'.'%')->get();
         $usersInfo = [];
         $today = date("Y-m-d");
+        
         
         for($i = 0; $i<count($users); $i++){
             $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userID', $users[$i]['id'])->get();
@@ -32,15 +33,22 @@ class AdminController extends Controller
                     
                 }
             }
+
+            $ongoingRequest = RequestsInfo::where('userId', $users[$i]['id'])->get();
+            if($ongoingRequest->isNotEmpty()){
+                $ongoing = 1;
+            }else{
+                $ongoing = 0;
+            }
             
             $diff = date_diff(date_create($users[$i]['birthdate']), date_create($today));
             $age = $diff->format('%y');
 
             $createDate = date("Y-m-d H:i:s",strtotime($users[$i]['created_at']));
-
+            // dd($users[$i]['fname']);
             array_push($usersInfo, [
                 'id' => $users[$i]['id'],
-                'accountType' => $users[$i]['accountType'],
+                'accountType' => $users[$i]['role'],
                 'email' => $users[$i]['email'],
                 'fname' => $users[$i]['fname'],
                 'mname' => $users[$i]['mname'],
@@ -52,7 +60,8 @@ class AdminController extends Controller
                 'created_at' => $createDate,
                 'completedRequests' => $completed,
                 'cancelledRequests' => $cancelled,
-
+                'ongoingRequest' => $ongoing,
+                'joined' => $users[$i]['created_at'],
             ]);
         }
         // dd($usersInfo);
