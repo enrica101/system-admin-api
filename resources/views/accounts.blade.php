@@ -162,7 +162,7 @@
                         @unless(count($users) == 0)
                         @forEach($users as $user)
     
-                            <div class="table-row">
+                            <div class="table-row" id="{{$user['id']}}">
                             <div class="table-cols" style="width: 60px;">{{$user['id']}}</div>
                             <div class="table-cols" style="width: 190px; text-align:center;">{{$user['fname']}} {{$user['lname']}}</div>
                             <div class="table-cols" style="width: 190px; text-align:center;">{{$user['completedRequests']}}</div>

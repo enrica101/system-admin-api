@@ -158,7 +158,9 @@ class ResponseController extends Controller
                 if($responseUpdated){
                     $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => 'Cancelled']);
                     if($requestUpdated){
-                        $message = "Succesfully updated request and response statuses.";
+                        if(RequestsInfo::where('id', $id)->delete()){
+                            $message = "Request is completed and is moved to archives.";
+                        }
                     }
                 }else{
                     $message = "Something went wrong. Cannot update.";
