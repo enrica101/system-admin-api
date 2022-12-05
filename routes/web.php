@@ -49,7 +49,7 @@ Route::post('/users/authenticate', [AdminController::class, 'authenticate']);
 
 Route::get('/responders', [ResponderController::class, 'getRoleResponders']);
 Route::get('/requests', [RequestsInfoController::class, 'getRequestsInfos']);
-// Route::get('/dashboard', [AdminController::class, 'getData']);
+Route::get('/dashboard', [AdminController::class, 'getData']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

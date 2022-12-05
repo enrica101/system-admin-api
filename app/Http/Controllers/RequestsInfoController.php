@@ -28,11 +28,10 @@ class RequestsInfoController extends Controller
             $requestResponse = Response::withTrashed()->where('requestId', $allRequests[$i]['id'])->first();
 
             $requestDate = date("Y-m-d H:i:s",strtotime($userDetails->created_at));
-            
             if(!empty($requestResponse)){
                 $responder = Responder::where('id', $requestResponse->responderId)->first();
                 $responderUserDetails = User::where('id', $responder->userId)->first();
-
+                
                 array_push($responses, [
                     'requestID' => $singleRequest->id,
                     'responderID' => $responder->id,
@@ -47,17 +46,17 @@ class RequestsInfoController extends Controller
                     'requestStatus' => $singleRequest->status,
                     'created_at' => $requestDate,
                 ]);
-
+                
                 if($singleRequest->status !== 'Completed' && $singleRequest->status !== 'Cancelled'){
                     array_push($ongoing, [
-                    'requestID' => $singleRequest->id,
-                    'responderID' => $responder->id,
-                    'requesterUserID' => $userDetails->id,
-                    'responderUserID' => $responder->userId,
-                    'requesterfname' => $userDetails->fname,
-                    'requesterlname' => $userDetails->lname,
-                    'responderfname' =>  $responderUserDetails->fname,
-                    'responderlname' => $responderUserDetails->lname,
+                        'requestID' => $singleRequest->id,
+                        'responderID' => $responder->id,
+                        'requesterUserID' => $userDetails->id,
+                        'responderUserID' => $responder->userId,
+                        'requesterfname' => $userDetails->fname,
+                        'requesterlname' => $userDetails->lname,
+                        'responderfname' =>  $responderUserDetails->fname,
+                        'responderlname' => $responderUserDetails->lname,
                     'location' => $singleRequest->location,
                     'requestType' => $singleRequest->type,
                     'requestStatus' => $singleRequest->status,
@@ -193,9 +192,10 @@ class RequestsInfoController extends Controller
         $responseExist = Response::withTrashed()->where('requestId', $id)->first();
         
         $requestcreateDate = date("Y-m-d H:i",strtotime($singleRequest->created_at));
+        // dd($requestcreateDate);
         
         if($responseExist == null){
-            $user = User::find($singleRequest->userId);
+            $user = User::withTrashed()->find($singleRequest->userId);
             $user_created_at = date("Y-m-d H:i",strtotime($user->created_at));
             return response([
                 'message' => 'No responder assigned.',
@@ -209,8 +209,8 @@ class RequestsInfoController extends Controller
             ], 200);
         }else{
             $responder = Responder::withTrashed('id', $responseExist->responderId)->first();
-            $responderUserDetails = User::find($responder->userId);
-            $user = User::find($singleRequest->userId);
+            $responderUserDetails = User::withTrashed()->find($responder->userId);
+            $user = User::withTrashed()->find($singleRequest->userId);
             $user_created_at = date("Y-m-d H:i",strtotime($user->created_at));
 
             return response([

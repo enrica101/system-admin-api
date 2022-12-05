@@ -129,15 +129,15 @@
         <h3>Responders Overview</h3>
         <div class="responders-data">
             <a href="/responders" class="square" id="responderAllChart">
-                <div class="circle all"><h3>35</h3></div>
+                <div class="circle all"><h3>{{$data['allResponders']}}</h3></div>
                 <h5>All Responders</h5>
             </a>
             <a href="#" class="square" id="responderIdleChart">
-                <div class="circle idle"><h3>35</h3></div>
+                <div class="circle idle"><h3>{{$data['allResponders']}}</h3></div>
                 <h5>Idle Responders</h5>
             </a>
             <a href="#" class="square" id="responderHandlingChart">
-                <div class="circle handling"><h3>35</h3></div>
+                <div class="circle handling"><h3>{{$data['allHandlingResponders']}}</h3></div>
                 <h5>Handling Requests</h5>
             </a>
         </div>
@@ -147,22 +147,22 @@
         <div class="accounts-data">
             <div class="stack">
                 <p class="label">All</p>
-                <input type="range" name="line" id="line" class="line" min="0" max="100">
+                <input type="range" name="line" id="line" class="line" min="0" max="{{$data['allAccounts']}}" value="{{$data['allAccounts']}}">
                 <!-- <div class="line"></div> -->
             </div>
             <div class="stack">
                 <p class="label">Users</p>
-                <input type="range" name="line" id="line" class="line">
+                <input type="range" name="line" id="line" class="line" min="0" max="{{$data['allAccounts']}}"  value="{{$data['allRoleUsers']}}">
                 <!-- <div class="line"></div> -->
             </div>
             <div class="stack">
                 <p class="label">Responders</p>
-                <input type="range" name="line" id="line" class="line">
+                <input type="range" name="line" id="line" class="line" min="0" max="{{$data['allAccounts']}}"  value="{{$data['allRoleResponders']}}">
                 <!-- <div class="line"></div> -->
             </div>
             <div class="stack">
                 <p class="label">Admins</p>
-                <input type="range" name="line" id="line" class="line">
+                <input type="range" name="line" id="line" class="line" min="0" max="{{$data['allAccounts']}}"  value="{{$data['allRoleAdmin']}}">
                 <!-- <div class="line"></div> -->
             </div>
         </div>
@@ -174,32 +174,32 @@
         <div class="rectangle">
             <div class="content">
                 <p class="label"><i class="fa-solid fa-rectangle-list"></i> All Requests</p>
-                <h3>34</h3>
+                <h3>{{$data['allRequests']}}</h3>
             </div>
             
         </div>
         <div class="rectangle">
             <div class="content">
                 <p class="label"><i class="fa-solid fa-circle-exclamation"></i> Available Requests</p>
-                <h3>12</h3>
+                <h3>{{$data['allAvailableRequests']}}</h3>
             </div>
         </div>
         <div class="rectangle">
             <div class="content">
                 <p class="label"><i class="fa-solid fa-car-side"></i> Ongoing Requests</p>
-                <h3>11</h3>
+                <h3>{{$data['allOngoingRequests']}}</h3>
             </div>
         </div>
         <div class="rectangle">
             <div class="content">
                 <p class="label"><i class="fa-solid fa-circle-check"></i> Completed Requests</p>
-                <h3>5</h3>
+                <h3>{{$data['allCompletedRequests']}}</h3>
             </div>
         </div>
         <div class="rectangle">
             <div class="content">
                 <p class="label"><i class="fa-sharp fa-solid fa-ban"></i>Cancelled Requests</p>
-                <h3>9</h3>
+                <h3>{{$data['allCancelledRequests']}}</h3>
             </div>
         </div>
     </div>

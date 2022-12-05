@@ -20,14 +20,15 @@ class AdminController extends Controller
         $allCompletedRequests = count(RequestsInfo::onlyTrashed()->where('status', 'Completed')->get());
         $allCancelledRequests = count(RequestsInfo::onlyTrashed()->where('status', 'Cancelled')->get());
 
-        $allRespondersHandlingRequests = Response::all('responderId');
-        dd($allRespondersHandlingRequests[0]['responderId']);
-        $allIdleResponders = count(Responder::wherenot('id', $allRespondersHandlingRequests)->find());
+        $allRespondersHandlingRequests = Response::all();
+        // $allIdleResponders = count();
+        $allResponders = count(Responder::all());
         $allHandlingResponders = count($allRespondersHandlingRequests);
         $allAccounts = count(User::all());
         $allRoleUsers = count(User::where('role', 'User')->get());
         $allRoleResponders = count(User::where('role', 'Responder')->get());
         $allRoleAdmin = count(User::where('role', 'Admin')->get());
+        // dd($allRoleAdmin);
 
         return view('dashboard', [
             'data' => [
@@ -36,10 +37,12 @@ class AdminController extends Controller
                 'allOngoingRequests' => $allOngoingRequests,
                 'allCompletedRequests' => $allCompletedRequests,
                 'allCancelledRequests' => $allCancelledRequests,
-                'allIdleRequests' => $allIdleResponders,
+                // 'allIdleRequests' => $allIdleResponders,
+                'allResponders' => $allResponders,
                 'allHandlingResponders' => $allHandlingResponders,
                 'allAccounts' => $allAccounts,
                 'allRoleUsers' => $allRoleUsers,
+                'allRoleResponders' => $allRoleResponders,
                 'allRoleAdmin' => $allRoleAdmin
             ]
             

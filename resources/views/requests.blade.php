@@ -337,7 +337,7 @@
         }
 
         function displaySingleRequest(request,response, responder,responderUserDetails, user, request_created_at, user_created_at){
-            // console.log(response)
+            console.log(user_created_at, request_created_at)
             if(response==null){
                 rightViewer.innerHTML =
                 `<div class="requests-row-view">
