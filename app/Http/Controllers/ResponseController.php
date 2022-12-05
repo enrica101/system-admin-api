@@ -86,7 +86,7 @@ class ResponseController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+        public function show($id)
     {
         $responseInfo = Response::where('requestId',$id)->first();
         // dd($responseInfo);
@@ -97,12 +97,18 @@ class ResponseController extends Controller
         }else{
             // dd($responseInfo['requestId']);
             $requestInfo = RequestsInfo::find($responseInfo->requestId);
-            
+            $responder = Responder::find($responseInfo->responderId);
+            $userResponderDetails = User::find($responder->userId);
 
             return response([
                 'message' => 'Found',
                 'response' => $responseInfo,
-                'requestInfo' => $requestInfo
+                'requestInfo' => $requestInfo,
+                'responder' => [
+                    'type' => $responder->type,
+                    'responderFname' => $userResponderDetails->fname,
+                    'responderLname' => $userResponderDetails->lname,
+                ]
             ], 200);
         }
     }
