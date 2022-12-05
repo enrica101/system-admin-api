@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class ResponseController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -29,11 +30,13 @@ class ResponseController extends Controller
     //has to pass requestId and responderId
     public function store(Request $request)
     {
-        if(Response::where('requestId', $request['requestId'])->get()){
+
+        if(Response::where('requestId', $request['requestId'])->first()){
             return response([
                 'message' => 'Request is already assigned to a first responder.',
             ], 205);
-        }else if(Response::where('responderId', $request['responderId'])->get()){
+
+        }else if(Response::where('responderId', $request['responderId'])->first()){
             return response([
                 'message' => 'Responder is already assigned to a request.',
             ], 205);
@@ -151,11 +154,12 @@ class ResponseController extends Controller
                 }
                 break;
             case '6':
-                $responseUpdated = Response::where('requestId', $id)->update(['status' => "Completed!"]);
+                $responseUpdated = Response::where('requestId', $id)->update(['status' => "Completed"]);
                 if($responseUpdated){
-                    $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => 'Completed!']);
+                    $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => 'Completed']);
                     if($requestUpdated){
                         if(RequestsInfo::where('id', $id)->delete()){
+                            Response::where('requestId', $id)->delete();
                             $message = "Request is completed and is moved to archives.";
                         }
                     }
@@ -169,6 +173,7 @@ class ResponseController extends Controller
                     $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => 'Cancelled']);
                     if($requestUpdated){
                         if(RequestsInfo::where('id', $id)->delete()){
+                            Response::where('requestId', $id)->delete();
                             $message = "Request is completed and is moved to archives.";
                         }
                     }

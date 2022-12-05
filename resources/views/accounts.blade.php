@@ -134,7 +134,7 @@
                     </div>
                         @unless(count($users) == 0)
                         @forEach($users as $user)
-    
+                            
                             <div class="table-row" id="{{$user['id']}}">
                             <div class="table-cols"  id="{{$user['id']}}" >{{$user['id']}}</div>
                             <div class="table-cols"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</div>
@@ -184,6 +184,7 @@
                 
             </div>
         </div>
+<script src="scripts/main.js"></script>
 <script>
     const profileBtn = document.querySelector('.avatar');
     const profileOverView = document.querySelector('.profile-overview')
@@ -225,17 +226,16 @@
 })
 
 function getUserInformation(userId){
-    axios.get('api/users/'+userId,{
-    }).then(res =>{
-        console.log(res)
-        // displayUserInfo(res.data['user'])
+    axios.get('api/accounts/search/'+userId).then(res =>{
+        console.log(res.data)
+        displayUserInfo(res.data['user'][0])
     }).catch(err => console.log(err))
 }
 
 function displayUserInfo(data){
-        console.log(data)
+        // console.log(data)
         rightViewer.innerHTML =
-        `<div class="row-view">
+        `<div class="accounts-row-view">
                     <div class="top">
                         <img src="img/avatar.png" alt="">
                         <span>

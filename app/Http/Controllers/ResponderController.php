@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Response;
 use App\Models\Responder;
 use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
@@ -41,6 +42,132 @@ class ResponderController extends Controller
         ]);
     }
 
+    public function getRoleResponders(){
+        $allResponders = Responder::all('userId');
+        $usersContainer = [];
+        
+        for($j=0;$j<count($allResponders);$j++){
+            $users = User::where('id', $allResponders[$j]['userId'])->first()->toArray();
+            array_push($usersContainer, $users);
+        }
+        
+        $responses = [];
+        $handlers = [];
+        $idlers = [];
+        for($i=0; $i<count($usersContainer);$i++){
+            $responder = Responder::where('userId', $usersContainer[$i]['id'])->first()->toArray();
+            
+            $responderHasRequest = Response::where('responderId', $responder['id'])->first();
+            if(!empty($responderHasRequest)){
+                array_push($responses, [
+                    'responderID' => $responder['id'],
+                    'userID' => $usersContainer[$i]['id'],
+                    'fname' => $usersContainer[$i]['fname'],
+                    'lname' => $usersContainer[$i]['lname'],
+                    'responderType' => $responder['type'],
+                    'requestID' => $responderHasRequest['requestId'],
+                    'status' => $responderHasRequest['status'],
+                    'created_at' => $responderHasRequest['created_at'],
+                ]);
+                array_push($handlers, [
+                    'responderID' => $responder['id'],
+                    'userID' => $usersContainer[$i]['id'],
+                    'fname' => $usersContainer[$i]['fname'],
+                    'lname' => $usersContainer[$i]['lname'],
+                    'responderType' => $responder['type'],
+                    'requestID' => $responderHasRequest['requestId'],
+                    'status' => $responderHasRequest['status'],
+                    'created_at' => $responderHasRequest['created_at'],
+                ]);
+            }else{
+                array_push($responses,[
+                    'responderID' => $responder['id'],
+                    'userID' => $usersContainer[$i]['id'],
+                    'fname' => $usersContainer[$i]['fname'],
+                    'lname' => $usersContainer[$i]['lname'],
+                    'responderType' => $responder['type'],
+                    'requestID' => 'No request',
+                    'status' => 'No status',
+                    'created_at' => 'No record',
+                ]);
+                array_push($idlers,[
+                    'responderID' => $responder['id'],
+                    'userID' => $usersContainer[$i]['id'],
+                    'fname' => $usersContainer[$i]['fname'],
+                    'lname' => $usersContainer[$i]['lname'],
+                    'responderType' => $responder['type'],
+                    'requestID' => 'No request',
+                    'status' => 'No status',
+                    'created_at' => 'No record',
+                ]);
+            }
+        }
+            return view('/responders', [
+                'responses' => $responses,
+                'idleResponders' => $idlers,
+                'handlingRequests' => $handlers,
+            ]);
+    }
+
+    public function getAccountResponder($id){
+        $responder = Responder::find($id);
+        $userDetails = User::where('id', $responder->userId)->first();
+        $respondersInfo = [];
+        $today = date("Y-m-d");
+
+        
+            $requestsFromArchive = Response::onlyTrashed()->where('responderId', $responder->id)->get();
+            
+            $completed = 0;
+            $cancelled = 0;
+
+            if(!empty($requestsFromArchive)){
+                for($j=0;$j<count($requestsFromArchive);$j++){
+                    if($requestsFromArchive[$j]->status == 'Cancelled'){
+                        $cancelled++;
+                    }else if($requestsFromArchive[$j]->status == 'Completed'){
+                        $completed++;
+                    }
+                }
+            }
+
+            $ongoingRequest = Response::where('responderId', $responder->id)->first();
+            if($ongoingRequest){
+                $ongoing = 1;
+            }else{
+                $ongoing = 0;
+            }
+            
+            $diff = date_diff(date_create($userDetails->birthdate), date_create($today));
+            $age = $diff->format('%y');
+
+            $createDate = date("Y-m-d H:i",strtotime($userDetails->created_at));
+            // dd($users[$i]['fname']);
+            array_push($respondersInfo, [
+                'responderId' => $responder->id,
+                'type' => $responder->type,
+                'email' => $userDetails->email,
+                'fname' => $userDetails->fname,
+                'mname' => $userDetails->mname,
+                'lname' => $userDetails->lname,
+                'gender' => $userDetails->gender,
+                'birthdate' => $userDetails->birthdate,
+                'age' => $age,
+                'contactNumber' => $userDetails->contactNumber,
+                'created_at' => $createDate,
+                'completedRequests' => $completed,
+                'cancelledRequests' => $cancelled,
+                'ongoingRequest' => $ongoing,
+                'joined' => $createDate,
+            ]);
+        // dd($respondersInfo);
+        return response([
+            'message' => 'Found',
+            'responder' => $respondersInfo,
+            'ongoing' => $ongoingRequest
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -74,7 +201,6 @@ class ResponderController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $accountInputs = $request->validate([
             'email' => 'nullable',
             'fname' => 'nullable',

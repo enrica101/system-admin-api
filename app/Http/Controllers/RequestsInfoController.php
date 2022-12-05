@@ -4,12 +4,228 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Response;
+use App\Models\Responder;
 use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
 class RequestsInfoController extends Controller
 {
+
+    
+    public function getRequestsInfos(){
+        $allRequests = RequestsInfo::withTrashed()->get();
+        // dd(count($allRequests));
+        $responses = [];
+        $ongoing = [];
+        $completed = [];
+        $cancelled = [];
+        
+        for($i=0;$i<count($allRequests);$i++){
+            $singleRequest = RequestsInfo::withTrashed()->where('id', $allRequests[$i]['id'])->first();
+            // dd($singleRequest->status);
+            $userDetails = User::withTrashed()->where('id', $singleRequest->userId)->first();
+            $requestResponse = Response::withTrashed()->where('requestId', $allRequests[$i]['id'])->first();
+
+            $requestDate = date("Y-m-d H:i:s",strtotime($userDetails->created_at));
+            
+            if(!empty($requestResponse)){
+                $responder = Responder::where('id', $requestResponse->responderId)->first();
+                $responderUserDetails = User::where('id', $responder->userId)->first();
+
+                array_push($responses, [
+                    'requestID' => $singleRequest->id,
+                    'responderID' => $responder->id,
+                    'requesterUserID' => $userDetails->id,
+                    'responderUserID' => $responder->userId,
+                    'requesterfname' => $userDetails->fname,
+                    'requesterlname' => $userDetails->lname,
+                    'responderfname' =>  $responderUserDetails->fname,
+                    'responderlname' => $responderUserDetails->lname,
+                    'location' => $singleRequest->location,
+                    'requestType' => $singleRequest->type,
+                    'requestStatus' => $singleRequest->status,
+                    'created_at' => $requestDate,
+                ]);
+
+                if($singleRequest->status !== 'Completed' && $singleRequest->status !== 'Cancelled'){
+                    array_push($ongoing, [
+                    'requestID' => $singleRequest->id,
+                    'responderID' => $responder->id,
+                    'requesterUserID' => $userDetails->id,
+                    'responderUserID' => $responder->userId,
+                    'requesterfname' => $userDetails->fname,
+                    'requesterlname' => $userDetails->lname,
+                    'responderfname' =>  $responderUserDetails->fname,
+                    'responderlname' => $responderUserDetails->lname,
+                    'location' => $singleRequest->location,
+                    'requestType' => $singleRequest->type,
+                    'requestStatus' => $singleRequest->status,
+                    'created_at' => $requestDate,
+                    ]);
+
+                }
+                else if($singleRequest->status === 'Completed'){
+                    array_push($completed, [
+                        'requestID' => $singleRequest->id,
+                        'responderID' => $responder->id,
+                        'requesterUserID' => $userDetails->id,
+                        'responderUserID' => $responder->userId,
+                        'requesterfname' => $userDetails->fname,
+                        'requesterlname' => $userDetails->lname,
+                        'responderfname' =>  $responderUserDetails->fname,
+                        'responderlname' => $responderUserDetails->lname,
+                        'location' => $singleRequest->location,
+                        'requestType' => $singleRequest->type,
+                        'requestStatus' => $singleRequest->status,
+                        'created_at' => $requestDate,
+                        ]);
+
+                }else if($singleRequest->status === 'Cancelled'){
+                    array_push($cancelled, [
+                        'requestID' => $singleRequest->id,
+                        'responderID' => $responder->id,
+                        'requesterUserID' => $userDetails->id,
+                        'responderUserID' => $responder->userId,
+                        'requesterfname' => $userDetails->fname,
+                        'requesterlname' => $userDetails->lname,
+                        'responderfname' =>  $responderUserDetails->fname,
+                        'responderlname' => $responderUserDetails->lname,
+                        'location' => $singleRequest->location,
+                        'requestType' => $singleRequest->type,
+                        'requestStatus' => $singleRequest->status,
+                        'created_at' => $requestDate,
+                        ]);
+                }
+                
+            }else{
+                array_push($responses, [
+                    'requestID' => $singleRequest->id,
+                    'responderID' => 'N/A',
+                    'requesterUserID' => $userDetails->id,
+                    'responderUserID' => 'N/A',
+                    'requesterfname' => $userDetails->fname,
+                    'requesterlname' => $userDetails->lname,
+                    'responderfname' =>  'Not',
+                    'responderlname' => 'Assigned',
+                    'location' => $singleRequest->location,
+                    'requestType' => $singleRequest->type,
+                    'requestStatus' => $singleRequest->status,
+                    'created_at' => $requestDate,
+                    
+                ]);
+                if($singleRequest->status !== 'Completed' && $singleRequest->status !== 'Cancelled'){
+                    array_push($ongoing, [
+                        'requestID' => $singleRequest->id,
+                        'responderID' => 'N/A',
+                        'requesterUserID' => $userDetails->id,
+                        'responderUserID' => 'N/A',
+                        'requesterfname' => $userDetails->fname,
+                        'requesterlname' => $userDetails->lname,
+                        'responderfname' =>  'Not',
+                        'responderlname' => 'Assigned',
+                        'location' => $singleRequest->location,
+                        'requestType' => $singleRequest->type,
+                        'requestStatus' => $singleRequest->status,
+                        'created_at' => $requestDate,
+                    ]);
+
+                }
+                else if($singleRequest->status === 'Completed'){
+                    array_push($completed, [
+                        'requestID' => $singleRequest->id,
+                        'responderID' => 'N/A',
+                        'requesterUserID' => $userDetails->id,
+                        'responderUserID' => 'N/A',
+                        'requesterfname' => $userDetails->fname,
+                        'requesterlname' => $userDetails->lname,
+                        'responderfname' =>  'Not',
+                        'responderlname' => 'Assigned',
+                        'location' => $singleRequest->location,
+                        'requestType' => $singleRequest->type,
+                        'requestStatus' => $singleRequest->status,
+                        'created_at' => $requestDate,
+                        ]);
+
+                }else if($singleRequest->status === 'Cancelled'){
+                    array_push($cancelled, [
+                        'requestID' => $singleRequest->id,
+                        'responderID' => 'N/A',
+                        'requesterUserID' => $userDetails->id,
+                        'responderUserID' => 'N/A',
+                        'requesterfname' => $userDetails->fname,
+                        'requesterlname' => $userDetails->lname,
+                        'responderfname' =>  'Not',
+                        'responderlname' => 'Assigned',
+                        'location' => $singleRequest->location,
+                        'requestType' => $singleRequest->type,
+                        'requestStatus' => $singleRequest->status,
+                        'created_at' => $requestDate,
+                            ]);
+                }
+            }
+        }
+
+        // dd([
+        //     'responses' => $responses,
+        //     'ongoingRequests' => $ongoing,
+        //     'completedRequests' => $completed,
+        //     'cancelledRequests' => $cancelled,
+        //     'ongoingCount' => count($ongoing),
+        //     'completedCount' => count($completed),
+        //     'cancelledCount' => count($cancelled),
+        //     'requestsCount' => count($responses),
+        // ]);
+        return view('/requests', [
+            'responses' => $responses,
+            'ongoingRequests' => $ongoing,
+            'completedRequests' => $completed,
+            'cancelledRequests' => $cancelled,
+            'ongoingCount' => count($ongoing),
+            'completedCount' => count($completed),
+            'cancelledCount' => count($cancelled),
+            'requestsCount' => count($responses),
+        ]);
+    }
+
+    public function getSingleRequestInfo($id){
+        $singleRequest = RequestsInfo::withTrashed()->where('id', $id)->first();
+        $responseExist = Response::withTrashed()->where('requestId', $id)->first();
+        
+        $requestcreateDate = date("Y-m-d H:i",strtotime($singleRequest->created_at));
+        
+        if($responseExist == null){
+            $user = User::find($singleRequest->userId);
+            $user_created_at = date("Y-m-d H:i",strtotime($user->created_at));
+            return response([
+                'message' => 'No responder assigned.',
+                'request' => $singleRequest,
+                'request_created_at' => $requestcreateDate,
+                'response' => $responseExist,
+                'responder' => null,
+                'responderUserDetails' => null,
+                'user' => $user,
+                'user_created_at' => $user_created_at
+            ], 200);
+        }else{
+            $responder = Responder::withTrashed('id', $responseExist->responderId)->first();
+            $responderUserDetails = User::find($responder->userId);
+            $user = User::find($singleRequest->userId);
+            $user_created_at = date("Y-m-d H:i",strtotime($user->created_at));
+
+            return response([
+                'message' => 'Found request response',
+                'request' => $singleRequest,
+                'request_created_at' => $requestcreateDate,
+                'response' => $responseExist,
+                'responder' => $responder,
+                'responderUserDetails' => $responderUserDetails,
+                'user' => $user,
+                'user_created_at' => $user_created_at
+            ], 200);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -127,10 +343,14 @@ class RequestsInfoController extends Controller
      */
     public function destroy($id)
     {  
+            $responseExist = Response::where('requestId', $id)->first();
             $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => 'Cancelled']);
             if($requestUpdated){
                 if(RequestsInfo::where('id', $id)->delete()){
-                    $message = "Request is completed and is moved to archives.";
+                    if($responseExist){
+                        $responseExist->delete();
+                    }
+                    $message = "Request is cancelled and is moved to archives.";
                 }
             }else{
             $message = "Something went wrong. Cannot update.";

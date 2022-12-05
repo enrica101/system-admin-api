@@ -2,21 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RequestsInfo;
 use App\Models\User;
+use App\Models\Response;
+use App\Models\Responder;
+use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\UserController;
 
 class AdminController extends Controller
 {
+    public function getData(){
+        $allRequests = count(RequestsInfo::all());
+        $allAvailableRequests = count(RequestsInfo::where('status', 'like', '%'.'Searching'.'%')->get());
+        $allOngoingRequests = count(Response::all());
+        $allCompletedRequests = count(RequestsInfo::onlyTrashed()->where('status', 'Completed')->get());
+        $allCancelledRequests = count(RequestsInfo::onlyTrashed()->where('status', 'Cancelled')->get());
+
+        $allRespondersHandlingRequests = Response::all('responderId');
+        dd($allRespondersHandlingRequests[0]['responderId']);
+        $allIdleResponders = count(Responder::wherenot('id', $allRespondersHandlingRequests)->find());
+        $allHandlingResponders = count($allRespondersHandlingRequests);
+        $allAccounts = count(User::all());
+        $allRoleUsers = count(User::where('role', 'User')->get());
+        $allRoleResponders = count(User::where('role', 'Responder')->get());
+        $allRoleAdmin = count(User::where('role', 'Admin')->get());
+
+        return view('dashboard', [
+            'data' => [
+                'allRequests' => $allRequests,
+                'allAvailableRequests' => $allAvailableRequests,
+                'allOngoingRequests' => $allOngoingRequests,
+                'allCompletedRequests' => $allCompletedRequests,
+                'allCancelledRequests' => $allCancelledRequests,
+                'allIdleRequests' => $allIdleResponders,
+                'allHandlingResponders' => $allHandlingResponders,
+                'allAccounts' => $allAccounts,
+                'allRoleUsers' => $allRoleUsers,
+                'allRoleAdmin' => $allRoleAdmin
+            ]
+            
+        ]);
+    }
+
     public function getRoleUsers(){
-    
         $users = User::where('role', 'like',  '%'.'User'.'%')->get();
         $usersInfo = [];
         $today = date("Y-m-d");
         
-        
+        // dd($users);
         for($i = 0; $i<count($users); $i++){
             $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userID', $users[$i]['id'])->get();
 
@@ -64,8 +99,7 @@ class AdminController extends Controller
                 'joined' => $users[$i]['created_at'],
             ]);
         }
-        // dd($usersInfo);
-        return view('/accounts', [
+        return view('accounts',[
             'users' => $usersInfo
         ]);
     }

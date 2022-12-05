@@ -685,7 +685,11 @@ option{
     cursor: pointer;
 }
 
-.row-view{
+.table-row.active{
+    color: #FB9935; 
+}
+
+.accounts-row-view{
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -694,7 +698,7 @@ option{
     justify-content: space-evenly;
 }
 
-.row-view .top{
+.accounts-row-view .top{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -703,7 +707,7 @@ option{
     width: 100%;
 }
 
-.row-view .top span{
+.accounts-row-view .top span{
     font-family: 'Poppins', 'sans-serif';
     display: flex;
     flex-direction: column;
@@ -712,28 +716,28 @@ option{
     margin: 10px 0;
 }
 
-.row-view .top h4,
-.row-view .top h3{
+.accounts-row-view .top h4,
+.accounts-row-view .top h3{
     all: unset;
     /* width: 100%; */
     color: #323232;
 }
 
-.row-view .top h3{
+.accounts-row-view .top h3{
     font-size: 18px;    
     font-weight: 500;
 }
 
-.row-view .top h4{
+.accounts-row-view .top h4{
     font-size: 14px;    
 }
 
-.row-view .top img{
+.accounts-row-view .top img{
     width: 90px;
     margin:20px 0 ;
 }
 
-.row-view .middle{
+.accounts-row-view .middle{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -742,41 +746,41 @@ option{
     height: 20%;
 }
 
-.row-view .middle h4{
+.accounts-row-view .middle h4{
     font-size: inherit;
     color: #323232;
 }
 
-.row-view .middle .statusCounts{
+.accounts-row-view .middle .statusCounts{
     display: flex;
     justify-content: space-evenly;
     width: 100%;
 }
 
-.row-view .middle .statusCounts span{
+.accounts-row-view .middle .statusCounts span{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.row-view .middle .statusCounts span h3{
+.accounts-row-view .middle .statusCounts span h3{
     margin: 5px 0;
 }
 
-.row-view .middle .statusCounts span h5{
+.accounts-row-view .middle .statusCounts span h5{
     font-weight: 400;
 }
 
-.row-view .bottom{
+.accounts-row-view .bottom{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 15%;
+    height: fit-content;
 }
 
-.row-view .bottom div{
+.accounts-row-view .bottom div{
     display: flex;
     justify-content: space-between;
     width: 65%;
@@ -784,11 +788,186 @@ option{
     font-weight: bold;
 }
 
-.row-view .bottom div p{
+.accounts-row-view .bottom div p{
     font-weight: normal;
     display: inline-block;
     margin-left: 20px;
 }
 
+.responders-row-view,
+.requests-row-view{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
+.responders-row-view .top{
+    display: flex;
+    flex-direction: column;
+    /* height: 200px; */
+    width: 100%;
+    margin: 40px 0;
+}
+
+.responders-row-view .top .user-details{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: 'Poppins', 'sans-serif';
+    color: #323232;
+    /* height: 45%; */
+    margin-bottom: 30px;
+
+}
+.responders-row-view .top .user-details .border-line{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.responders-row-view .top .user-details .border-line.fire{
+    background-color: #FB993550;
+}
+
+.responders-row-view .top .user-details .border-line.medical{
+    background-color: #CD3F3E40;
+}
+
+.responders-row-view .top .user-details .border-line.police{
+    background-color: #75ADEF50;
+}
+
+.responders-row-view .top .user-details .avatar-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #494949;
+    height: 85px;
+    width: 85px;
+    border-radius: 50%;
+}
+
+.responders-row-view .top .user-details i{
+    font-size: 50px;
+    color: #fff;
+    margin-bottom: 3px;
+}
+
+.responders-row-view .top .user-details .user-name{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.responders-row-view .top .user-details .user-name h4{
+    all: unset;
+    font-size: 14px;
+}
+
+.responders-row-view .top .responder-responses{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100px;
+}
+
+.responders-row-view .top .responder-responses h4{
+    font-size: inherit;
+    color: #323232;
+}
+
+.responders-row-view .top .statusCounts{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+
+.responders-row-view .top .statusCounts span{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.responders-row-view .top .statusCounts span h3{
+    margin: 5px 0;
+}
+
+.responders-row-view .top .statusCounts span h5{
+    font-weight: 400;
+}
+
+.responders-row-view .middle,
+.responders-row-view .bottom,
+.requests-row-view .top,
+.requests-row-view .middle,
+.requests-row-view .bottom
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+}
+
+.responders-row-view .middle div,
+.responders-row-view .bottom div,
+.requests-row-view .top div,
+.requests-row-view .middle div,
+.requests-row-view .bottom div
+{
+    display: flex;
+    justify-content: space-between;
+    color: #323232;
+    width: 65%;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.responders-row-view .middle div p,
+.responders-row-view .bottom div p,
+.requests-row-view .top div p,
+.requests-row-view .middle div p,
+.requests-row-view .bottom div p
+{
+    font-weight: normal;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.responders-row-view .bottom{
+    margin: 40px 0;
+}
+
+.responders-row-view .bottom div.status p,
+.responders-row-view .bottom div.location p{
+    font-size: 14px;
+}
+
+.responders-row-view .bottom #mini-map{
+    /* background-color: #3ABA5E40; */
+    height: 120px;
+    width: 70%;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    margin-top: 15px;
+}
+
+.requests-row-view{
+    justify-content: space-evenly;
+}
+
+.requests-row-view div{
+    font-size: 14px;
+}
 

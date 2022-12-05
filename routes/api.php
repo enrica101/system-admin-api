@@ -27,6 +27,8 @@ Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
     return $request->user();
 });
 
+
+
 Route::post('/register', [AuthController::class,'register']);
 Route::post('/login', [AuthController::class,'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
@@ -39,6 +41,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::get('/users/{id}', [UserController::class, 'show']);
         Route::put('/users/{id}', [UserController::class, 'update']);
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+
+    Route::get('accounts/search/{id}', [UserController::class, 'getUserAccount']);
+    Route::get('accounts/responders/search/{id}', [ResponderController::class, 'getAccountResponder']);
+    Route::get('sysad/requests/search/{id}', [RequestsInfoController::class, 'getSingleRequestInfo']);
+
 
   //Requests
         Route::get('/requests', [RequestsInfoController::class, 'index']);
@@ -79,5 +87,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::get('archive/responses/search/{id}', [ArchiveController::class, 'searchResponsesArchive']);
 
 
-        // Route::get('accounts/{id}', [AdminController::class, 'getRoleUsers']);
+
 

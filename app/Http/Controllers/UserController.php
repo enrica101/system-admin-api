@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Responder;
 use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\AdminController;
+use App\Models\Response as ResponseModel;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UserController extends Controller
@@ -17,62 +20,8 @@ class UserController extends Controller
      */
     public function indexUsers()
     {
-        $users = User::where('role', 'like',  '%'.'User'.'%')->get();
-        $usersInfo = [];
-        $today = date("Y-m-d");
-        
-        
-        for($i = 0; $i<count($users); $i++){
-            $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userID', $users[$i]['id'])->get();
+        return User::where('role', 'like',  '%'.'User'.'%')->get();
 
-            $completed = 0;
-            $cancelled = 0;
-
-            if(!empty($requestsFromArchive)){
-                for($j=0;$j<count($requestsFromArchive);$j++){
-                    if($requestsFromArchive[$j]->status == 'Cancelled'){
-                        $cancelled++;
-                    }else if($requestsFromArchive[$j]->status == 'Completed'){
-                        $completed++;
-                    }
-                    
-                }
-            }
-
-            $ongoingRequest = RequestsInfo::where('userId', $users[$i]['id'])->get();
-            if($ongoingRequest->isNotEmpty()){
-                $ongoing = 1;
-            }else{
-                $ongoing = 0;
-            }
-            
-            $diff = date_diff(date_create($users[$i]['birthdate']), date_create($today));
-            $age = $diff->format('%y');
-
-            $createDate = date("Y-m-d H:i:s",strtotime($users[$i]['created_at']));
-            // dd($users[$i]['fname']);
-            array_push($usersInfo, [
-                'id' => $users[$i]['id'],
-                'accountType' => $users[$i]['role'],
-                'email' => $users[$i]['email'],
-                'fname' => $users[$i]['fname'],
-                'mname' => $users[$i]['mname'],
-                'lname' => $users[$i]['lname'],
-                'gender' => $users[$i]['gender'],
-                'birthdate' => $users[$i]['birthdate'],
-                'age' => $age,
-                'contactNumber' => $users[$i]['contactNumber'],
-                'created_at' => $createDate,
-                'completedRequests' => $completed,
-                'cancelledRequests' => $cancelled,
-                'ongoingRequest' => $ongoing,
-                'joined' => $users[$i]['created_at'],
-            ]);
-        }
-        return response([
-            'message' => 'Found',
-            'users' => $usersInfo
-        ]);
     }
 
     /**
@@ -105,6 +54,70 @@ class UserController extends Controller
     {
         //
     }
+                /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserAccount($id)
+    {
+        $user = User::find($id);
+        $usersInfo = [];
+        $today = date("Y-m-d");
+        
+        // dd($use
+            $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userID', $user['id'])->get();
+            // dd(count($requestsFromArchive));
+            $completed = 0;
+            $cancelled = 0;
+
+            if(!empty($requestsFromArchive)){
+                for($j=0;$j<count($requestsFromArchive);$j++){
+                    if($requestsFromArchive[$j]->status == 'Cancelled'){
+                        $cancelled++;
+                    }else if($requestsFromArchive[$j]->status == 'Completed'){
+                        $completed++;
+                    }
+                    
+                }
+            }
+
+            $ongoingRequest = RequestsInfo::where('userId', $user['id'])->get();
+            if($ongoingRequest->isNotEmpty()){
+                $ongoing = 1;
+            }else{
+                $ongoing = 0;
+            }
+            
+            $diff = date_diff(date_create($user['birthdate']), date_create($today));
+            $age = $diff->format('%y');
+
+            $createDate = date("Y-m-d H:i:s",strtotime($user['created_at']));
+            // dd($users[$i]['fname']);
+            array_push($usersInfo, [
+                'id' => $user['id'],
+                'accountType' => $user['role'],
+                'email' => $user['email'],
+                'fname' => $user['fname'],
+                'mname' => $user['mname'],
+                'lname' => $user['lname'],
+                'gender' => $user['gender'],
+                'birthdate' => $user['birthdate'],
+                'age' => $age,
+                'contactNumber' => $user['contactNumber'],
+                'created_at' => $createDate,
+                'completedRequests' => $completed,
+                'cancelledRequests' => $cancelled,
+                'ongoingRequest' => $ongoing,
+                'joined' => $createDate,
+            ]);
+        
+        return response([
+            'message' => 'Found',
+            'user' => $usersInfo
+        ]);
+    }
 
     /**
      * Display the specified resource.
@@ -126,6 +139,8 @@ class UserController extends Controller
             ], 404);
         }
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -161,12 +176,55 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-            $bool = User::destroy($id);
-            // dd($bool);
-            if($bool == 1){
-                return response(['message' => 'Deleted']);
-            }else if($bool == 0){
-                return response(['message' => 'Does not exist.']);
+            $user = User::find($id);
+            $requestExist = RequestsInfo::where('userId', $id)->first();
+            if($user->role == 'Responder'||$user->role == 'responder'){
+                $responder = Responder::where('userId', $id)->first();
+                $responseExist = ResponseModel::where('responderId', $responder->id)->first();
+                if($responseExist){
+                    return response([
+                        'message' => 'Cannot delete this user while handling request.'
+                    ]);
+                }else{
+                    if($responder->delete()){
+                        if($user->delete()){
+                            return response([
+                                'message' => 'Deleted.'
+                            ]);
+                        }
+                    }
+                    
+                }
+            }else{
+                if($requestExist){
+                    $responseExist = ResponseModel::where('requestId', $requestExist->id)->first();
+                    if($responseExist){
+                        $responseExist->delete();
+                        if($requestExist->delete()){
+                            if($user->delete()){
+                                 return response([
+                            'message' => 'Deleted.'
+                        ]);
+                            }
+                        }
+                    }else{
+                        if($requestExist->delete()){
+                            if($user->delete()){
+                                 return response([
+                            'message' => 'Deleted.'
+                        ]);
+                            }
+                        }
+                    }
+                    
+                }else{
+                    if($user->delete()){
+                        return response([
+                            'message' => 'Deleted.'
+                        ]);
+                    }
+                }
+                
             }
     }
 }
