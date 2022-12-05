@@ -88,15 +88,16 @@ class ResponseController extends Controller
      */
     public function show($id)
     {
-        $responseInfo = Response::where('requestId',$id)->get();
-        
-        if(empty($responseInfo)){
+        $responseInfo = Response::where('requestId',$id)->first();
+        // dd($responseInfo);
+        if($responseInfo === null){
             return response([
                 'message' => 'Not Found'
             ], 204);
         }else{
             // dd($responseInfo['requestId']);
             $requestInfo = RequestsInfo::find($responseInfo->requestId);
+            
 
             return response([
                 'message' => 'Found',
