@@ -212,7 +212,7 @@ class ResponseController extends Controller
      * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Request
      */
-    public function updateLocation(Request $request, $id)
+   public function updateLocation(Request $request, $id)
     {
         if($req=RequestsInfo::find($id)){
             $fields = $request->validate([
@@ -221,11 +221,11 @@ class ResponseController extends Controller
                 'lng' => ['required']
             ]);
     
-            if($responseInfo = Response::where('requestId', $req->id)->update($fields)){
-
+            if(Response::where('requestId', $req->id)->update($fields)){
+                $response = Response::where('requestId', $req->id)->first();
                 return response([
                     'message' => 'Update Succesful',
-                    'response' => $responseInfo,
+                    'response' => $response,
                     'request' => $req
                 ], 200);
             }else{
