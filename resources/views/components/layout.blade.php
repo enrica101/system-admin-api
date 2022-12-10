@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Font Awesome CDN -->
     <link
     rel="stylesheet"
@@ -11,10 +12,11 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
     />
+    <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
             integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="stylesheet" href="css/style.css">
     <title>System Dashboard</title>
 </head>
@@ -29,7 +31,7 @@
                 <a href="/accounts"><li><i class="fa-solid fa-user-group"></i> Users</li></a>
                 <a href="/responders"><li><i class="fa-solid fa-user-group"></i> Responders</li></a>
                 <a href="/requests"><li><i class="fa-solid fa-circle-exclamation"></i> Emergencies</li></a>
-                <a href="user/{{auth()->id()}}/settings"><li><i class="fa-solid fa-gear"></i> Settings</li></a>
+                <a href="/settings"><li><i class="fa-solid fa-gear"></i> Settings</li></a>
                 <li>
                     <form action="/logout" method="post">
                         @csrf
@@ -41,7 +43,7 @@
                 </li>
             </ul>
         </div>
-            <button class="btn btn-pdf">Download PDF</button>
+        <a href="/export" class="btn btn-pdf">Download PDF</a>
     </nav>
     <div class="container">
     {{$slot}}

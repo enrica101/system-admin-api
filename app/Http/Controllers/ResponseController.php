@@ -88,20 +88,27 @@ class ResponseController extends Controller
      */
     public function show($id)
     {
-        $responseInfo = Response::where('requestId',$id)->get();
-        
-        if(empty($responseInfo)){
+        $responseInfo = Response::where('requestId',$id)->first();
+        // dd($responseInfo);
+        if($responseInfo === null){
             return response([
                 'message' => 'Not Found'
             ], 204);
         }else{
             // dd($responseInfo['requestId']);
             $requestInfo = RequestsInfo::find($responseInfo->requestId);
+            $responder = Responder::find($responseInfo->responderId);
+            $userResponderDetails = User::find($responder->userId);
 
             return response([
                 'message' => 'Found',
                 'response' => $responseInfo,
-                'requestInfo' => $requestInfo
+                'requestInfo' => $requestInfo,
+                'responder' => [
+                    'type' => $responder->type,
+                    'responderFname' => $userResponderDetails->fname,
+                    'responderLname' => $userResponderDetails->lname,
+                ]
             ], 200);
         }
     }
@@ -214,11 +221,11 @@ class ResponseController extends Controller
                 'lng' => ['required']
             ]);
     
-            if($responseInfo = Response::where('requestId', $req->id)->update($fields)){
-
+            if(Response::where('requestId', $req->id)->update($fields)){
+                $response = Response::where('requestId', $req->id)->first();
                 return response([
                     'message' => 'Update Succesful',
-                    'response' => $responseInfo,
+                    'response' => $response,
                     'request' => $req
                 ], 200);
             }else{

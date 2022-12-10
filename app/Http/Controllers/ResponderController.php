@@ -43,9 +43,14 @@ class ResponderController extends Controller
     }
 
     public function getRoleResponders(){
-        $allResponders = Responder::all('userId');
-        $usersContainer = [];
+        // dd(request());
+        if(request('type') == null || request('type') == 'All'){
+            $allResponders = Responder::all('userId');
+        }else{
+            $allResponders = Responder::where('type', 'like', '%'.request('type').'%')->get('userId');
+        }
         
+        $usersContainer = [];
         for($j=0;$j<count($allResponders);$j++){
             $users = User::where('id', $allResponders[$j]['userId'])->first()->toArray();
             array_push($usersContainer, $users);
@@ -102,7 +107,7 @@ class ResponderController extends Controller
                 ]);
             }
         }
-            return view('/responders', [
+            return view('/responders')->with([
                 'responses' => $responses,
                 'idleResponders' => $idlers,
                 'handlingRequests' => $handlers,
@@ -241,8 +246,6 @@ class ResponderController extends Controller
             ], 200);
             
         }
-
-        
     }
 
     /**
@@ -277,18 +280,46 @@ class ResponderController extends Controller
      */
     public function responderType($type)
     {
-       $responder = Responder::where('type', 'like', '%'.$type.'%')->get();
+    //    $responder = Responder::where('type', 'like', '%'.$type.'%')->get();
 
-       if($responder == []){
-            return response([
-                'message' => 'Not Found'
-            ]);
-       }else{
+    //    if($responder == []){
+    //         return response([
+    //             'message' => 'Not Found'
+    //         ]);
+    //    }else{
+    //     return response([
+    //         'message' => 'Found',
+    //         'responder' => $responder,
+    //     ]);
+    //    }
+        if($type == 'All' || $type == 'all'){
+            $responders = Responder::all();
+        }else{
+            $responders = Responder::where('type', 'like', '%'.$type.'%')->get();
+        }
+         $userDetails = User::where('role', 'Responder')->get();
+            
+            $userResponders = [];
+            $count = 0;
+            $max = count($responders);
+            if($userDetails){
+                foreach($userDetails as $userDetail){
+                    if($count != $max){
+                        array_push($userResponders, [
+                        'responder' => $responders[$count],
+                        'user' => $userDetail,
+                        ]);
+                        $count++;
+                    } 
+                }
+                $message = 'Found';
+            }else{
+                $message = 'No record.';
+            }
         return response([
-            'message' => 'Found',
-            'responder' => $responder,
+            'message' => $message,
+            'responders' => $userResponders
         ]);
-       }
     }
 
     

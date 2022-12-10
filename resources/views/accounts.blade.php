@@ -6,7 +6,7 @@
             <div class="profile">
                 <div class="avatar">
                     <span>
-                        <small>Hey, John</small>
+                        <small>Hey, {{auth()->user()->fname}}</small>
                         <small>Admin</small>
                     </span>
                     <img src="img/avatar.png" alt="avatar">
@@ -19,7 +19,7 @@
             <img style="width:50px;margin:auto;" src="{{ asset('img/avatar.png')}}" alt="avatar"><br>
             <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
             <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
-            <a href="user/{{auth()->user()->id}}/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
+            <a href="/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
         </div>
         </header>
   
@@ -116,8 +116,13 @@
             <div class="below-header users">
                 <div class="all active"><h4>All Users</h4></div>
                 <div class="second"><h4>Users Requests</h4></div>
-                <div class="search">
-                <input type="text" name="search-bar" id="search-bar" placeholder="Search"><i class="fa-solid fa-magnifying-glass"></i></div>
+
+                {{-- <form action="/users" class="search">
+                    <input type="text" name="search-bar" id="search-bar" placeholder="Search">
+                    <button type="submit" class="btn-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form> --}}
             </div>
 
         <div class="responder center">
@@ -163,11 +168,18 @@
                         @forEach($users as $user)
     
                             <div class="table-row" id="{{$user['id']}}">
-                            <div class="table-cols" style="width: 60px;"   id="{{$user['id']}}" >{{$user['id']}}</div>
-                            <div class="table-cols" style="width: 190px; text-align:center;"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</div>
-                            <div class="table-cols" style="width: 190px; text-align:center;" id="{{$user['id']}}">{{$user['completedRequests']}}</div>
-                            <div class="table-cols" style="width: 150px; text-align:right;"  id="{{$user['id']}}" >{{$user['cancelledRequests']}}</div>
-                            
+                                <div class="table-cols" style="width: 60px;" id="{{$user['id']}}" >
+                                    {{$user['id']}}
+                                </div>
+                                <div class="table-cols" style="width: 190px; text-align:center;"  id="{{$user['id']}}" >
+                                    {{$user['fname']}} {{$user['lname']}}
+                                </div>
+                                <div class="table-cols" style="width: 190px; text-align:center;" id="{{$user['id']}}">
+                                    {{$user['completedRequests']}}
+                                </div>
+                                <div class="table-cols" style="width: 150px; text-align:right;"  id="{{$user['id']}}" >
+                                    {{$user['cancelledRequests']}}
+                                </div>
                             </div>
     
                         @endforeach
@@ -193,8 +205,6 @@
     const tables = document.querySelectorAll('.table');
     const rowSelect = document.querySelectorAll('.table-row');
     const rightViewer = document.querySelector('.right')
-    
-
     
     profileBtn.addEventListener('click', () => {
         profileOverView.classList.toggle('active');

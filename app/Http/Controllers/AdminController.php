@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\User;
 use App\Models\Response;
 use App\Models\Responder;
@@ -9,11 +10,50 @@ use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\UserController;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class AdminController extends Controller
 {
-    public function getData(){
+
+    public function getDataByDate($date){
+
+        // $data = User::where('created_at', 'like', '%'.$date.'%')->get();
+        $allRequests = count(RequestsInfo::where('created_at', 'like', '%'.$date.'%')->get());
+        $allAvailableRequests = count(RequestsInfo::where('created_at', 'like', '%'.$date.'%')->where('status', 'like', '%'.'Searching'.'%')->get());
+        $allOngoingRequests = count(Response::where('created_at', 'like', '%'.$date.'%')->get());
+        $allCompletedRequests = count(RequestsInfo::onlyTrashed()->where('updated_at', 'like', '%'.$date.'%')->where('status', 'Completed')->get());
+        $allCancelledRequests = count(RequestsInfo::onlyTrashed()->where('updated_at', 'like', '%'.$date.'%')->where('status', 'Cancelled')->get());
+
+        $allRespondersHandlingRequests = Response::where('created_at', 'like', '%'.$date.'%')->get();
+        // $allIdleResponders = count();
+        $allResponders = count(Responder::where('created_at', 'like', '%'.$date.'%')->get());
+        $allHandlingResponders = count($allRespondersHandlingRequests);
+        $allAccounts = count(User::where('created_at', 'like', '%'.$date.'%')->get());
+        $allRoleUsers = count(User::where('created_at', 'like', '%'.$date.'%')->where('role', 'User')->get());
+        $allRoleResponders = count(User::where('created_at', 'like', '%'.$date.'%')->where('role', 'Responder')->get());
+        $allRoleAdmin = count(User::where('created_at', 'like', '%'.$date.'%')->where('role', 'Admin')->get());
+
+        return response([
+            'data' => [
+                'allRequests' => $allRequests,
+                'allAvailableRequests' => $allAvailableRequests,
+                'allOngoingRequests' => $allOngoingRequests,
+                'allCompletedRequests' => $allCompletedRequests,
+                'allCancelledRequests' => $allCancelledRequests,
+                'allIdleRequests' => 0,
+                'allResponders' => $allResponders,
+                'allHandlingResponders' => $allHandlingResponders,
+                'allAccounts' => $allAccounts,
+                'allRoleUsers' => $allRoleUsers,
+                'allRoleResponders' => $allRoleResponders,
+                'allRoleAdmin' => $allRoleAdmin
+            ]
+            
+        ]);
+        
+    }
+
+    public function getGraphData(){
         $allRequests = count(RequestsInfo::all());
         $allAvailableRequests = count(RequestsInfo::where('status', 'like', '%'.'Searching'.'%')->get());
         $allOngoingRequests = count(Response::all());
@@ -30,7 +70,7 @@ class AdminController extends Controller
         $allRoleAdmin = count(User::where('role', 'Admin')->get());
         // dd($allRoleAdmin);
 
-        return view('dashboard', [
+        return response([
             'data' => [
                 'allRequests' => $allRequests,
                 'allAvailableRequests' => $allAvailableRequests,
@@ -139,6 +179,12 @@ class AdminController extends Controller
     }
 
     public function authenticate(Request $request){
+        $user = User::where('email', $request->email)->first();
+        if($user == null){
+            return back()->withErrors(['email' => 'Does not exist.'])->onlyInput('email');
+        }else if($user->role != 'Admin' && $user->role != 'admin'){
+            return back()->withErrors(['email' => 'Only Admins are allowed to login.'])->onlyInput('email');
+        }
         $request->validate([
             'email' => 'required|email',
             'password' => 'required'
@@ -152,5 +198,120 @@ class AdminController extends Controller
             return redirect('/dashboard');
         }
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
+    }
+
+    public function logout(Request $request){
+        auth()->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+
+    public function update(Request $request){
+        // dd(auth()->id());
+        $fields = $request->validate([
+            'email' => ['nullable', 'email'],
+            'password' => ['nullable', 'min:6'],
+            'fname' => ['nullable', 'min:3'],
+            'mname' => ['nullable', 'min:3'],
+            'lname' => ['nullable', 'min:3'],
+            'contactNumber' => ['nullable', 'regex:/^(09|\+639)\d{9}$/', 'max:13'],
+        ]);
+
+        $user = User::find(auth()->id());
+        // dd($user->update($fields));
+        if($user->update($fields)){
+            return back()->with('message', 'Successfully Updated');
+        }else{
+            return back()->with('message', 'Something went wrong.');
+        }
+    }
+
+    public function generatePDF(){
+        $allRequests = RequestsInfo::withTrashed()->get();
+        $collection = [];
+
+        foreach($allRequests as $singleRequest){
+            dd($singleRequest->id);
+            $user = User::where('id', $singleRequest->userId)->first();
+            $responseInfo = Response::where('requestId', $singleRequest->id)->first();
+            $createDate = date("Y-m-d",strtotime($singleRequest->created_at));
+            if($responseInfo == null){
+                array_push($collection, [
+                    'requestId' => $singleRequest->id,
+                    'userId' => $singleRequest->userId,
+                    'requester' => $user->fname.' '.$user->lname,
+                    'responderId' => 'None',
+                    'responder' =>  'None',
+                    'type' => $singleRequest->type,
+                    'location' => $singleRequest->location,
+                    'status' => $singleRequest->status,
+                    'created_at' => $createDate
+                ]);
+            }else{
+                $responder = Responder::where('id', $responseInfo->responderId)->first();
+                $responderDetails = User::find($responder->userId);
+                array_push($collection, [
+                    'requestId' => $singleRequest->id,
+                    'userId' => $singleRequest->userId,
+                    'requester' => $user->fname.' '.$user->lname,
+                    'responderId' => $responder->id,
+                    'responder' =>  $responderDetails->fname.' '.$responderDetails->lname,
+                    'type' => $singleRequest->type,
+                    'location' => $singleRequest->location,
+                    'status' => $singleRequest->status,
+                    'created_at' => $createDate
+                ]);
+            }
+        }
+        // dd($collection);
+        return view('export')->with('requests', $collection);
+    }
+
+    public function exportPDF(){
+        $allRequests = RequestsInfo::withTrashed()->get();
+        $collection = [];
+
+        foreach($allRequests as $singleRequest){
+            $user = User::where('id', $singleRequest->userId)->first();
+            $responseInfo = Response::where('requestId', $singleRequest->id)->first();
+            $createDate = date("Y-m-d",strtotime($singleRequest->created_at));
+
+            if($responseInfo == null){
+                array_push($collection, [
+                    'requestId' => $singleRequest->id,
+                    'userId' => $singleRequest->userId,
+                    'requester' => $user->fname.' '.$user->lname,
+                    'responderId' => 'None',
+                    'responder' =>  'None',
+                    'type' => $singleRequest->type,
+                    'location' => $singleRequest->location,
+                    'status' => $singleRequest->status,
+                    'created_at' => $createDate
+                ]);
+            }else{
+                $responder = Responder::where('id', $responseInfo->responderId)->first();
+                $responderDetails = User::find($responder->userId);
+                array_push($collection, [
+                    'requestId' => $singleRequest->id,
+                    'userId' => $singleRequest->userId,
+                    'requester' => $user->fname.' '.$user->lname,
+                    'responderId' => $responder->id,
+                    'responder' =>  $responderDetails->fname.' '.$responderDetails->lname,
+                    'type' => $singleRequest->type,
+                    'location' => $singleRequest->location,
+                    'status' => $singleRequest->status,
+                    'created_at' => $createDate
+                ]);
+            }
+        }
+        
+        $pdf = PDF::loadView('export', [
+            'requests' => $collection
+        ])->setPaper('a4', 'landscape');
+        return $pdf->download('91Watch-data.pdf');
+
     }
 }

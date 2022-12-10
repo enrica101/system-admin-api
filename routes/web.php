@@ -2,9 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponderController;
 use App\Http\Controllers\RequestsInfoController;
 
@@ -21,36 +19,45 @@ use App\Http\Controllers\RequestsInfoController;
 
 Route::get('/', function () {
     return view('login');
-});
+})->name('login');
 Route::get('/dashboard', function () {
     return view('dashboard');
-});
+})->middleware('auth');
+
 Route::get('/map', function () {
     return view('map');
-});
+})->middleware('auth');
 
 Route::get('/accounts', function () {
     return view('accounts');
-});
+})->middleware('auth');
 
 Route::get('/responders', function () {
     return view('responders');
-});
+})->middleware('auth');
 
 Route::get('/requests', function () {
     return view('requests');
-});
+})->middleware('auth');
+
+Route::get('/settings', function () {
+    return view('settings');
+})->middleware('auth');
 
 Route::get('/accounts', [AdminController::class, 'getRoleUsers']);
+
+Route::put('/settings',[AdminController::class, 'update'])->middleware('auth');
+
 
 Route::post('/create', [AdminController::class, 'store']);
 Route::get('/register', [AdminController::class, 'create']);
 Route::post('/users/authenticate', [AdminController::class, 'authenticate']);
+Route::post('/logout', [AdminController::class, 'logout'])->middleware('auth');
 
-Route::get('/responders', [ResponderController::class, 'getRoleResponders']);
+// Route::get('/export', [AdminController::class, 'generatePDF'])->middleware('auth');
+Route::get('/export', [AdminController::class, 'exportPDF'])->middleware('auth');
+
+Route::get('/responders', [ResponderController::class, 'getRoleResponders'])->middleware('auth');
+
 Route::get('/requests', [RequestsInfoController::class, 'getRequestsInfos']);
-Route::get('/dashboard', [AdminController::class, 'getData']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});

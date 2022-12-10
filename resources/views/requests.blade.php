@@ -7,7 +7,7 @@
             <div class="profile">
                 <div class="avatar">
                     <span>
-                        <small>Hey, John</small>
+                        <small>Hey, {{auth()->user()->fname}}</small>
                         <small>Admin</small>
                     </span>
                     <img src="img/avatar.png" alt="avatar">
@@ -20,7 +20,7 @@
             <img style="width:50px;margin:auto;" src="{{auth()->user()->avatar ? asset('storage/'. auth()->user()->avatar) : asset('img/avatar.png')}}" alt="avatar"><br>
             <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
             <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
-            <a href="user/{{auth()->user()->id}}/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
+            <a href="/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
         </div>
         </header>
   
@@ -125,8 +125,13 @@
         </h4></div>
         <div class="third requests"><h4>Completed</h4></div>
         <div class="fourth requests"><h4>Cancelled</h4></div>
-        <div class="search">
-        <input type="text" name="search-bar" id="search-bar" placeholder="Search"><i class="fa-solid fa-magnifying-glass"></i></div>
+
+        {{-- <form action="/users" class="search">
+            <input type="text" name="search-bar" id="search-bar" placeholder="Search">
+            <button type="submit" class="btn-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form> --}}
     </div>
 
 <div class="responder center">

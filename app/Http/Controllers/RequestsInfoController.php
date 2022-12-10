@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Redis;
 class RequestsInfoController extends Controller
 {
 
-    
     public function getRequestsInfos(){
         $allRequests = RequestsInfo::withTrashed()->get();
         // dd(count($allRequests));
@@ -243,9 +242,7 @@ class RequestsInfoController extends Controller
      */
     public function indexAvailable()
     {
-       
         return RequestsInfo::where('status', 'like', '%'.'Searching'.'%')->get();
-        
     }
 
     /**
@@ -286,7 +283,6 @@ class RequestsInfoController extends Controller
             return response([
                 'message'=> 'Only user accounts may create requests'], 400);
         }
-
     }
 
     /**
@@ -308,7 +304,6 @@ class RequestsInfoController extends Controller
                 'message' => 'Found',
                 'requestInfo' => $req
             ], 200);
-
         }
     }
 
@@ -370,7 +365,6 @@ class RequestsInfoController extends Controller
     public function searchType($type)
     {
         return RequestsInfo::where('type', 'like', '%'.$type.'%')->get();
-
     }
 
      /**
@@ -381,7 +375,6 @@ class RequestsInfoController extends Controller
     public function searchStatus($status)
     {
         return RequestsInfo::where('status', 'like', '%'.$status.'%')->get();
-
     }
 
     /**

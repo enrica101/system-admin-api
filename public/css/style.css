@@ -18,9 +18,10 @@ body{
     overflow-x: hidden;
 }
 
-/* .wrapper{
-    width: 1080px;
-    height: 100%;
+/* .center{
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 800px;
 } */
 
 nav{
@@ -125,9 +126,15 @@ h1, h2, h3, h4, h5, h6{
     border-radius: 5px;
     height: 34px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .btn-pdf{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    color: #323232;
     margin: 0 15px 30px;
 }
 
@@ -332,10 +339,19 @@ header h2{
 
 .below-header{
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
     margin: 0 40px;
     width: 93%; 
+}
+
+.below-header .all,
+.below-header .third{
+    margin: 0 35px;
+}
+
+.users .all{
+    margin-left: 0;
 }
 
 .date-border-wrap, 
@@ -401,19 +417,19 @@ header h2{
     align-items: center;
 }
 
-.left .responders-data .square{
-    background-color: #fff;
-    width: 223px;
-    height: 150px;
-    border-radius: 10px;
-}
-
 .square{
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #fff;
+    width: 17vw;
+    height: 20vh;
 
+    border-radius: 10px;
+    color:#323232;
+    padding: 10px 0;
 }
 
 .square:hover,
@@ -428,16 +444,6 @@ header h2{
 .below-header .fourth.active{
     box-shadow: 0px 1px 6px rgba(0,0,0,0.3);
     cursor: pointer;
-}
-
-.square .circle{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 55px;
-    width: 55px;
-    border-radius: 50px;
-    margin-bottom: 10px;
 }
 
 .circle.all{
@@ -457,12 +463,23 @@ header h2{
     font-weight: 600;
 }
 
+.square h3{
+    position: absolute;
+    top: 52%;
+}
+
 .left .bottom{
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     width: 100%;
-    height: 50%;
+    height: 43%;
+    border-radius: 10px;
+}
+
+.bottom canvas{
+    margin: 0 30px;
 }
 
 .bottom .accounts-data{
@@ -473,7 +490,7 @@ header h2{
     background-color: #fff;
     color: #323232;
     width: 100%;
-    height: 150px;
+    height: 250px;
     border-radius: 10px;
 }
 
@@ -511,7 +528,8 @@ header h2{
     align-items: center;
     background-color: #fff;
     width: 100%;
-    height: 70px;
+    /* height: 70px; */
+    height: 11vh;
     border-radius: 10px;
 }
 
@@ -528,7 +546,8 @@ header h2{
 }
 
 footer{
-    font-size: 14px;
+    font-size: 12px;
+    color: #8a8a8a;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -538,6 +557,7 @@ footer{
     width: 100%;
     height: 50px;
     margin: 10px;
+    z-index: -1;
 }
 
 /**************** RESPONDERS  ***************/
@@ -566,29 +586,41 @@ select#type:focus{
 option{
     padding: 2px 4px;
 }
+.search{
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* height: 100%; */
+    width: 22vw;
+}
 
 #search-bar{
     font-family: inherit;
     height: 30px;
-    width: 17.5vw;
+    width: 18.4vw;
     border-radius: 5px;
     border: none;
     padding-left: 15px;
-    padding-right: 45px;
+    padding-right: 48px;
 }
 
 #search-bar:focus{
     outline: none;
 }
 
+.btn-search{
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    top: 7px;
+    right: 10px;
+}
+ 
 .search i{
     font-size: 14px;
-    position: fixed;
     color: #8a8a8a;
-    right: 55px;
-    top: 67px;
     cursor: pointer;
-}
+} 
 
 .all,
 .second,
@@ -639,15 +671,6 @@ option{
     text-align: center;
 }
 
-.users{
-    justify-content: right;
-    align-items: center;
-}
-
-
-.users .second{
-    margin: 0 25px;
-}
 .table{
     display: none;
 }
@@ -971,3 +994,97 @@ option{
     font-size: 14px;
 }
 
+.settings{
+    position: relative;
+    font-family: 'Poppins', 'sans-serif';
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: left;
+    margin-left: 40px;
+}
+
+.settings h3{
+    color: #8A8A8A;
+    font-weight: 400;
+}
+
+.settings .edit{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 60%;
+    justify-content: space-evenly;
+}
+
+.settings .edit div{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.settings .edit div input[type=text],
+.settings .edit div input[type=password]{
+    border: none;
+    height: 34px;
+    width: 20vw;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 2px 1px rgba(0,0,0,0.2);
+    color: #494949;
+    padding: 0 15px;
+}
+
+
+.settings .wrapperButtons .btn-save{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.btn-save{
+    background-color: #FB9935;
+    width: 8vw;
+}
+.btn-save:hover{
+    background-color: #8A8A8A50;
+}
+
+.message{
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center ;
+    background-color: #fff;
+    width: 14vw;
+    height: 8vh;
+    border-radius: 10px;
+    box-shadow: 0px 5px 8px rgba(0,0,0,0.2);
+    border-left: solid 5px #FB9935;
+    bottom: 50px;
+    right: 50px;
+    z-index: 9;
+    min-width: 210px;
+
+}
+
+.message p{
+    font-family: 'Poppins', 'sans-serif';
+    color: #323232;
+    font-size: 0.8rem;
+    margin-left: 20px;
+}
+
+.message i{
+    position: absolute;
+    right: 15px;
+    color: #323232;
+}
+
+.message i.fa-xmark:hover{
+    color: #32323250;
+    cursor: pointer;
+}

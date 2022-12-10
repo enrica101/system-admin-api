@@ -27,12 +27,9 @@ Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
     return $request->user();
 });
 
-
-
 Route::post('/register', [AuthController::class,'register']);
 Route::post('/login', [AuthController::class,'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-
 
  //Users
     Route::get('/users', [UserController::class, 'indexUsers']);
@@ -46,13 +43,15 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
     Route::get('accounts/search/{id}', [UserController::class, 'getUserAccount']);
     Route::get('accounts/responders/search/{id}', [ResponderController::class, 'getAccountResponder']);
     Route::get('sysad/requests/search/{id}', [RequestsInfoController::class, 'getSingleRequestInfo']);
+    Route::get('sysad/graphData', [AdminController::class, 'getGraphData']);
+    Route::get('sysad/graphData/byDate/{date}', [AdminController::class, 'getDataByDate']);
 
 
   //Requests
         Route::get('/requests', [RequestsInfoController::class, 'index']);
         Route::get('/requests/available', [RequestsInfoController::class, 'indexAvailable']);
         Route::get('/requests/{id}', [RequestsInfoController::class, 'show']);
-        Route::post('/requests', [RequestsInfoController::class, 'store']); //A.K.A create
+        Route::post('/requests', [RequestsInfoController::class, 'store']);
         Route::put('/requests/{id}', [RequestsInfoController::class, 'update']);
         Route::delete('/requests/{id}', [RequestsInfoController::class, 'destroy']);
         Route::get('/requests/search/type/{type}', [RequestsInfoController::class, 'searchType']); //search for single listing

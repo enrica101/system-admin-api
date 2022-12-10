@@ -7,7 +7,7 @@
             <div class="profile">
                 <div class="avatar">
                     <span>
-                        <small>Hey, John</small>
+                        <small>Hey,  {{auth()->user()->fname}}</small>
                         <small>Admin</small>
                     </span>
                     <img src="img/avatar.png" alt="avatar">
@@ -20,7 +20,7 @@
                 <img style="width:50px;margin:auto;" src="{{auth()->user()->avatar ? asset('storage/'. auth()->user()->avatar) : asset('img/avatar.png')}}" alt="avatar"><br>
                 <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
                 <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
-                <a href="user/{{auth()->user()->id}}/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
+                <a href="/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
             </div>
             </header>
 
@@ -116,6 +116,7 @@
 
     <div class="below-header">
         <select name="type" id="type">
+            <option value="">Select type</option>
             <option value="All">All</option>
             <option value="Fire & Rescue">Fire & Rescue</option>
             <option value="Medical">Medical</option>
@@ -124,8 +125,13 @@
         <div class="all active"><h4>All Responders</h4></div>
         <div class="second"><h4>Idle Responders</h4></div>
         <div class="third"><h4>Handling Requests</h4></div>
-        <div class="search">
-        <input type="text" name="search-bar" id="search-bar" placeholder="Search"><i class="fa-solid fa-magnifying-glass"></i></div>
+
+        {{-- <form action="/users" class="search">
+            <input type="text" name="search-bar" id="search-bar" placeholder="Search">
+            <button type="submit" class="btn-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form> --}}
     </div>
 
 <div class="responder center">
@@ -199,7 +205,7 @@
             </div>
             @endforeach
             @else
-            <p>No records.</p>
+            <p style="width: 100%; margin:auto;">No records.</p>
             @endunless
         </div>
         
@@ -209,7 +215,7 @@
         
     </div>
 </div>
-<script src="scripts/main.js"></script> 
+<script src="scripts/main.js"></script>
     <script>
         const allBtn = document.querySelector('.all');
         const secondBtn = document.querySelector('.second');
@@ -218,6 +224,8 @@
         const rowSelect = document.querySelectorAll('.table-row');
         const rightViewer = document.querySelector('.right')
         const imageBorder = document.querySelector('.border-line')
+        const filterSelect = document.getElementById('type')
+        const table = document.querySelector('.table.show')
 
         // console.log(tables)
         allBtn.addEventListener('click', () => {
@@ -258,7 +266,24 @@
             profileOverView.classList.toggle('active');
         })
 
+        //in support of the responder type filtering 
+        if(window.performance){
+            console.log('this is window performance working')
+        }
+        if (performance.navigation.type == 1) {
+                window.location.href = "http://127.0.0.1:8000/responders"
+        }
 
+        filterSelect.addEventListener('change', (e) => {
+            
+            console.log(e.target.value)
+            const url = new URL('http://127.0.0.1:8000/responders');
+            url.searchParams.append('type', e.target.value);
+            const urlString = url.toString();
+            window.location.href = urlString;
+            
+        })
+        
         rowSelect.forEach(row => {
         row.addEventListener('click', (e) => {
             console.log(e)
@@ -276,7 +301,7 @@
         }
 
         function displayAccountResponder(responder, ongoingRequest){
-            // console.log({lat: parseFloat(ongoingRequest['lat']),lng: parseFloat(ongoingRequest['lng'])})
+           
             console.log(ongoingRequest!=null)
             if(ongoingRequest==null){
                 if(responder['type'] == 'Fire & Rescue' ||responder['type'] == 'Fire'){
