@@ -86,7 +86,7 @@ class ResponseController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+        public function show($id)
     {
         $responseInfo = Response::where('requestId',$id)->first();
         // dd($responseInfo);
@@ -212,7 +212,7 @@ class ResponseController extends Controller
      * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Request
      */
-    public function updateLocation(Request $request, $id)
+   public function updateLocation(Request $request, $id)
     {
         if($req=RequestsInfo::find($id)){
             $fields = $request->validate([
