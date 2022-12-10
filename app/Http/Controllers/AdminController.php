@@ -96,7 +96,7 @@ class AdminController extends Controller
         
         // dd($users);
         for($i = 0; $i<count($users); $i++){
-            $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userID', $users[$i]['id'])->get();
+            $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userId', $users[$i]['id'])->get();
 
             $completed = 0;
             $cancelled = 0;
