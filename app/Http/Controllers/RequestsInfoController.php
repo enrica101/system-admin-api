@@ -13,7 +13,11 @@ class RequestsInfoController extends Controller
 {
 
     public function getRequestsInfos(){
-        $allRequests = RequestsInfo::withTrashed()->get();
+        if(request('type') == null || request('type') == 'All'){
+            $allRequests = RequestsInfo::withTrashed()->get();
+        }else{
+            $allRequests = RequestsInfo::withTrashed()->where('type', 'like',  '%'.request('type').'%')->get();
+        }
         // dd(count($allRequests));
         $responses = [];
         $ongoing = [];

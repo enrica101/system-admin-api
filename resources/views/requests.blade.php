@@ -115,6 +115,7 @@
             </div>
     <div class="below-header">
         <select name="type" id="type">
+            <option value="">Select type</option>
             <option value="All">All</option>
             <option value="Fire & Rescue">Fire & Rescue</option>
             <option value="Medical">Medical</option>
@@ -266,6 +267,8 @@
         const tables = document.querySelectorAll('.table');
         const rowSelect = document.querySelectorAll('.table-row');
         const rightViewer = document.querySelector('.right')
+        const filterSelect = document.getElementById('type')
+        const table = document.querySelector('.table.show')
 
         console.log(tables)
         allBtn.addEventListener('click', () => {
@@ -322,6 +325,24 @@
 
         profileBtn.addEventListener('click', () => {
             profileOverView.classList.toggle('active');
+        })
+
+        //in support of the responder type filtering 
+        if(window.performance){
+            console.log('this is window performance working')
+        }
+        if (performance.navigation.type == 1) {
+                window.location.href = "http://127.0.0.1:8000/requests"
+        }
+
+        filterSelect.addEventListener('change', (e) => {
+            
+            console.log(e.target.value)
+            const url = new URL('http://127.0.0.1:8000/requests');
+            url.searchParams.append('type', e.target.value);
+            const urlString = url.toString();
+            window.location.href = urlString;
+            
         })
 
         rowSelect.forEach(row => {
