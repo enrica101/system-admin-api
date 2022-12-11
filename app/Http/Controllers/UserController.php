@@ -57,7 +57,7 @@ class UserController extends Controller
         $today = date("Y-m-d");
         
         // dd($use
-            $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userID', $user['id'])->get();
+            $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userId', $user['id'])->get();
             // dd(count($requestsFromArchive));
             $completed = 0;
             $cancelled = 0;
