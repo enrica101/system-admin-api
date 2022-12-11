@@ -157,7 +157,7 @@
             </div>
             @endforeach
             @else
-            <p>No records.</p>
+            <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
             @endunless
         </div>
         <div class="table">
@@ -181,7 +181,7 @@
             </div>
             @endforeach
             @else
-            <p>No records.</p>
+            <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No records.</p>
             @endunless
         </div>
         <div class="table">
@@ -205,7 +205,7 @@
             </div>
             @endforeach
             @else
-            <p style="width: 100%; margin:auto;">No records.</p>
+            <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
             @endunless
         </div>
         
