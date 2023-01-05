@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArchiveController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponderController;
 use App\Http\Controllers\RequestsInfoController;
@@ -58,6 +59,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::get('/requests/search/status/{status}', [RequestsInfoController::class, 'searchStatus']);
         Route::get('/requests/search/location/{location}', [RequestsInfoController::class, 'searchLocation']);
     
+        // Send Message
+        Route::post('requests/{id}/chat', [ChatController::class, 'store']);
+        // Read Message
+        Route::get('requests/read/chat', [ChatController::class, 'index']);
+        // Delete Message
+        Route::delete('requests/{id}/chat/delete', [ChatController::class, 'destroy']);
 
         Route::get('/responders', [ResponderController::class, 'index']);
         Route::get('/responders/{id}', [ResponderController::class, 'show']);
