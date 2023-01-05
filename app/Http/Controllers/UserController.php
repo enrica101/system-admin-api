@@ -56,9 +56,7 @@ class UserController extends Controller
         $usersInfo = [];
         $today = date("Y-m-d");
         
-        // dd($use
             $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userId', $user['id'])->get();
-            // dd(count($requestsFromArchive));
             $completed = 0;
             $cancelled = 0;
 
@@ -69,7 +67,6 @@ class UserController extends Controller
                     }else if($requestsFromArchive[$j]->status == 'Completed'){
                         $completed++;
                     }
-                    
                 }
             }
 

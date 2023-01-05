@@ -1,4 +1,30 @@
 <x-layout>
+    <header>
+        <button class="btn btn-menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h2>Map Overview</h2>
+        <div class="right-header">
+            <!--PROFILE -->
+            <div class="profile">
+                <div class="avatar">
+                    <span>
+                        <small>Hey, {{auth()->user()->fname}}</small>
+                        <small>Admin</small>
+                    </span>
+                    <img src="img/avatar.png" alt="avatar">
+                </div>
+            </div>
+        </div>
+        {{-- PROFILE AREA --}}
+        <div class="profile-overview">
+            <img style="width:50px;margin:auto;" src="{{asset('img/avatar.png')}}" alt="avatar"><br>
+            <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
+            <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
+            <a href="/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
+        </div>
+    </header>
+
     <div id="map"></div>
 
 
@@ -6,6 +32,29 @@
             integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+    document.body.style.overflowY = 'hidden'
+    
+    const menuBtn = document.querySelector('.btn-menu');
+    const nav = document.querySelector('.overlay')
+    const closeBtnNav = document.querySelector('.btn-close-nav')
+    const profileBtn = document.querySelector('.avatar');
+    const profileOverView = document.querySelector('.profile-overview')
+    const footer = document.querySelector('.footer')
+
+    
+    // footer.style.display ='none'
+
+    menuBtn.addEventListener('click', () => {
+    nav.classList.add('active')
+    })
+
+    closeBtnNav.addEventListener('click', () => {
+        nav.classList.remove('active')
+    })
+
+    profileBtn.addEventListener('click', () => {
+    profileOverView.classList.toggle('active');
+})
 
     var marker, map, allMarkers = [];
 
@@ -120,7 +169,7 @@
         resetControlButton.style.cursor = "pointer";
         resetControlButton.style.fontFamily = "Roboto, sans-serif";
         resetControlButton.style.lineHeight = "38px";
-        resetControlButton.style.margin = "5px 20px";
+        resetControlButton.style.margin = "38px 20px";
         resetControlButton.style.padding = " 0 5px";
         resetControlButton.style.textAlign = "center";   
 
@@ -177,10 +226,10 @@
         //by pushing it on the position's array. This code will
         //implicity add the control to the DOM, through the map
         //object. You should not attach the control manually.
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(fireFilterControlDiv)
-        map.controls[google.maps.ControlPosition.LEFT_TOP].push(medicalFilterControlDiv)
-        map.controls[google.maps.ControlPosition.LEFT_TOP].push(policeFilterControlDiv)
-        map.controls[google.maps.ControlPosition.LEFT_TOP].push(resetFilterControlDiv)
+        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(fireFilterControlDiv)
+        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(medicalFilterControlDiv)
+        map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(policeFilterControlDiv)
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(resetFilterControlDiv)
         
         geo()
         function geo(){

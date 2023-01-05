@@ -21,10 +21,15 @@
     <title>System Dashboard</title>
 </head>
 <body>
-    
-    <nav>
-        <div class="topnav">
-            <img src="img/default-img-light.png" alt="">
+    <div class="overlay">
+    <nav class="sidenav">
+        <div class="nav-wrapper">
+            <span>
+                <img src="img/default-img-light.png" alt="">
+                <button class="btn btn-close-nav">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+            </span>
             <ul>
                 <a href="/dashboard"><li><i class="fa-solid fa-house"></i> Dashboard</li></a>
                 <a href="/map"><li><i class="fa-solid fa-map"></i> Map</li></a>
@@ -45,12 +50,15 @@
         </div>
         <a href="/export" class="btn btn-pdf">Download PDF</a>
     </nav>
+    </div>
+
     <div class="container">
     {{$slot}}
-    <footer>
+    
+    </div> <!-- Container div closing tag -->
+    <footer class="footer">
         <small>All Rights Reserved</small>
         <small>Copyrights by Sugod</small>
     </footer>
-    </div> <!-- Container div closing tag -->
 </body>
 </html>

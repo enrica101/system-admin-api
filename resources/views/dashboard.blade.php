@@ -1,6 +1,9 @@
 <x-layout>
  
     <header>
+        <button class="btn btn-menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
         <h2>Dashboard</h2>
         <div class="right-header">
             <!--PROFILE -->
@@ -12,7 +15,6 @@
                     </span>
                     <img src="img/avatar.png" alt="avatar">
                 </div>
-                <span class="icon icon-bell"><i class="fa-solid fa-bell"></i><span class="dot dot-notif"></span></span>
             </div>
         </div>
         {{-- PROFILE AREA --}}
@@ -24,95 +26,6 @@
         </div>
     </header>
 
-<!-- Notifications -->
-<div class="notif">
-    <div class="recent-activity">
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                </p>
-                <small>2 Minutes Ago</small>
-            </span>
-            
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Duis aute irure dolor in reprehenderit in
-                </p>
-                <small>4 Minutes Ago</small>
-            </span>
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Excepteur sint occaecat cupidatat non proident
-                </p>
-                <small>5 Minutes Ago</small>
-            </span>
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                </p>
-                <small>2 Minutes Ago</small>
-            </span>
-            
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Duis aute irure dolor in reprehenderit in
-                </p>
-                <small>4 Minutes Ago</small>
-            </span>
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Excepteur sint occaecat cupidatat non proident
-                </p>
-                <small>5 Minutes Ago</small>
-            </span>
-        </div><div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                </p>
-                <small>2 Minutes Ago</small>
-            </span>
-            
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Duis aute irure dolor in reprehenderit in
-                </p>
-                <small>4 Minutes Ago</small>
-            </span>
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Excepteur sint occaecat cupidatat non proident
-                </p>
-                <small>5 Minutes Ago</small>
-            </span>
-        </div>
-    </div>
-    <small class="see-more">See All</small>
-</div>
 <div class="below-header">
     <div class="date-border-wrap">
         <button class="prev"><i class="fa-solid fa-chevron-left"></i></button>
@@ -123,11 +36,10 @@
     </div>
 </div>
 
-
 <div class="center">
 <div class="left">
     <div class="top">
-        <h3>Responders Overview</h3>
+        <h3 class="title">Responders Overview</h3>
         <div class="responders-data">
             <div class="square">
                 <canvas id="chart1"></canvas>
@@ -150,7 +62,7 @@
     </div>
 </div>
 <div class="right">
-    <h3>Requests Overview</h3>
+    <h3 class="title">Requests Overview</h3>
     <div class="requests-data">
         <div class="rectangle">
             <div class="content">
@@ -187,18 +99,19 @@
 </div>
 </div>
 
-
-</div> <!-- Container div closing tag -->
-</div>
 <script src="scripts/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.js"></script>
 
 <script>
+const menuBtn = document.querySelector('.btn-menu');
+const nav = document.querySelector('.overlay')
+const closeBtnNav = document.querySelector('.btn-close-nav')
+
 const profileBtn = document.querySelector('.avatar');
 const profileOverView = document.querySelector('.profile-overview')
-const notifBtn = document.querySelector('.icon-bell')
-const notifOverview = document.querySelector('.notif')
+// const notifBtn = document.querySelector('.icon-bell')
+// const notifOverview = document.querySelector('.notif')
 const chart1 = document.getElementById('chart1').getContext('2d')
 
 const chart2 = document.getElementById('chart2').getContext('2d')
@@ -221,13 +134,18 @@ let request3Tally = document.querySelector('.request3Tally')
 let request4Tally = document.querySelector('.request4Tally')
 let request5Tally = document.querySelector('.request5Tally')
 
+menuBtn.addEventListener('click', () => {
+    nav.classList.add('active')
+})
+
+closeBtnNav.addEventListener('click', () => {
+    nav.classList.remove('active')
+})
+
 profileBtn.addEventListener('click', () => {
     profileOverView.classList.toggle('active');
 })
 
-notifBtn.addEventListener('click', () => {
-    notifOverview.classList.toggle('active');
-})
 
 //---------------CHART 1------------------
 const data ={

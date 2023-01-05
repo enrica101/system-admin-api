@@ -11,7 +11,6 @@
                     </span>
                     <img src="img/avatar.png" alt="avatar">
                 </div>
-                <span class="icon icon-bell"><i class="fa-solid fa-bell"></i><span class="dot dot-notif"></span></span>
             </div>
         </div>
         {{-- PROFILE AREA --}}
@@ -23,95 +22,7 @@
         </div>
     </header>
 
-<!-- Notifications -->
-<div class="notif">
-    <div class="recent-activity">
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                </p>
-                <small>2 Minutes Ago</small>
-            </span>
-            
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Duis aute irure dolor in reprehenderit in
-                </p>
-                <small>4 Minutes Ago</small>
-            </span>
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Excepteur sint occaecat cupidatat non proident
-                </p>
-                <small>5 Minutes Ago</small>
-            </span>
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                </p>
-                <small>2 Minutes Ago</small>
-            </span>
-            
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Duis aute irure dolor in reprehenderit in
-                </p>
-                <small>4 Minutes Ago</small>
-            </span>
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Excepteur sint occaecat cupidatat non proident
-                </p>
-                <small>5 Minutes Ago</small>
-            </span>
-        </div><div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                </p>
-                <small>2 Minutes Ago</small>
-            </span>
-            
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Duis aute irure dolor in reprehenderit in
-                </p>
-                <small>4 Minutes Ago</small>
-            </span>
-        </div>
-        <div class="item-activity">
-            <img src="img/avatar.png" alt="">
-            <span>
-                <p class="message">
-                    Excepteur sint occaecat cupidatat non proident
-                </p>
-                <small>5 Minutes Ago</small>
-            </span>
-        </div>
-    </div>
-    <small class="see-more">See All</small>
-</div>
+
 @if(session()->has('message'))
 <div class="message" x-data="{show: true}" x-init="setTimeout(() => show=false, 2000)" x-show="show" x-transition.duration.500ms>
     <p>{{session('message')}}</p>

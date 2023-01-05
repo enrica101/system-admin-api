@@ -4,6 +4,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArchiveController;
@@ -46,7 +47,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
     Route::get('sysad/graphData', [AdminController::class, 'getGraphData']);
     Route::get('sysad/graphData/byDate/{date}', [AdminController::class, 'getDataByDate']);
 
-
   //Requests
         Route::get('/requests', [RequestsInfoController::class, 'index']);
         Route::get('/requests/available', [RequestsInfoController::class, 'indexAvailable']);
@@ -58,6 +58,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::get('/requests/search/status/{status}', [RequestsInfoController::class, 'searchStatus']);
         Route::get('/requests/search/location/{location}', [RequestsInfoController::class, 'searchLocation']);
     
+        // Send Message
+        Route::post('requests/{id}/chat', [ChatController::class, 'store']);
+        // Read Message
+        Route::get('requests/read/chat', [ChatController::class, 'index']);
+        // Delete Message
+        Route::delete('requests/{id}/chat/delete', [ChatController::class, 'destroy']);
 
         Route::get('/responders', [ResponderController::class, 'index']);
         Route::get('/responders/{id}', [ResponderController::class, 'show']);
@@ -84,6 +90,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         
         Route::get('archive/requests/search/{id}', [ArchiveController::class, 'searchRequestArchive']);
         Route::get('archive/responses/search/{id}', [ArchiveController::class, 'searchResponsesArchive']);
+
 
 
 

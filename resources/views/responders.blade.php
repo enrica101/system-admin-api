@@ -12,7 +12,6 @@
                     </span>
                     <img src="img/avatar.png" alt="avatar">
                 </div>
-                <span class="icon icon-bell"><i class="fa-solid fa-bell"></i><span class="dot dot-notif"></span></span>
                     </div>
                 </div>
             {{-- PROFILE AREA --}}
@@ -24,107 +23,17 @@
             </div>
             </header>
 
-        <!-- Notifications -->
-        <div class="notif">
-            <div class="recent-activity">
-                <div class="item-activity">
-                    <img src="img/avatar.png" alt="">
-                    <span>
-                        <p class="message">
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        </p>
-                        <small>2 Minutes Ago</small>
-                    </span>
-                    
-                </div>
-                <div class="item-activity">
-                    <img src="img/avatar.png" alt="">
-                    <span>
-                        <p class="message">
-                            Duis aute irure dolor in reprehenderit in
-                        </p>
-                        <small>4 Minutes Ago</small>
-                    </span>
-                </div>
-                <div class="item-activity">
-                    <img src="img/avatar.png" alt="">
-                    <span>
-                        <p class="message">
-                            Excepteur sint occaecat cupidatat non proident
-                        </p>
-                        <small>5 Minutes Ago</small>
-                    </span>
-                </div>
-                <div class="item-activity">
-                    <img src="img/avatar.png" alt="">
-                    <span>
-                        <p class="message">
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        </p>
-                        <small>2 Minutes Ago</small>
-                    </span>
-                    
-                </div>
-                <div class="item-activity">
-                    <img src="img/avatar.png" alt="">
-                    <span>
-                        <p class="message">
-                            Duis aute irure dolor in reprehenderit in
-                        </p>
-                        <small>4 Minutes Ago</small>
-                    </span>
-                </div>
-                <div class="item-activity">
-                    <img src="img/avatar.png" alt="">
-                    <span>
-                        <p class="message">
-                            Excepteur sint occaecat cupidatat non proident
-                        </p>
-                        <small>5 Minutes Ago</small>
-                    </span>
-                </div><div class="item-activity">
-                    <img src="img/avatar.png" alt="">
-                    <span>
-                        <p class="message">
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        </p>
-                        <small>2 Minutes Ago</small>
-                    </span>
-                    
-                </div>
-                <div class="item-activity">
-                    <img src="img/avatar.png" alt="">
-                    <span>
-                        <p class="message">
-                            Duis aute irure dolor in reprehenderit in
-                        </p>
-                        <small>4 Minutes Ago</small>
-                    </span>
-                </div>
-                <div class="item-activity">
-                    <img src="img/avatar.png" alt="">
-                    <span>
-                        <p class="message">
-                            Excepteur sint occaecat cupidatat non proident
-                        </p>
-                        <small>5 Minutes Ago</small>
-                    </span>
-                </div>
-            </div>
-            <small class="see-more">See All</small>
-        </div>
-
     <div class="below-header">
-        <select name="type" id="type">
+        <select name="type" id="type" class="tab">
             <option value="">Select type</option>
             <option value="All">All</option>
             <option value="Fire & Rescue">Fire & Rescue</option>
             <option value="Medical">Medical</option>
             <option value="Police">Police</option>
         </select>
-        <div class="all active"><h4>All Responders</h4></div>
-        <div class="second"><h4>Idle Responders</h4></div>
-        <div class="third"><h4>Handling Requests</h4></div>
+        <div class="tab all active"><h4>All Responders</h4></div>
+        <div class="tab second"><h4>Idle Responders</h4></div>
+        <div class="tab third"><h4>Handling Requests</h4></div>
 
         {{-- <form action="/users" class="search">
             <input type="text" name="search-bar" id="search-bar" placeholder="Search">
@@ -134,83 +43,95 @@
         </form> --}}
     </div>
 
-<div class="responder center">
-    <div class="left">
-        <div class="table show">
-            <div class="table-header">
-                <div class="table-col-1">ID</div>
-                <div class="table-col-1">Name</div>
-                <div class="table-col-1">Responder Type</div>
-                <div class="table-col-1">Request ID</div>
-                <div class="table-col-1">Status</div>
-                <div class="table-col-1">Timestamp</div>
-            </div>
+<div class="responders">
+    <div class="tables">
+        <table class="table show">
+            <thead class="table-header">
+                <tr>
+                <th class="table-col-1">ID</th>
+                <th class="table-col-1">Name</th>
+                <th class="table-col-1">Responder Type</th>
+                <th class="table-col-1">Request ID</th>
+                <th class="table-col-1">Status</th>
+                <th class="table-col-1">Timestamp</th>
+            </tr>
+            </thead>
+            <tbody>
             @unless(count($responses) == 0)
             @forEach($responses as $response)
-            <div class="table-row" id="{{$response['responderID']}}">
-                <div class="table-cols" id="{{$response['responderID']}}">{{$response['responderID']}}</div>
-                <div class="table-cols" id="{{$response['responderID']}}">{{$response['fname']}} {{$response['lname']}}</div>
-                <div class="table-cols" id="{{$response['responderID']}}">{{$response['responderType']}}</div>
-                <div class="table-cols" id="{{$response['responderID']}}">{{$response['requestID']}}</div>
-                <div class="table-cols" id="{{$response['responderID']}}">{{$response['status']}}</div>
-                <div class="table-cols" id="{{$response['responderID']}}">{{$response['created_at']}}</div>
-            </div>
+            <tr class="table-row" id="{{$response['responderID']}}">
+                <td class="table-cols" id="{{$response['responderID']}}">{{$response['responderID']}}</td>
+                <td class="table-cols" id="{{$response['responderID']}}">{{$response['fname']}} {{$response['lname']}}</td>
+                <td class="table-cols" id="{{$response['responderID']}}">{{$response['responderType']}}</td>
+                <td class="table-cols" id="{{$response['responderID']}}">{{$response['requestID']}}</td>
+                <td class="table-cols" id="{{$response['responderID']}}">{{$response['status']}}</td>
+                <td class="table-cols" id="{{$response['responderID']}}">{{$response['created_at']}}</td>
+            </tr>
             @endforeach
             @else
             <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
             @endunless
-        </div>
-        <div class="table">
-            <div class="table-header">
-                <div class="table-col-1">ID</div>
-                <div class="table-col-1">Name</div>
-                <div class="table-col-1">Responder Type</div>
-                <div class="table-col-1">Request ID</div>
-                <div class="table-col-1">Status</div>
-                <div class="table-col-1">Timestamp</div>
-            </div>
+        </tbody>
+        </table>
+        <table class="table">
+            <thead class="table-header">
+                <tr>
+                <th class="table-col-1">ID</th>
+                <th class="table-col-1">Name</th>
+                <th class="table-col-1">Responder Type</th>
+                <th class="table-col-1">Request ID</th>
+                <th class="table-col-1">Status</th>
+                <th class="table-col-1">Timestamp</th>
+            </tr>
+            </thead>
+            <tbody>
             @unless(count($responses) == 0)
             @forEach($idleResponders as $idleResponder)
-            <div class="table-row" id="{{$idleResponder['responderID']}}">
-                <div class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['responderID']}}</div>
-                <div class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['fname']}} {{$idleResponder['lname']}}</div>
-                <div class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['responderType']}}</div>
-                <div class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['requestID']}}</div>
-                <div class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['status']}}</div>
-                <div class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['created_at']}}</div>
-            </div>
+            <tr class="table-row" id="{{$idleResponder['responderID']}}">
+                <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['responderID']}}</td>
+                <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['fname']}} {{$idleResponder['lname']}}</td>
+                <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['responderType']}}</td>
+                <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['requestID']}}</td>
+                <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['status']}}</td>
+                <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['created_at']}}</td>
+            </tr>
             @endforeach
             @else
             <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No records.</p>
             @endunless
-        </div>
-        <div class="table">
-            <div class="table-header">
-                <div class="table-col-1">ID</div>
-                <div class="table-col-1">Name</div>
-                <div class="table-col-1">Responder Type</div>
-                <div class="table-col-1">Request ID</div>
-                <div class="table-col-1">Status</div>
-                <div class="table-col-1">Timestamp</div>
-            </div>
+        </tbody>
+        </table>
+        <table class="table">
+            <thead class="table-header">
+                <tr>
+                <th class="table-col-1">ID</th>
+                <th class="table-col-1">Name</th>
+                <th class="table-col-1">Responder Type</th>
+                <th class="table-col-1">Request ID</th>
+                <th class="table-col-1">Status</th>
+                <th class="table-col-1">Timestamp</th>
+            </tr>
+            </thead>
+            <tbody>
             @unless(count($responses) == 0)
             @forEach($handlingRequests as $handlingRequest)
-            <div class="table-row" id="{{$handlingRequest['responderID']}}">
-                <div class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['responderID']}}</div>
-                <div class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['fname']}} {{$handlingRequest['lname']}}</div>
-                <div class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['responderType']}}</div>
-                <div class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['requestID']}}</div>
-                <div class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['status']}}</div>
-                <div class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['created_at']}}</div>
-            </div>
+            <tr class="table-row" id="{{$handlingRequest['responderID']}}">
+                <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['responderID']}}</td>
+                <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['fname']}} {{$handlingRequest['lname']}}</td>
+                <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['responderType']}}</td>
+                <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['requestID']}}</td>
+                <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['status']}}</td>
+                <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['created_at']}}</td>
+            </tr>
             @endforeach
             @else
             <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
             @endunless
-        </div>
+        </tbody>
+        </table>
         
     </div>
-    <div class="right">
+    <div class="view">
         <h4>Select a responder to see more information.</h4>
         
     </div>
@@ -222,7 +143,7 @@
         const thirdBtn = document.querySelector('.third');
         const tables = document.querySelectorAll('.table');    
         const rowSelect = document.querySelectorAll('.table-row');
-        const rightViewer = document.querySelector('.right')
+        const rightViewer = document.querySelector('.view')
         const imageBorder = document.querySelector('.border-line')
         const filterSelect = document.getElementById('type')
         const table = document.querySelector('.table.show')
@@ -267,17 +188,17 @@
         })
 
         //in support of the responder type filtering 
-        if(window.performance){
-            console.log('this is window performance working')
-        }
-        if (performance.navigation.type == 1) {
-                window.location.href = "http://system-admin.herokuapp.com/responders"
-        }
+        // if(window.performance){
+        //     console.log('this is window performance working')
+        // }
+        // if (performance.navigation.type == 1) {
+        //         window.location.href = "http://system-admin.herokuapp.com/responders"
+        // }
 
         filterSelect.addEventListener('change', (e) => {
             
             console.log(e.target.value)
-            const url = new URL('http://system-admin.herokuapp.com/responders');
+            const url = new URL('http://127.0.0.1:8000/responders');
             url.searchParams.append('type', e.target.value);
             const urlString = url.toString();
             window.location.href = urlString;
@@ -316,23 +237,6 @@
                                     <h4>${responder['type']}</h4>
                                 </span>
                             </span>
-                            <div class="responder-responses">
-                                <h4>Request Responses</h4>
-                                    <div class="statusCounts">
-                                        <span>
-                                        <h3>${responder['ongoingRequest']}</h3>
-                                            <h5>Ongoing</h5> 
-                                        </span>
-                                        <span>
-                                        <h3>${responder['completedRequests']}</h3>
-                                            <h5>Completed</h5> 
-                                        </span>
-                                        <span>
-                                            <h3>${responder['cancelledRequests']}</h3>
-                                            <h5>Cancelled</h5>
-                                        </span>
-                                    </div>
-                            </div>
                         </div>
                         <div class="middle">
                             <div>
@@ -352,7 +256,21 @@
                             </div>
                         </div>
                         <div class="bottom">
-                            
+                            <h4>Request Responses</h4>
+                                    <div class="statusCounts">
+                                        <span>
+                                        <h3>${responder['ongoingRequest']}</h3>
+                                            <h5>Ongoing</h5> 
+                                        </span>
+                                        <span>
+                                        <h3>${responder['completedRequests']}</h3>
+                                            <h5>Completed</h5> 
+                                        </span>
+                                        <span>
+                                            <h3>${responder['cancelledRequests']}</h3>
+                                            <h5>Cancelled</h5>
+                                        </span>
+                                    </div>
                         </div>
                     </div>`
                 }else if(responder['type'] == 'Medical'){

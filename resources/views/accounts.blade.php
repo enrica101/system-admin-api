@@ -1,5 +1,8 @@
 <x-layout>
     <header>
+        <button class="btn btn-menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
         <h2>Users</h2>
         <div class="right-header">
             <!--PROFILE -->
@@ -11,111 +14,20 @@
                     </span>
                     <img src="img/avatar.png" alt="avatar">
                 </div>
-                <span class="icon icon-bell"><i class="fa-solid fa-bell"></i><span class="dot dot-notif"></span></span>
             </div>
         </div>
         {{-- PROFILE AREA --}}
         <div class="profile-overview">
-            <img style="width:50px;margin:auto;" src="{{ asset('img/avatar.png')}}" alt="avatar"><br>
+            <img style="width:50px;margin:auto;" src="{{asset('img/avatar.png')}}" alt="avatar"><br>
             <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
             <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
             <a href="/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
         </div>
-        </header>
+    </header>
   
-            <!-- Notifications -->
-            <div class="notif">
-                <div class="recent-activity">
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            </p>
-                            <small>2 Minutes Ago</small>
-                        </span>
-                        
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Duis aute irure dolor in reprehenderit in
-                            </p>
-                            <small>4 Minutes Ago</small>
-                        </span>
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Excepteur sint occaecat cupidatat non proident
-                            </p>
-                            <small>5 Minutes Ago</small>
-                        </span>
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            </p>
-                            <small>2 Minutes Ago</small>
-                        </span>
-                        
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Duis aute irure dolor in reprehenderit in
-                            </p>
-                            <small>4 Minutes Ago</small>
-                        </span>
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Excepteur sint occaecat cupidatat non proident
-                            </p>
-                            <small>5 Minutes Ago</small>
-                        </span>
-                    </div><div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            </p>
-                            <small>2 Minutes Ago</small>
-                        </span>
-                        
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Duis aute irure dolor in reprehenderit in
-                            </p>
-                            <small>4 Minutes Ago</small>
-                        </span>
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Excepteur sint occaecat cupidatat non proident
-                            </p>
-                            <small>5 Minutes Ago</small>
-                        </span>
-                    </div>
-                </div>
-                <small class="see-more">See All</small>
-            </div>
-
             <div class="below-header users">
-                <div class="all active"><h4>All Users</h4></div>
-                <div class="second"><h4>Users Requests</h4></div>
+                <div class="tab all active"><h4>All Users</h4></div>
+                <div class="tab second"><h4>Users Requests</h4></div>
 
                 {{-- <form action="/users" class="search">
                     <input type="text" name="search-bar" id="search-bar" placeholder="Search">
@@ -125,30 +37,33 @@
                 </form> --}}
             </div>
 
-        <div class="responder center">
-            <div class="left">
-                <div class="table show">
-                    <div class="table-header">
-                        <div class="table-col-1">ID</div>
-                        <div class="table-col-1" style="">Name</div>
-                        <div class="table-col-1">Gender</div>
-                        <div class="table-col-1">Age</div>
-                        <div class="table-col-1">Contact Number</div>
-                        <div class="table-col-1">Email Address</div>
-                        <div class="table-col-1">Registered on</div>
-                    </div>
+        <div class="users-table">
+            <div class="tables">
+                <table class="table show">
+                    <thead class="table-header">
+                        <tr>
+                        <th class="table-col-1">ID</th>
+                        <th class="table-col-1">Name</th>
+                        <th class="table-col-1">Gender</th>
+                        <th class="table-col-1">Age</th>
+                        <th class="table-col-1">Contact Number</th>
+                        <th class="table-col-1">Email Address</th>
+                        <th class="table-col-1">Registered on</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @unless(count($users) == 0)
                         @forEach($users as $user)
                             
-                            <div class="table-row" id="{{$user['id']}}">
-                            <div class="table-cols"  id="{{$user['id']}}" >{{$user['id']}}</div>
-                            <div class="table-cols"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</div>
-                            <div class="table-cols"  id="{{$user['id']}}"  >{{$user['gender']}}</div>
-                            <div class="table-cols"  id="{{$user['id']}}" >{{$user['age']}}</div>
-                            <div class="table-cols"  id="{{$user['id']}}"  >{{$user['contactNumber']}}</div>
-                            <div class="table-cols"  id="{{$user['id']}}"  >{{$user['email']}}</div>
-                            <div class="table-cols"  id="{{$user['id']}}"  >{{$user['created_at']}}</div>
-                            </div>
+                            <tr class="table-row" id="{{$user['id']}}">
+                                <td class="table-cols"  id="{{$user['id']}}" >{{$user['id']}}</td>
+                                <td class="table-cols"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</td>
+                                <td class="table-cols"  id="{{$user['id']}}"  >{{$user['gender']}}</td>
+                                <td class="table-cols"  id="{{$user['id']}}" >{{$user['age']}}</td>
+                                <td class="table-cols"  id="{{$user['id']}}"  >{{$user['contactNumber']}}</td>
+                                <td class="table-cols"  id="{{$user['id']}}"  >{{$user['email']}}</td>
+                                <td class="table-cols"  id="{{$user['id']}}"  >{{$user['created_at']}}</td>
+                            </tr>
     
                         @endforeach
     
@@ -156,31 +71,35 @@
                         <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
     
                         @endunless
-                </div>
-                <div class="table">
-                    <div class="table-header">
-                        <div class="table-col-1">ID</div>
-                        <div class="table-col-1" style="">Name</div>
-                        <div class="table-col-1">Completed Requests</div>
-                        <div class="table-col-1">Cancelled Requests</div>
-                    </div>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <thead class="table-header">
+                        <tr>
+                        <th class="table-col-1">ID</th>
+                        <th class="table-col-1">Name</th>
+                        <th class="table-col-1">Completed</th>
+                        <th class="table-col-1">Cancelled</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @unless(count($users) == 0)
                         @forEach($users as $user)
     
-                            <div class="table-row" id="{{$user['id']}}">
-                                <div class="table-cols" style="width: 60px;" id="{{$user['id']}}" >
+                            <tr class="table-row" id="{{$user['id']}}">
+                                <td class="table-cols" id="{{$user['id']}}" >
                                     {{$user['id']}}
-                                </div>
-                                <div class="table-cols" style="width: 190px; text-align:center;"  id="{{$user['id']}}" >
+                                </td>
+                                <td class="table-cols"  id="{{$user['id']}}" >
                                     {{$user['fname']}} {{$user['lname']}}
-                                </div>
-                                <div class="table-cols" style="width: 190px; text-align:center;" id="{{$user['id']}}">
+                                </td>
+                                <td class="table-cols" id="{{$user['id']}}">
                                     {{$user['completedRequests']}}
-                                </div>
-                                <div class="table-cols" style="width: 150px; text-align:right;"  id="{{$user['id']}}" >
+                                </td>
+                                <td class="table-cols"  id="{{$user['id']}}" >
                                     {{$user['cancelledRequests']}}
-                                </div>
-                            </div>
+                                </td>
+                            </tr>
     
                         @endforeach
     
@@ -188,26 +107,43 @@
                         <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
     
                         @endunless
-                </div>
+                        
+                        
+                    </tbody>
+                </table>
                 
             </div>
-            <div class="right">
+            <div class="view">
                 <h4>Select a user to see more information.</h4>
                 
             </div>
         </div>
+
 <script src="scripts/main.js"></script>
 <script>
+    const menuBtn = document.querySelector('.btn-menu');
+    const nav = document.querySelector('.overlay')
+    const closeBtnNav = document.querySelector('.btn-close-nav')
+
     const profileBtn = document.querySelector('.avatar');
     const profileOverView = document.querySelector('.profile-overview')
+
     const allBtn = document.querySelector('.all');
     const secondBtn = document.querySelector('.second');
     const tables = document.querySelectorAll('.table');
     const rowSelect = document.querySelectorAll('.table-row');
-    const rightViewer = document.querySelector('.right')
+    const rightViewer = document.querySelector('.view')
     
     profileBtn.addEventListener('click', () => {
         profileOverView.classList.toggle('active');
+    })
+
+    menuBtn.addEventListener('click', () => {
+    nav.classList.add('active')
+    })
+
+    closeBtnNav.addEventListener('click', () => {
+        nav.classList.remove('active')
     })
 
     allBtn.addEventListener('click', () => {
@@ -255,6 +191,21 @@ function displayUserInfo(data){
                         
                     </div>
                     <div class="middle">
+                        <div>
+                            Contact Number: <p>${data['contactNumber']}</p>
+                        </div>
+                        <div>
+                            Gender: <p>${data['gender']}</p>
+                        </div>
+                        <div>
+                            Age: <p>${data['age']}</p>
+                        </div>
+                        <div>
+                            Joined: <p>${data['joined']}</p>
+                        </div>
+                    </div>
+                    <hr><br>
+                    <div class="bottom">
                         <h4>Requests</h4>
                         <div class="statusCounts">
                             <span>
@@ -269,20 +220,6 @@ function displayUserInfo(data){
                                 <h3>${data['cancelledRequests']}</h3>
                             <h5>Cancelled</h5>
                             </span>
-                        </div>
-                    </div>
-                    <div class="bottom">
-                        <div>
-                            Contact Number: <p>${data['contactNumber']}</p>
-                        </div>
-                        <div>
-                            Gender: <p>${data['gender']}</p>
-                        </div>
-                        <div>
-                            Age: <p>${data['age']}</p>
-                        </div>
-                        <div>
-                            Joined: <p>${data['joined']}</p>
                         </div>
                     </div>
                 </div>`

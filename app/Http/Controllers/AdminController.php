@@ -77,7 +77,7 @@ class AdminController extends Controller
                 'allOngoingRequests' => $allOngoingRequests,
                 'allCompletedRequests' => $allCompletedRequests,
                 'allCancelledRequests' => $allCancelledRequests,
-                // 'allIdleRequests' => $allIdleResponders,
+                'allIdleRequests' => $allIdleResponders,
                 'allResponders' => $allResponders,
                 'allHandlingResponders' => $allHandlingResponders,
                 'allAccounts' => $allAccounts,

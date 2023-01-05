@@ -4,17 +4,19 @@
 /* ************************* */
 body{
     overflow: hidden;
+    height: 100vh;
 }
 
-.container.login, 
+.container.login,
 .container.register{
-    background-color: #323232;
+     background-color: #323232;
     display: flex;
     /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
+    /* min-width: 400px; */
     left: 0;
 }
 
@@ -30,12 +32,12 @@ body{
     height: fit-content;
     border-radius: 10px;
     box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
-    
 }
 
 .default-register{
     overflow: auto;
-    height: 80vh;
+    max-height: 800px;
+    height: 600px;
     overflow-x: hidden;
 }
 
@@ -154,12 +156,12 @@ form input[type=submit]:hover{
 /* MOBILE CSS */
 /* *********** */
 
-@media screen and (max-width: 600px) {
-    .default-login,
+@media screen and (min-width: 360px) {
+    /* .default-login,
     .default-register{
         height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
-    }
+    } */
   }
