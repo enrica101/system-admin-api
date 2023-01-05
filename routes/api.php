@@ -8,7 +8,6 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArchiveController;
-use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\ResponderController;
 use App\Http\Controllers\RequestsInfoController;
