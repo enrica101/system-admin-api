@@ -144,7 +144,6 @@ class AdminController extends Controller
                 ]
             ]);
         }
-
     }
 
     public function getGraphData(){

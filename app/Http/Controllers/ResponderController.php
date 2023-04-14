@@ -53,8 +53,13 @@ class ResponderController extends Controller
         
         $usersContainer = [];
         for($j=0;$j<count($allResponders);$j++){
+            if($allResponders[$j]['userId']){
             $users = User::where('id', $allResponders[$j]['userId'])->first()->toArray();
             array_push($usersContainer, $users);
+        }else if($allResponders[$j]['id']){
+            $users = User::where('id', $allResponders[$j]['id'])->first()->toArray();
+            array_push($usersContainer, $users);
+        }
         }
         
         $responses = [];
