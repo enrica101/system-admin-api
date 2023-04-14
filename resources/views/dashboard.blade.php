@@ -165,6 +165,8 @@ const data ={
     }],
 }
 
+console.log('')
+
 const config = {
 type: 'doughnut', 
 data,
