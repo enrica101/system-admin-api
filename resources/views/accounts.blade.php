@@ -238,6 +238,10 @@ function displayUserInfo(data){
                                 <h3>${data['cancelledRequests']}</h3>
                             <h5>Cancelled</h5>
                             </span>
+                            <span>
+                                <h3>${data['bogusRequests']}</h3>
+                            <h5>Bogus</h5>
+                            </span>
                         </div>
                         <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${ (data['bogusRequests']/data['all']*100).toFixed(2)}%</h4></div>
                     </div>
