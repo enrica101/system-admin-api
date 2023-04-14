@@ -17,15 +17,15 @@ class AdminController extends Controller
 
     public function getDataByDate(Request $request){
         if($request['end'] === 'null'){
-            $allRequests = count(RequestsInfo::where('created_at', 'like', '%'.$request['start'].'%')->get());
+            $allRequests = count(RequestsInfo::withTrashed()->where('created_at', 'like', '%'.$request['start'].'%')->get());
             $allAvailableRequests = count(RequestsInfo::withTrashed()->where('created_at', 'like', '%'.$request['start'].'%')->where('status', 'like', '%'.'Searching'.'%')->get());
             $allOngoingRequests = count(Response::where('created_at', 'like', '%'.$request['start'].'%')->get());
             $allCompletedRequests = count(RequestsInfo::onlyTrashed()->where('updated_at', 'like', '%'.$request['start'].'%')->where('status', 'Completed')->get());
             $allCancelledRequests = count(RequestsInfo::onlyTrashed()->where('updated_at', 'like', '%'.$request['start'].'%')->where('status', 'Cancelled')->get());
             $allRespondersHandlingRequests = Response::where('created_at', 'like', '%'.$request['start'].'%')->get();
-            $allIdleResponders = $allRequests;
             $allResponders = count(Responder::where('created_at', 'like', '%'.$request['start'].'%')->get());
             $allHandlingResponders = count($allRespondersHandlingRequests);
+            $allIdleResponders = $allResponders;
             $allAccounts = count(User::where('created_at', 'like', '%'.$request['start'].'%')->get());
             $allRoleUsers = count(User::where('created_at', 'like', '%'.$request['start'].'%')->where('role', 'User')->get());
             $allRoleResponders = count(User::where('created_at', 'like', '%'.$request['start'].'%')->where('role', 'Responder')->get());
@@ -53,9 +53,9 @@ class AdminController extends Controller
             $allOngoingRequests = count(Response::whereBetween('created_at', [$request['start'],$request['end']])->get());
             $allCompletedRequests = count(RequestsInfo::onlyTrashed()->whereBetween('updated_at', [$request['start'],$request['end']])->where('status', 'Completed')->get());
             $allCancelledRequests = count(RequestsInfo::onlyTrashed()->whereBetween('created_at', [$request['start'],$request['end']])->where('status', 'Cancelled')->get());
-            $allIdleResponders = $allRequests;
             $allRespondersHandlingRequests = Response::whereBetween('created_at', [$request['start'],$request['end']])->get();
             $allResponders = count(Responder::whereBetween('created_at', [$request['start'],$request['end']])->get());
+            $allIdleResponders = $allResponders;
             $allHandlingResponders = count($allRespondersHandlingRequests);
             $allAccounts = count(User::whereBetween('created_at', [$request['start'],$request['end']])->get());
             $allRoleUsers = count(User::whereBetween('created_at', [$request['start'],$request['end']])->where('role', 'User')->get());

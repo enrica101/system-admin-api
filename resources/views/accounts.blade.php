@@ -152,7 +152,7 @@
         searchBtn.addEventListener('click', ()=>{
             console.log(searchUser.value)
                 if(searchUser.value !='' && searchUser.value != null){
-                    const url = new URL('http://127.0.0.1:8000/accounts');
+                    const url = new URL('http://system-admin.herokuapp.com/accounts');
                     url.searchParams.append('name', searchUser.value);
                     const urlString = url.toString();
                     window.location.href = urlString;
