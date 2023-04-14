@@ -227,6 +227,30 @@ section.wrapper{
         grid-area: statistics;
         padding-top: 5%;
 
+        .locationFilter{
+            display: grid;
+            grid-template-columns: 1fr 1fr;            
+            width: 90%;
+            button{
+                width: fit-content;
+                justify-self: end;
+                font-family: var(--secondary-font-family);
+                font-weight: 500;
+                font-size: 14px;
+                margin-bottom: 25px;
+                padding: 10px 12px;
+
+                background-color: #FB993530;
+                color: #323232;
+                border-radius: 5px;
+                border: none;
+                i{
+                    color: #FB993550;
+                    margin-right: 5px;
+                }
+            }
+        }
+
         .statistics{
             display: grid;
             grid-template-columns: 90%;

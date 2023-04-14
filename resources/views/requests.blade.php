@@ -286,13 +286,13 @@
             console.log('this is window performance working')
         }
         if (performance.navigation.type == 1) {
-                window.location.href = "http://system-admin.herokuapp.com/requests"
+                window.location.href = "http://127.0.0.1:8000/requests"
         }
 
         filterSelect.addEventListener('change', (e) => {
             
             console.log(e.target.value)
-            const url = new URL('http://system-admin.herokuapp.com/requests');
+            const url = new URL('http://127.0.0.1:8000/requests');
             url.searchParams.append('type', e.target.value);
             const urlString = url.toString();
             window.location.href = urlString;

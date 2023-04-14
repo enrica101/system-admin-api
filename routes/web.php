@@ -55,8 +55,6 @@ Route::get('/mail', function () {
 
 Route::get('/accounts', [AdminController::class, 'getRoleUsers']);
 
-// Route::get('/send-mail', [MailController::class, 'sendMail']);
-
 Route::put('/settings',[AdminController::class, 'update'])->middleware('auth');
 
 Route::post('/create', [AdminController::class, 'store']);

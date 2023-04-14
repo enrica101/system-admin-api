@@ -182,20 +182,20 @@ class ResponseController extends Controller
                     $message = "Something went wrong. Cannot update.";
                 }
                 break;
-                case '7':
-                    $responseUpdated = Response::where('requestId', $id)->update(['status' => "Bogus"]);
-                    if($responseUpdated){
-                        $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => "Archived!"]);
-                        if($requestUpdated){
-                            if(RequestsInfo::where('id', $id)->delete()){
-                                Response::where('requestId', $id)->delete();
-                                $message = "Request is completed and is moved to archives.";
-                            }
+            case '7':
+                $responseUpdated = Response::where('requestId', $id)->update(['status' => "Bogus"]);
+                if($responseUpdated){
+                    $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => "Archived!"]);
+                    if($requestUpdated){
+                        if(RequestsInfo::where('id', $id)->delete()){
+                            Response::where('requestId', $id)->delete();
+                            $message = "Request is completed and is moved to archives.";
                         }
-                    }else{
-                        $message = "Something went wrong. Cannot update.";
                     }
-                    break;
+                }else{
+                    $message = "Something went wrong. Cannot update.";
+                }
+                break;
             case '0':
                 $responseUpdated = Response::where('requestId', $id)->update(['status' => "Cancelled"]);
                 if($responseUpdated){

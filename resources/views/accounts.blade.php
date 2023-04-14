@@ -152,7 +152,7 @@
         searchBtn.addEventListener('click', ()=>{
             console.log(searchUser.value)
                 if(searchUser.value !='' && searchUser.value != null){
-                    const url = new URL('http://system-admin.herokuapp.com/accounts');
+                    const url = new URL('http://127.0.0.1:8000/accounts');
                     url.searchParams.append('name', searchUser.value);
                     const urlString = url.toString();
                     window.location.href = urlString;
@@ -239,6 +239,7 @@ function displayUserInfo(data){
                             <h5>Cancelled</h5>
                             </span>
                         </div>
+                        <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${data['bogusRequests'] && data['bogusRequests']/data['all']*100}%</h4></div>
                     </div>
                 </div>`
 }

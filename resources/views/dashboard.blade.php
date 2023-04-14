@@ -55,7 +55,13 @@
     </div>
 </header>
 <div class="right">
-    <h3 class="title">Requests Overview</h3>
+    <div class="locationFilter">
+        <h3 class="title">Requests Overview</h3>
+        {{-- <button><i class="fa-solid fa-filter"></i> By location</button> --}}
+        <select class="locations">
+            <option value="">Select location</option>
+        </select>
+    </div>
     <div class="statistics">
         <div class="rectangle">
             <div class="content">
@@ -104,9 +110,6 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-Usage
 <script>
 
 const profileBtn = document.querySelector('.avatar');
@@ -131,19 +134,66 @@ let startDate = document.querySelector('.startDate')
 let endDate = document.querySelector('.endDate')
 let btnGet = document.querySelector('.filterDate')
 
+let locations = document.querySelector('.locations')
+getAllRequestLocations()
+function getAllRequestLocations(){
+    axios.get(`/api/requests`)
+    .then(res => {
+        console.log(res.data)
+        let loc = ''
+        if(res.data.length > 0){
+            res.data.map((request)=>{
+                if(request.location == loc){
+                    locations.innerHTML += `<option value='${request.location}'>${request.location}</option>`
+                }
+                loc = request.location
+            })
+        }
+   
+    }).catch(err => console.log(err))
+}
+
+
+locations.addEventListener('change', ()=>{
+    let start = new Date(startDate.value)
+    let end = new Date(endDate.value)
+    if(locations.value == 'undefined'){
+        document.querySelector('.progress1').style.width = `0`
+        document.querySelector('.progress2').style.width = `0`
+        document.querySelector('.progress3').style.width = `0`
+        document.querySelector('.progress4').style.width = `0`
+        document.querySelector('.progress5').style.width = `0`
+    }else{
+        getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null, locations.value)
+        
+    }
+})
 
 let start = new Date(startDate.value)
 getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null)
 
-
 btnGet.addEventListener('click', ()=>{
     let start = new Date(startDate.value)
     let end = new Date(endDate.value)
+
     if(end == 'Invalid Date'){
         getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null)
     }else{
         getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate())+" "+start.getHours()+":"+ start.getMinutes()+":"+start.getSeconds(), end.getFullYear()+"-"+addLeadingZero(end.getMonth()+1)+"-"+addLeadingZero(end.getDate())+" "+end.getHours()+":"+ end.getMinutes()+":"+end.getSeconds())
     }
+    
+    locations.addEventListener('change', ()=>{
+        if(locations.value == 'undefined'){
+        document.querySelector('.progress1').style.width = `0`
+        document.querySelector('.progress2').style.width = `0`
+        document.querySelector('.progress3').style.width = `0`
+        document.querySelector('.progress4').style.width = `0`
+        document.querySelector('.progress5').style.width = `0`
+    }else{
+        getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null, locations.value)
+        
+    }
+    })
 })
 
 profileBtn.addEventListener('click', () => {
@@ -287,13 +337,14 @@ const barChart1 = new Chart(barChart,{
   },
 });
 
-async function getDataFromDate(start, end){
+async function getDataFromDate(start, end, location){
+    console.log(location)
         document.querySelector('.progress1').style.width = `0`
         document.querySelector('.progress2').style.width = `0`
         document.querySelector('.progress3').style.width = `0`
         document.querySelector('.progress4').style.width = `0`
         document.querySelector('.progress5').style.width = `0`
-    axios.get(`/api/sysad/graphData/byDate?start=${start}&end=${end}`)
+    axios.get(`/api/sysad/graphData/byDate?start=${start}&end=${end}&location=${location}`)
     .then(res => {
         console.log(res)
         // Responder Data
@@ -339,6 +390,8 @@ async function getDataFromDate(start, end){
 
             barChart1.config.data.datasets.forEach(dataset => {dataset.data = [barData1, barData2, barData3, barData4]})
             barChart1.update();
+
+
    
     }).catch(err => console.log(err))
 }

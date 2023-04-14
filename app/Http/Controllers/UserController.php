@@ -59,6 +59,8 @@ class UserController extends Controller
             $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userId', $user['id'])->get();
             $completed = 0;
             $cancelled = 0;
+            $bogus = 0;
+            $all = count($requestsFromArchive);
 
             if(!empty($requestsFromArchive)){
                 for($j=0;$j<count($requestsFromArchive);$j++){
@@ -66,6 +68,8 @@ class UserController extends Controller
                         $cancelled++;
                     }else if($requestsFromArchive[$j]->status == 'Completed'){
                         $completed++;
+                    }else{
+                        $bogus++;
                     }
                 }
             }
@@ -94,8 +98,10 @@ class UserController extends Controller
                     'age' => $age,
                     'contactNumber' => $user['contactNumber'],
                     'created_at' => $createDate,
+                    'all' => $all,
                     'completedRequests' => $completed,
                     'cancelledRequests' => $cancelled,
+                    'bogusRequests' => $bogus,
                     'ongoingRequest' => $ongoing,
                     'joined' => $createDate,
             ]);
