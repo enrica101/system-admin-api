@@ -1,23 +1,37 @@
 <x-layout>
-    <header>
-        <button class="btn btn-menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        <h2>Users</h2>
-        <div class="right-header">
-            <!--PROFILE -->
-            <div class="profile">
-                <div class="avatar">
-                    <span>
-                        <small>Hey, {{auth()->user()->fname}}</small>
-                        <small>Admin</small>
-                    </span>
-                    <img src="img/avatar.png" alt="avatar">
+    <header class="header1">
+        <h2>Accounts</h2>
+            {{-- <div class="date-wrapper">
+                <button class="prev">
+
+                    <img src="icons/caret-left.svg" alt="caret-left">
+                </button>
+                <div class="date">
+                    <p class="month"></p><p class="day"></p>
                 </div>
-            </div>
+                <button class="next">
+
+                    <img src="icons/caret-right.svg" alt="caret-right">
+                </button>
+            </div> --}}
+    </header>
+
+    <header class="header2">
+        <div class="avatar">
+            <span>
+                <small>Hey, {{auth()->user()->fname}}</small>
+                <br/>
+                <small class="accountType">Admin</small>
+            </span>
+            {{-- <img src="img/avatar.png" alt="avatar"> --}}
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="10" r="3" />
+                <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                </svg>
         </div>
-        {{-- PROFILE AREA --}}
-        <div class="profile-overview">
+        <div class="profile">
             <img style="width:50px;margin:auto;" src="{{asset('img/avatar.png')}}" alt="avatar"><br>
             <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
             <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
@@ -25,103 +39,100 @@
         </div>
     </header>
   
-            <div class="below-header users">
-                <div class="tab all active"><h4>All Users</h4></div>
-                <div class="tab second"><h4>Users Requests</h4></div>
+    <div class="tables">
+        <div class="horizontal-tabs">
+            <div class="tab all  active"><h4>All Users</h4></div>
+            <div class="tab second" onclick="console.log('clicked')"><h4>Users Requests</h4></div>
+    
+            {{-- <form action="/users" class="search">
+                <input type="text" name="search-bar" id="search-bar" placeholder="Search">
+                <button type="submit" class="btn-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form> --}}
 
-                {{-- <form action="/users" class="search">
-                    <input type="text" name="search-bar" id="search-bar" placeholder="Search">
-                    <button type="submit" class="btn-search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form> --}}
-            </div>
-
-        <div class="users-table">
-            <div class="tables">
-                <table class="table show">
-                    <thead class="table-header">
-                        <tr>
-                        <th class="table-col-1">ID</th>
-                        <th class="table-col-1">Name</th>
-                        <th class="table-col-1">Gender</th>
-                        <th class="table-col-1">Age</th>
-                        <th class="table-col-1">Contact Number</th>
-                        <th class="table-col-1">Email Address</th>
-                        <th class="table-col-1">Registered on</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @unless(count($users) == 0)
-                        @forEach($users as $user)
-                            
-                            <tr class="table-row" id="{{$user['id']}}">
-                                <td class="table-cols"  id="{{$user['id']}}" >{{$user['id']}}</td>
-                                <td class="table-cols"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</td>
-                                <td class="table-cols"  id="{{$user['id']}}"  >{{$user['gender']}}</td>
-                                <td class="table-cols"  id="{{$user['id']}}" >{{$user['age']}}</td>
-                                <td class="table-cols"  id="{{$user['id']}}"  >{{$user['contactNumber']}}</td>
-                                <td class="table-cols"  id="{{$user['id']}}"  >{{$user['email']}}</td>
-                                <td class="table-cols"  id="{{$user['id']}}"  >{{$user['created_at']}}</td>
-                            </tr>
-    
-                        @endforeach
-    
-                        @else
-                        <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
-    
-                        @endunless
-                    </tbody>
-                </table>
-                <table class="table">
-                    <thead class="table-header">
-                        <tr>
-                        <th class="table-col-1">ID</th>
-                        <th class="table-col-1">Name</th>
-                        <th class="table-col-1">Completed</th>
-                        <th class="table-col-1">Cancelled</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @unless(count($users) == 0)
-                        @forEach($users as $user)
-    
-                            <tr class="table-row" id="{{$user['id']}}">
-                                <td class="table-cols" id="{{$user['id']}}" >
-                                    {{$user['id']}}
-                                </td>
-                                <td class="table-cols"  id="{{$user['id']}}" >
-                                    {{$user['fname']}} {{$user['lname']}}
-                                </td>
-                                <td class="table-cols" id="{{$user['id']}}">
-                                    {{$user['completedRequests']}}
-                                </td>
-                                <td class="table-cols"  id="{{$user['id']}}" >
-                                    {{$user['cancelledRequests']}}
-                                </td>
-                            </tr>
-    
-                        @endforeach
-    
-                        @else
-                        <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
-    
-                        @endunless
-                        
-                        
-                    </tbody>
-                </table>
-                
-            </div>
-            <div class="view">
-                <h4>Select a user to see more information.</h4>
-                
+            <div class="search">
+                <input type="text" name="search-user" id="search-user" placeholder="Search user" />
+                <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
+            <table class="table show">
+                <thead class="table-header">
+                    <tr>
+                    <th class="table-col-1">ID</th>
+                    <th class="table-col-1">Name</th>
+                    <th class="table-col-1">Gender</th>
+                    <th class="table-col-1">Age</th>
+                    <th class="table-col-1">Contact Number</th>
+                    <th class="table-col-1">Email Address</th>
+                    <th class="table-col-1">Registered on</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @unless(count($users) == 0)
+                    @forEach($users as $user)
+                        
+                        <tr class="table-row" id="{{$user['id']}}">
+                            <td class="table-cols"  id="{{$user['id']}}" >{{$user['id']}}</td>
+                            <td class="table-cols"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</td>
+                            <td class="table-cols"  id="{{$user['id']}}"  >{{$user['gender']}}</td>
+                            <td class="table-cols"  id="{{$user['id']}}" >{{$user['age']}}</td>
+                            <td class="table-cols"  id="{{$user['id']}}"  >{{$user['contactNumber']}}</td>
+                            <td class="table-cols"  id="{{$user['id']}}"  >{{$user['email']}}</td>
+                            <td class="table-cols"  id="{{$user['id']}}"  >{{$user['created_at']}}</td>
+                        </tr>
 
-<script src="scripts/main.js"></script>
+                    @endforeach
+
+                    @else
+                    <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
+
+                    @endunless
+                </tbody>
+            </table>
+            <table class="table">
+                <thead class="table-header">
+                    <tr>
+                    <th class="table-col-1">ID</th>
+                    <th class="table-col-1">Name</th>
+                    <th class="table-col-1">Completed</th>
+                    <th class="table-col-1">Cancelled</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @unless(count($users) == 0)
+                    @forEach($users as $user)
+
+                        <tr class="table-row" id="{{$user['id']}}">
+                            <td class="table-cols" id="{{$user['id']}}" >
+                                {{$user['id']}}
+                            </td>
+                            <td class="table-cols"  id="{{$user['id']}}" >
+                                {{$user['fname']}} {{$user['lname']}}
+                            </td>
+                            <td class="table-cols" id="{{$user['id']}}">
+                                {{$user['completedRequests']}}
+                            </td>
+                            <td class="table-cols"  id="{{$user['id']}}" >
+                                {{$user['cancelledRequests']}}
+                            </td>
+                        </tr>
+
+                    @endforeach
+
+                    @else
+                    <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
+
+                    @endunless
+                    
+                </tbody>
+            </table>
+    </div>
+<div class="view">
+            <h4>Select a user to see more information.</h4>
+        </div>
+<script src="/scripts/main.js"></script>
 <script>
-    const menuBtn = document.querySelector('.btn-menu');
     const nav = document.querySelector('.overlay')
     const closeBtnNav = document.querySelector('.btn-close-nav')
 
@@ -133,17 +144,23 @@
     const tables = document.querySelectorAll('.table');
     const rowSelect = document.querySelectorAll('.table-row');
     const rightViewer = document.querySelector('.view')
+
+    
+    const searchUser = document.getElementById('search-user')
+    const searchBtn = document.querySelector('.btn-search')
+
+        searchBtn.addEventListener('click', ()=>{
+            console.log(searchUser.value)
+                if(searchUser.value !='' && searchUser.value != null){
+                    const url = new URL('http://127.0.0.1:8000/accounts');
+                    url.searchParams.append('name', searchUser.value);
+                    const urlString = url.toString();
+                    window.location.href = urlString;
+            }
+        })
     
     profileBtn.addEventListener('click', () => {
         profileOverView.classList.toggle('active');
-    })
-
-    menuBtn.addEventListener('click', () => {
-    nav.classList.add('active')
-    })
-
-    closeBtnNav.addEventListener('click', () => {
-        nav.classList.remove('active')
     })
 
     allBtn.addEventListener('click', () => {
@@ -162,7 +179,6 @@
         console.log('second button is clicked')
     })
 
-
     rowSelect.forEach(row => {
         row.addEventListener('click', (e) => {
             console.log(e.target.id)
@@ -173,17 +189,20 @@
 
 function getUserInformation(userId){
     axios.get('api/accounts/search/'+userId).then(res =>{
-        console.log(res.data)
         displayUserInfo(res.data['user'][0])
     }).catch(err => console.log(err))
 }
 
 function displayUserInfo(data){
-        // console.log(data)
         rightViewer.innerHTML =
-        `<div class="accounts-row-view">
+        `<div class="account">
                     <div class="top">
-                        <img src="img/avatar.png" alt="">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="10" r="3" />
+                <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                </svg>
                         <span>
                             <h3>${data['fname']} ${data['lname']}</h3>
                             <h4>${data['email']}</h4>
@@ -204,7 +223,6 @@ function displayUserInfo(data){
                             Joined: <p>${data['joined']}</p>
                         </div>
                     </div>
-                    <hr><br>
                     <div class="bottom">
                         <h4>Requests</h4>
                         <div class="statusCounts">
@@ -223,7 +241,6 @@ function displayUserInfo(data){
                         </div>
                     </div>
                 </div>`
-
 }
 
 </script>

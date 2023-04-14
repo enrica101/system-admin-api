@@ -13,12 +13,14 @@ class RequestsInfoController extends Controller
 {
 
     public function getRequestsInfos(){
-        if(request('type') == null || request('type') == 'All'){
+        if(request('location') != null){
+           $allRequests = RequestsInfo::withTrashed()->where('location', 'like', '%'.request('location').'%')->get();
+        }else if(request('type') == null || request('type') == 'All'){
             $allRequests = RequestsInfo::withTrashed()->get();
         }else{
             $allRequests = RequestsInfo::withTrashed()->where('type', 'like',  '%'.request('type').'%')->get();
         }
-        // dd(count($allRequests));
+
         $responses = [];
         $ongoing = [];
         $completed = [];
@@ -26,7 +28,6 @@ class RequestsInfoController extends Controller
         
         for($i=0;$i<count($allRequests);$i++){
             $singleRequest = RequestsInfo::withTrashed()->where('id', $allRequests[$i]['id'])->first();
-            // dd($singleRequest->status);
             $userDetails = User::withTrashed()->where('id', $singleRequest->userId)->first();
             $requestResponse = Response::withTrashed()->where('requestId', $allRequests[$i]['id'])->first();
 
@@ -168,16 +169,6 @@ class RequestsInfoController extends Controller
             }
         }
 
-        // dd([
-        //     'responses' => $responses,
-        //     'ongoingRequests' => $ongoing,
-        //     'completedRequests' => $completed,
-        //     'cancelledRequests' => $cancelled,
-        //     'ongoingCount' => count($ongoing),
-        //     'completedCount' => count($completed),
-        //     'cancelledCount' => count($cancelled),
-        //     'requestsCount' => count($responses),
-        // ]);
         return view('/requests', [
             'responses' => $responses,
             'ongoingRequests' => $ongoing,
@@ -188,6 +179,8 @@ class RequestsInfoController extends Controller
             'cancelledCount' => count($cancelled),
             'requestsCount' => count($responses),
         ]);
+
+       
     }
 
     public function getSingleRequestInfo($id){
@@ -195,7 +188,6 @@ class RequestsInfoController extends Controller
         $responseExist = Response::withTrashed()->where('requestId', $id)->first();
         
         $requestcreateDate = date("Y-m-d H:i",strtotime($singleRequest->created_at));
-        // dd($requestcreateDate);
         
         if($responseExist == null){
             $user = User::withTrashed()->find($singleRequest->userId);
@@ -262,7 +254,6 @@ class RequestsInfoController extends Controller
                 'message' => 'A user already has an ongoing request.',
             ], 205);
         }
-        // dd($request['userId']);
         $fields = $request->validate([
             'userId' => ['required'],
             'type' => ['required'],
@@ -273,7 +264,6 @@ class RequestsInfoController extends Controller
         ]);
         $fields['status'] = 'Searching Responder';
         $user = User::where('id', $request['userId'])->first();
-        // dd($fields['userId']);
         (int)$fields['userId'] = $user->id;
         
         if($user->role == 'User' || $user->role == 'user'){
@@ -282,7 +272,6 @@ class RequestsInfoController extends Controller
             return response([
                 'message'=> 'Request Created',
                 'request' => $requestInfo], 201);
-                
         }else{
             return response([
                 'message'=> 'Only user accounts may create requests'], 400);
@@ -388,7 +377,17 @@ class RequestsInfoController extends Controller
      */
     public function searchLocation($location)
     {
+       
         return RequestsInfo::where('location', 'like', '%'.$location.'%')->get();
- 
+        
     }
+
+    public function calculateAccuracyReports($id)
+    {
+        if(RequestsInfo::onlyTrashed()->where('userId', $id)->get()->isNotEmpty()){
+            $archives = RequestsInfo::onlyTrashed()->where('userId', $id)->get();
+            
+        }
+    }
+
 }

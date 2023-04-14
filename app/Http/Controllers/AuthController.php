@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
+// use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
 {
@@ -55,7 +56,7 @@ class AuthController extends Controller
         }else{
 
             $user = User::create($fields);
-
+            // event(new Registered($user));
             $response = [
             'message' => 'User Registered!',
             'user' => $user,

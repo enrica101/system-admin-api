@@ -83,27 +83,28 @@
                     @enderror
                 </div>
 
-                <div class="field">
+                {{-- <div class="field">
                     <label for="contactNumber">Contact Number <small>[Optional]</small> </label>
                     <input type="text" name="contactNumber" id="contactNumber" value="{{old('contactNumber')}}" placeholder="+639 / 09*********">
                     @error('contactNumber')
                             <small style="color: brown">{{$message}}</small>
                     @enderror
-                </div>
+                </div> --}}
                 
-                <div class="field">
+                {{-- <div class="field">
                     <label for="avatar">
                         Upload Profile Picture <small>[Optional]</small>
                     </label><br>
                     <input 
                         type="file" 
                         name="avatar" 
-                        {{-- accept="image/*" --}}
+                        accept="image/*"
                     /><br>
                     @error('avatar')
                     <p>{{$message}}</p>
                     @enderror
-                </div>
+                </div> --}}
+                
                 <input type="submit" value="Register"><br>
                 <small>Already have an account? <a href="/">Login </a></small>
             </form>

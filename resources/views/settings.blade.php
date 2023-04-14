@@ -1,20 +1,37 @@
 <x-layout>
-    <header>
+    <header class="header1">
         <h2>Settings</h2>
-        <div class="right-header">
-            <!--PROFILE -->
-            <div class="profile">
-                <div class="avatar">
-                    <span>
-                        <small>Hey, {{auth()->user()->fname}}</small>
-                        <small>Admin</small>
-                    </span>
-                    <img src="img/avatar.png" alt="avatar">
+            {{-- <div class="date-wrapper">
+                <button class="prev">
+
+                    <img src="icons/caret-left.svg" alt="caret-left">
+                </button>
+                <div class="date">
+                    <p class="month"></p><p class="day"></p>
                 </div>
-            </div>
+                <button class="next">
+
+                    <img src="icons/caret-right.svg" alt="caret-right">
+                </button>
+            </div> --}}
+    </header>
+
+    <header class="header2">
+        <div class="avatar">
+            <span>
+                <small>Hey, {{auth()->user()->fname}}</small>
+                <br/>
+                <small class="accountType">Admin</small>
+            </span>
+            {{-- <img src="img/avatar.png" alt="avatar"> --}}
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="10" r="3" />
+                <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                </svg>
         </div>
-        {{-- PROFILE AREA --}}
-        <div class="profile-overview">
+        <div class="profile">
             <img style="width:50px;margin:auto;" src="{{asset('img/avatar.png')}}" alt="avatar"><br>
             <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
             <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
@@ -24,9 +41,14 @@
 
 
 @if(session()->has('message'))
-<div class="message" x-data="{show: true}" x-init="setTimeout(() => show=false, 2000)" x-show="show" x-transition.duration.500ms>
+<div 
+class="message" 
+x-data="{show: true}" 
+x-init="setTimeout(() => show=false, 2000)" 
+x-show="show" 
+x-transition.duration.500ms>
     <p>{{session('message')}}</p>
-    {{-- <i class="fa-solid fa-xmark"></i> --}}
+    <i class="fa-solid fa-xmark"></i>
 </div>
 @endif
 

@@ -43,8 +43,9 @@ class ResponderController extends Controller
     }
 
     public function getRoleResponders(){
-        // dd(request());
-        if(request('type') == null || request('type') == 'All'){
+        if(request('name')!=null){
+            $allResponders = User::where('fname', 'like', '%'.request('name').'%')->where('role', 'Responder')->get('id');
+        }else if(request('type') == null || request('type') == 'All'){
             $allResponders = Responder::all('userId');
         }else{
             $allResponders = Responder::where('type', 'like', '%'.request('type').'%')->get('userId');

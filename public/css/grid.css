@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import './forms.css';
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+a{
+    text-decoration: none;
+}
+ul{
+    list-style: none;
+
+}
+
+
+/* LAYOUT */
+
+main{
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 100%;
+    height: 100vh;
+    width: 100%;
+}
+
+.overlay{
+    
+}
+
+.overlay{
+    display: none;
+}
+.overlay.show{
+    position: absolute;
+    background-color: #32323220;
+    height: 100vh;
+    width: 100vw;
+    z-index: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay.show .modal{
+    position: relative;
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #fff;
+    border: 1px solid #32323230;
+    border-radius: 10px;
+    height: fit-content;
+    width: 300px;
+    padding: 3% 5%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* row-gap: 20px; */
+}
+
+.modal input[type='email']{
+    height: 30px;
+    padding: 0 10px;
+    margin: 10px 0;
+    border: 1px solid #32323250;
+    border-radius: 3px;
+}
+
+.modal input[type='email']:focus{
+    outline: none;
+}
+
+.modal .btn-send{
+    font-family: var(--secondary-font-family);
+        font-weight: 500;
+        font-size: 14px;
+        left: 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 12px;
+        margin-top: 45px;
+
+        background-color: #FB993550;
+        color: #323232;
+        border-radius: 5px;
+        border: 1px solid #3232322a;
+        box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.modal small{
+    padding: 0;
+    margin: 0 ;
+    color: #323232e7;
+}
+
+.modal .btn-send:hover{
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.modal span{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    
+}
+
+.modal span i{
+    color: #323232;
+}
+
+.modal span i:hover{
+    cursor: pointer;
+    color: #32323250;
+}
+

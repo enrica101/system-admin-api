@@ -81,25 +81,25 @@ class UserController extends Controller
             $age = $diff->format('%y');
 
             $createDate = date("Y-m-d H:i:s",strtotime($user['created_at']));
-            // dd($users[$i]['fname']);
+
             array_push($usersInfo, [
-                'id' => $user['id'],
-                'accountType' => $user['role'],
-                'email' => $user['email'],
-                'fname' => $user['fname'],
-                'mname' => $user['mname'],
-                'lname' => $user['lname'],
-                'gender' => $user['gender'],
-                'birthdate' => $user['birthdate'],
-                'age' => $age,
-                'contactNumber' => $user['contactNumber'],
-                'created_at' => $createDate,
-                'completedRequests' => $completed,
-                'cancelledRequests' => $cancelled,
-                'ongoingRequest' => $ongoing,
-                'joined' => $createDate,
+                    'id' => $user['id'],
+                    'accountType' => $user['role'],
+                    'email' => $user['email'],
+                    'fname' => $user['fname'],
+                    'mname' => $user['mname'],
+                    'lname' => $user['lname'],
+                    'gender' => $user['gender'],
+                    'birthdate' => $user['birthdate'],
+                    'age' => $age,
+                    'contactNumber' => $user['contactNumber'],
+                    'created_at' => $createDate,
+                    'completedRequests' => $completed,
+                    'cancelledRequests' => $cancelled,
+                    'ongoingRequest' => $ongoing,
+                    'joined' => $createDate,
             ]);
-        
+
         return response([
             'message' => 'Found',
             'user' => $usersInfo

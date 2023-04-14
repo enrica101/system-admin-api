@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "aws/aws-sdk-php": "^3.263",
         "barryvdh/laravel-dompdf": "^2.0",
         "dyrynda/laravel-cascade-soft-deletes": "^4.2",
         "guzzlehttp/guzzle": "^7.2",
@@ -20,7 +21,8 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "spatie/laravel-ignition": "^1.0",
+        "panique/laravel-sass": "dev-master"
     },
     "autoload": {
         "psr-4": {

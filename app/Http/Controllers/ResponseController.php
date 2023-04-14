@@ -77,7 +77,6 @@ class ResponseController extends Controller
                 'message' => 'Request and Responder should be of the same type.',
             ], 205);
         }
-
     }
 
     /**
@@ -89,13 +88,11 @@ class ResponseController extends Controller
         public function show($id)
     {
         $responseInfo = Response::where('requestId',$id)->first();
-        // dd($responseInfo);
         if($responseInfo === null){
             return response([
                 'message' => 'Not Found'
             ], 204);
         }else{
-            // dd($responseInfo['requestId']);
             $requestInfo = RequestsInfo::find($responseInfo->requestId);
             $responder = Responder::find($responseInfo->responderId);
             $userResponderDetails = User::find($responder->userId);
@@ -126,6 +123,17 @@ class ResponseController extends Controller
         if(RequestsInfo::find($id)){
         $trigger = $request->trigger;
         switch($trigger){
+            case '1':
+                $responseUpdated = Response::where('requestId', $id)->update(['status' => "Searching Responder..."]);
+                if($responseUpdated){
+                    $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => 'Searching Responder...']);
+                    if($requestUpdated){
+                        $message = "Succesfully updated request and response statuses.";
+                    }
+                }else{
+                    $message = "Something went wrong. Cannot update.";
+                }
+                break;
             case '3':
                 $responseUpdated = Response::where('requestId', $id)->update(['status' => "You're on the way!"]);
                 if($responseUpdated){
@@ -174,6 +182,20 @@ class ResponseController extends Controller
                     $message = "Something went wrong. Cannot update.";
                 }
                 break;
+                case '7':
+                    $responseUpdated = Response::where('requestId', $id)->update(['status' => "Bogus"]);
+                    if($responseUpdated){
+                        $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => "Archived!"]);
+                        if($requestUpdated){
+                            if(RequestsInfo::where('id', $id)->delete()){
+                                Response::where('requestId', $id)->delete();
+                                $message = "Request is completed and is moved to archives.";
+                            }
+                        }
+                    }else{
+                        $message = "Something went wrong. Cannot update.";
+                    }
+                    break;
             case '0':
                 $responseUpdated = Response::where('requestId', $id)->update(['status' => "Cancelled"]);
                 if($responseUpdated){
@@ -246,11 +268,9 @@ class ResponseController extends Controller
      * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Response $response, $id)
-    {
+    public function destroy(Response $response, $id){
 
         $responseInfo = Response::where('responderId', $id)->delete();
-
         if($responseInfo){
             return response([
                 'message' => 'Response deleted.'

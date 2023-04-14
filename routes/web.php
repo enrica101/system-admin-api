@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResponderController;
@@ -44,20 +45,25 @@ Route::get('/settings', function () {
     return view('settings');
 })->middleware('auth');
 
+Route::get('/mail', function () {
+    return view('mail');
+})->middleware('auth');
+
 Route::get('/accounts', [AdminController::class, 'getRoleUsers']);
 
 Route::put('/settings',[AdminController::class, 'update'])->middleware('auth');
-
 
 Route::post('/create', [AdminController::class, 'store']);
 Route::get('/register', [AdminController::class, 'create']);
 Route::post('/users/authenticate', [AdminController::class, 'authenticate']);
 Route::post('/logout', [AdminController::class, 'logout'])->middleware('auth');
 
-// Route::get('/export', [AdminController::class, 'generatePDF'])->middleware('auth');
 Route::get('/export', [AdminController::class, 'exportPDF'])->middleware('auth');
+Route::get('/send-email', [AdminController::class, 'sendEmail'])->middleware('auth');
 
 Route::get('/responders', [ResponderController::class, 'getRoleResponders'])->middleware('auth');
 
 Route::get('/requests', [RequestsInfoController::class, 'getRequestsInfos']);
+
+
 

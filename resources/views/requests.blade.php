@@ -1,119 +1,53 @@
 <x-layout>
-
-    <header>
+    <header class="header1">
         <h2>Requests</h2>
-        <div class="right-header">
-            <!--PROFILE -->
-            <div class="profile">
-                <div class="avatar">
-                    <span>
-                        <small>Hey, {{auth()->user()->fname}}</small>
-                        <small>Admin</small>
-                    </span>
-                    <img src="img/avatar.png" alt="avatar">
+            {{-- <div class="date-wrapper">
+                <button class="prev">
+
+                    <img src="icons/caret-left.svg" alt="caret-left">
+                </button>
+                <div class="date">
+                    <p class="month"></p><p class="day"></p>
                 </div>
-                <span class="icon icon-bell"><i class="fa-solid fa-bell"></i><span class="dot dot-notif"></span></span>
-            </div>
+                <button class="next">
+
+                    <img src="icons/caret-right.svg" alt="caret-right">
+                </button>
+            </div> --}}
+    </header>
+
+    <header class="header2">
+        <div class="avatar">
+            <span>
+                <small>Hey, {{auth()->user()->fname}}</small>
+                <br/>
+                <small class="accountType">Admin</small>
+            </span>
+            {{-- <img src="img/avatar.png" alt="avatar"> --}}
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="10" r="3" />
+                <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                </svg>
         </div>
-        {{-- PROFILE AREA --}}
-        <div class="profile-overview">
-            <img style="width:50px;margin:auto;" src="{{auth()->user()->avatar ? asset('storage/'. auth()->user()->avatar) : asset('img/avatar.png')}}" alt="avatar"><br>
+        <div class="profile">
+            <img style="width:50px;margin:auto;" src="{{asset('img/avatar.png')}}" alt="avatar"><br>
             <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
             <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
             <a href="/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
         </div>
-        </header>
-  
-            <!-- Notifications -->
-            <div class="notif">
-                <div class="recent-activity">
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            </p>
-                            <small>2 Minutes Ago</small>
-                        </span>
-                        
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Duis aute irure dolor in reprehenderit in
-                            </p>
-                            <small>4 Minutes Ago</small>
-                        </span>
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Excepteur sint occaecat cupidatat non proident
-                            </p>
-                            <small>5 Minutes Ago</small>
-                        </span>
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            </p>
-                            <small>2 Minutes Ago</small>
-                        </span>
-                        
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Duis aute irure dolor in reprehenderit in
-                            </p>
-                            <small>4 Minutes Ago</small>
-                        </span>
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Excepteur sint occaecat cupidatat non proident
-                            </p>
-                            <small>5 Minutes Ago</small>
-                        </span>
-                    </div><div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            </p>
-                            <small>2 Minutes Ago</small>
-                        </span>
-                        
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Duis aute irure dolor in reprehenderit in
-                            </p>
-                            <small>4 Minutes Ago</small>
-                        </span>
-                    </div>
-                    <div class="item-activity">
-                        <img src="img/avatar.png" alt="">
-                        <span>
-                            <p class="message">
-                                Excepteur sint occaecat cupidatat non proident
-                            </p>
-                            <small>5 Minutes Ago</small>
-                        </span>
-                    </div>
-                </div>
-                <small class="see-more">See All</small>
-            </div>
-    <div class="below-header">
+    </header>
+    
+
+<div class="tables">
+    <div class="horizontal-tabs">
+        <div class="tab all requests active"><h4>All Requests</h4></div>
+        <div class="tab second requests"><h4>Ongoing
+        </h4></div>
+        <div class="tab third requests"><h4>Completed</h4></div>
+        <div class="tab fourth requests"><h4>Cancelled</h4></div>
+
         <select name="type" id="type">
             <option value="">Select type</option>
             <option value="All">All</option>
@@ -121,144 +55,156 @@
             <option value="Medical">Medical</option>
             <option value="Police">Police</option>
         </select>
-        <div class="all requests active"><h4>All Requests</h4></div>
-        <div class="second requests"><h4>Ongoing
-        </h4></div>
-        <div class="third requests"><h4>Completed</h4></div>
-        <div class="fourth requests"><h4>Cancelled</h4></div>
-
         {{-- <form action="/users" class="search">
             <input type="text" name="search-bar" id="search-bar" placeholder="Search">
             <button type="submit" class="btn-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form> --}}
-    </div>
 
-<div class="responder center">
-    <div class="left">
-        <div class="table show">
-            <div class="table-header" style="">
-                <div class="table-col-1">ID</div>
-                <div class="table-col-1">Request Type</div>
-                <div class="table-col-1">Location</div>
-                <div class="table-col-1">Status</div>
-                <div class="table-col-1">Responder</div>
-                <div class="table-col-1">Requester</div>
-                <div class="table-col-1">Created At</div>
-            </div>
+        <div class="search">
+            <input type="text" name="search-location" id="search-location" placeholder="Search location" />
+            <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+    </div>
+        <table class="table show">
+            <thead class="table-header" >
+                <tr>
+                <th class="table-col-1">ID</th>
+                <th class="table-col-1">Request Type</th>
+                <th class="table-col-1">Location</th>
+                <th class="table-col-1">Status</th>
+                <th class="table-col-1">Responder</th>
+                <th class="table-col-1">Requester</th>
+                <th class="table-col-1">Created At</th>
+            </tr>
+            </thead>
             @unless(count($responses) == 0)
             @forEach($responses as $response)
-                <div class="table-row" id="{{$response['requestID']}}">
-                    <div class="table-cols" style="width: 50px;" id="{{$response['requestID']}}">
-                        {{$response['requestID']}}</div>
-                    <div class="table-cols" style="width: 90px;" id="{{$response['requestID']}}">{{$response['requestType']}}</div>
-                    <div class="table-cols" style="width: 110px;" id="{{$response['requestID']}}">{{$response['location']}}</div>
-                    <div class="table-cols" style="width: 90px;" id="{{$response['requestID']}}">{{$response['requestStatus']}}</div>
-                    <div class="table-cols" style="width: 110px;" id="{{$response['requestID']}}">{{$response['responderfname']}} {{$response['responderlname']}}</div>
-                    <div class="table-cols" style="width: 110px;" id="{{$response['requestID']}}">{{$response['requesterfname']}} {{$response['requesterlname']}}</div>
-                    <div class="table-cols" style="width: 100px;" id="{{$response['requestID']}}">{{$response['created_at']}}</div>
-                </div>
+                <tbody class="table-row" id="{{$response['requestID']}}">
+                    <tr>
+                    <td class="table-cols" id="{{$response['requestID']}}">
+                        {{$response['requestID']}}</td>
+                    <td class="table-cols" id="{{$response['requestID']}}">{{$response['requestType']}}</td>
+                    <td class="table-cols" id="{{$response['requestID']}}">{{$response['location']}}</td>
+                    <td class="table-cols" id="{{$response['requestID']}}">{{$response['requestStatus']}}</td>
+                    <td class="table-cols" id="{{$response['requestID']}}">{{$response['responderfname']}} {{$response['responderlname']}}</td>
+                    <td class="table-cols" id="{{$response['requestID']}}">{{$response['requesterfname']}} {{$response['requesterlname']}}</td>
+                    <td class="table-cols" id="{{$response['requestID']}}">{{$response['created_at']}}</td>
+                </tr>
+                </tbody>
             @endforeach
             @else
-            <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
+            <tr>
+                <td id="norecords">No record.</td></tr>
     
             @endunless
-        </div>
-        <div class="table">
-            <div class="table-header" style="">
-                <div class="table-col-1">ID</div>
-                <div class="table-col-1">Request Type</div>
-                <div class="table-col-1">Location</div>
-                <div class="table-col-1">Status</div>
-                <div class="table-col-1">Responder</div>
-                <div class="table-col-1">Requester</div>
-                <div class="table-col-1">Created At</div>
-            </div>
-            @unless(count($responses) == 0)
+        </table>
+        <table class="table">
+            <thead class="table-header" >
+                <tr>
+                <th class="table-col-1">ID</th>
+                <th class="table-col-1">Request Type</div>
+                <th class="table-col-1">Location</th>
+                <th class="table-col-1">Status</th>
+                <th class="table-col-1">Responder</div>
+                <th class="table-col-1">Requester</th>
+                <th class="table-col-1">Created At</th>
+            </tr>
+            
+            </thead>
+            @unless(count($ongoingRequests) == 0)
             @forEach($ongoingRequests as $ongoingRequest)
-                <div class="table-row" id="{{$ongoingRequest['requestID']}}">
-                    <div class="table-cols" style="width: 50px;"  id="{{$ongoingRequest['requestID']}}">
-                        {{$ongoingRequest['requestID']}}</div>
-                    <div class="table-cols" style="width: 90px;"  id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['requestType']}}</div>
-                    <div class="table-cols" style="width: 110px;"  id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['location']}}</div>
-                    <div class="table-cols" style="width: 90px;"  id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['requestStatus']}}</div>
-                    <div class="table-cols" style="width: 110px;"  id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['responderfname']}} {{$ongoingRequest['responderlname']}}</div>
-                    <div class="table-cols" style="width: 110px;"  id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['requesterfname']}} {{$ongoingRequest['requesterlname']}}</div>
-                    <div class="table-cols" style="width: 100px;"  id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['created_at']}}</div>
-                </div>
+                <tbody class="table-row" id="{{$ongoingRequest['requestID']}}">
+                    <tr>
+                        <td class="table-cols" id="{{$ongoingRequest['requestID']}}">
+                            {{$ongoingRequest['requestID']}}</td>
+                        <td class="table-cols" id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['requestType']}}</td>
+                        <td class="table-cols" id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['location']}}</td>
+                        <td class="table-cols" id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['requestStatus']}}</td>
+                        <td class="table-cols" id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['responderfname']}} {{$ongoingRequest['responderlname']}}</td>
+                        <td class="table-cols" id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['requesterfname']}} {{$ongoingRequest['requesterlname']}}</td>
+                        <td class="table-cols" id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['created_at']}}</td>
+                </tr>
+                    </tbody>
             @endforeach
             @else
-            <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
+            <tr>
+                <td id="norecords">No record.</td></tr>
     
             @endunless
-        </div>
-        <div class="table">
-            <div class="table-header" style="">
-                <div class="table-col-1">ID</div>
-                <div class="table-col-1">Request Type</div>
-                <div class="table-col-1">Location</div>
-                <div class="table-col-1">Status</div>
-                <div class="table-col-1">Responder</div>
-                <div class="table-col-1">Requester</div>
-                <div class="table-col-1">Created At</div>
-            </div>
-            @unless(count($responses) == 0)
+        </table>
+        <table class="table">
+            <thead class="table-header" style="">
+                <tr>
+                    <th class="table-col-1">ID</th>
+                    <th class="table-col-1">Request Type</th>
+                    <th class="table-col-1">Location</th>
+                    <th class="table-col-1">Status</th>
+                    <th class="table-col-1">Responder</th>
+                    <th class="table-col-1">Requester</th>
+                    <th class="table-col-1">Created At</th>
+            </tr>
+            </thead>
+            @unless(count($completedRequests) == 0)
             @forEach($completedRequests as $completedRequest)
-                <div class="table-row" id="{{$completedRequest['requestID']}}">
-                    <div class="table-cols" style="width: 50px;" id="{{$completedRequest['requestID']}}">
-                        {{$completedRequest['requestID']}}</div>
-                    <div class="table-cols" style="width: 90px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['requestType']}}</div>
-                    <div class="table-cols" style="width: 110px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['location']}}</div>
-                    <div class="table-cols" style="width: 90px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['requestStatus']}}</div>
-                    <div class="table-cols" style="width: 110px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['responderfname']}} {{$completedRequest['responderlname']}}</div>
-                    <div class="table-cols" style="width: 110px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['requesterfname']}} {{$completedRequest['requesterlname']}}</div>
-                    <div class="table-cols" style="width: 100px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['created_at']}}</div>
-                </div>
+                <tbody class="table-row" id="{{$completedRequest['requestID']}}">
+                    <tr>
+                        <td class="table-cols" style="width: 50px;" id="{{$completedRequest['requestID']}}">
+                            {{$completedRequest['requestID']}}</td>
+                        <td class="table-cols" style="width: 90px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['requestType']}}</td>
+                        <td class="table-cols" style="width: 110px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['location']}}</td>
+                        <td class="table-cols" style="width: 90px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['requestStatus']}}</td>
+                        <td class="table-cols" style="width: 110px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['responderfname']}} {{$completedRequest['responderlname']}}</td>
+                        <td class="table-cols" style="width: 110px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['requesterfname']}} {{$completedRequest['requesterlname']}}</td>
+                        <td class="table-cols" style="width: 100px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['created_at']}}</td>
+                    </tr>
+                    </tbody>
             @endforeach
             @else
-            <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
+            <tr>
+                <td id="norecords">No record.</td></tr>
     
             @endunless
-        </div>
-        <div class="table">
-            <div class="table-header" style="">
-                <div class="table-col-1">ID</div>
-                <div class="table-col-1">Request Type</div>
-                <div class="table-col-1">Location</div>
-                <div class="table-col-1">Status</div>
-                <div class="table-col-1">Responder</div>
-                <div class="table-col-1">Requester</div>
-                <div class="table-col-1">Created At</div>
-            </div>
-            @unless(count($responses) == 0)
+        </table>
+        <table class="table">
+            <thead class="table-header">
+                <tr>
+                <th class="table-col-1">ID</th>
+                <th class="table-col-1">Request Type</th>
+                <th class="table-col-1">Location</th>
+                <th class="table-col-1">Status</th>
+                <th class="table-col-1">Responder</div>
+                <th class="table-col-1">Requester</div>
+                <th class="table-col-1">Created At</th>
+            </tr>
+            </thead>
+            @unless(count($cancelledRequests) == 0)
             @forEach($cancelledRequests as $cancelledRequest)
-                <div class="table-row" id="{{$cancelledRequest['requestID']}}">
-                    <div class="table-cols" style="width: 50px;" id="{{$cancelledRequest['requestID']}}">
-                        {{$cancelledRequest['requestID']}}</div>
-                    <div class="table-cols" style="width: 90px;" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['requestType']}}</div>
-                    <div class="table-cols" style="width: 110px;" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['location']}}</div>
-                    <div class="table-cols" style="width: 90px;" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['requestStatus']}}</div>
-                    <div class="table-cols" style="width: 110px;" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['responderfname']}} {{$cancelledRequest['responderlname']}}</div>
-                    <div class="table-cols" style="width: 110px;" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['requesterfname']}} {{$cancelledRequest['requesterlname']}}</div>
-                    <div class="table-cols" style="width: 100px;" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['created_at']}}</div>
-                </div>
+                <tbody class="table-row" id="{{$cancelledRequest['requestID']}}">
+                    <tr>
+                        <td class="table-cols"id="{{$cancelledRequest['requestID']}}">
+                            {{$cancelledRequest['requestID']}}</td>
+                        <td class="table-cols"id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['requestType']}}</td>
+                        <td class="table-cols"id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['location']}}</td>
+                        <td class="table-cols"id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['requestStatus']}}</td>
+                        <td class="table-cols" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['responderfname']}} {{$cancelledRequest['responderlname']}}</td>
+                        <td class="table-cols" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['requesterfname']}} {{$cancelledRequest['requesterlname']}}</td>
+                        <td class="table-cols" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['created_at']}}</td>
+                    </tr>
+                </tbody>
             @endforeach
             @else
-            <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No records.</p>
+            <tr>
+                <td id="norecords">No record.</td></tr>
     
             @endunless
-        </div>
-        
-    </div>
-    <div class="right">
+        </table>
+    </div>   
+    <div class="view">
         <h4>Select a request to see more information.</h4>
-        
     </div>
-</div>
-<script src="scripts/main.js"></script>
 <script>
-
     
     const allBtn = document.querySelector('.all');
         const secondBtn = document.querySelector('.second');
@@ -266,11 +212,23 @@
         const fourthBtn = document.querySelector('.fourth');
         const tables = document.querySelectorAll('.table');
         const rowSelect = document.querySelectorAll('.table-row');
-        const rightViewer = document.querySelector('.right')
+        const rightViewer = document.querySelector('.view')
         const filterSelect = document.getElementById('type')
         const table = document.querySelector('.table.show')
 
-        console.log(tables)
+        const searchLocation = document.getElementById('search-location')
+        const searchBtn = document.querySelector('.btn-search')
+
+        searchBtn.addEventListener('click', ()=>{
+            console.log(searchLocation.value)
+                if(searchLocation.value !='' && searchLocation.value != null){
+                    const url = new URL('http://127.0.0.1:8000/requests');
+                    url.searchParams.append('location', searchLocation.value);
+                    const urlString = url.toString();
+                    window.location.href = urlString;
+            }
+        })
+
         allBtn.addEventListener('click', () => {
             tables[0].classList.add('show');
             tables[1].classList.remove('show');
@@ -280,7 +238,6 @@
             secondBtn.classList.remove('active')
             thirdBtn.classList.remove('active')
             fourthBtn.classList.remove('active')
-            console.log('all button is clicked')
         });
 
         secondBtn.addEventListener('click', () => {
@@ -293,7 +250,6 @@
             secondBtn.classList.add('active')
             thirdBtn.classList.remove('active')
             fourthBtn.classList.remove('active')
-            console.log('second button is clicked')
         })
 
         thirdBtn.addEventListener('click', () => {
@@ -305,7 +261,6 @@
             secondBtn.classList.remove('active')
             thirdBtn.classList.add('active')
             fourthBtn.classList.remove('active')
-            console.log('third button is clicked')
         })
 
         fourthBtn.addEventListener('click', () => {
@@ -317,7 +272,6 @@
             secondBtn.classList.remove('active')
             thirdBtn.classList.remove('active')
             fourthBtn.classList.add('active')
-            console.log('third button is clicked')
         })
 
         const profileBtn = document.querySelector('.avatar');
@@ -348,7 +302,6 @@
         rowSelect.forEach(row => {
             row.addEventListener('click', (e) => {
                 console.log(e.target.id)
-                // row.classList.add('active')
                 rightViewer.innerHTML = ''
                 getRequestsInfos(e.target.id)
                 })
@@ -366,7 +319,7 @@
             console.log(user_created_at, request_created_at)
             if(response==null){
                 rightViewer.innerHTML =
-                `<div class="requests-row-view">
+                `<div class="request">
                 <div class="top">
                     <h4>Request</h4>
                     <div>Request Id: <p>${request['id']}</p></div>
@@ -375,11 +328,9 @@
                     <div>Location: <p>${request['location']}</p></div>
                     <div>Created at: <p>${request_created_at}</p></div>
                 </div>
-                <hr style="width: 70%; border:solid 0.2px #eee;">
                 <div class="middle">
                     <h4>No responder assigned</h4>
                 </div>
-                <hr style="width: 70%; border:solid 0.2px #eee;">
                 <div class="bottom">
                     <h4>User</h4>
                     <div>User Id: <p>${user['id']}</p></div>
@@ -391,7 +342,7 @@
             </div>`
             }else{
             rightViewer.innerHTML =
-                `<div class="requests-row-view">
+                `<div class="request">
                 <div class="top">
                     <h4>Request</h4>
                     <div>Request Id: <p>${request['id']}</p></div>
@@ -400,7 +351,6 @@
                     <div>Location: <p>${request['location']}</p></div>
                     <div>Created at: <p>${request_created_at}</p></div>
                 </div>
-                <hr style="width: 70%; border:solid 0.2px #eee;">
                 <div class="middle">
                     <h4>Responder</h4>
                     <div>Responder Id: <p>${responder['id']}</p></div>
@@ -409,7 +359,6 @@
                     <div>Status: <p>${response['status']}</p></div>
                     <div>Location: <p>${response['location']}</p></div>
                 </div>
-                <hr style="width: 70%; border:solid 0.2px #eee;">
                 <div class="bottom">
                     <h4>User</h4>
                     <div>User Id: <p>${user['id']}</p></div>
@@ -421,8 +370,6 @@
             </div>`
             }
         }
-
-        
-        
+ 
 </script>
 </x-layout>

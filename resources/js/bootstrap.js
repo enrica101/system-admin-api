@@ -10,6 +10,12 @@ window._ = _;
 import axios from 'axios';
 window.axios = axios;
 
+import Chart from 'chart.js/auto';
+window.Chart = Chart;
+
+import flatpickr from "flatpickr";
+window.flatpickr = flatpickr;
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

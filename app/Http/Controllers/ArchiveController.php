@@ -151,6 +151,7 @@ class ArchiveController extends Controller
     {
         $requestInfo =RequestsInfo::onlyTrashed()->where('id', $id)->first();
         if($requestInfo){
+            dd($requestInfo);
             return response([
                 'message' => 'Found',
                 'requestInfo' => $requestInfo
@@ -215,6 +216,7 @@ class ArchiveController extends Controller
     public function searchResponsesArchive($id)
     {
         $responsesInfo = Response::onlyTrashed()->where('responderId', $id)-> get()->sortDesc();
+        dd($responsesInfo);
         if($responsesInfo){
             return response([
                 'message' => 'Found', 

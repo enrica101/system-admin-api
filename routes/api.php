@@ -41,11 +41,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 
-    Route::get('accounts/search/{id}', [UserController::class, 'getUserAccount']);
+    Route::get('accounts/search/{id}', [UserController::class, 'getUserAccount']); 
     Route::get('accounts/responders/search/{id}', [ResponderController::class, 'getAccountResponder']);
     Route::get('sysad/requests/search/{id}', [RequestsInfoController::class, 'getSingleRequestInfo']);
     Route::get('sysad/graphData', [AdminController::class, 'getGraphData']);
-    Route::get('sysad/graphData/byDate/{date}', [AdminController::class, 'getDataByDate']);
+    Route::get('sysad/graphData/byDate', [AdminController::class, 'getDataByDate']);
 
   //Requests
         Route::get('/requests', [RequestsInfoController::class, 'index']);
@@ -55,8 +55,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::put('/requests/{id}', [RequestsInfoController::class, 'update']);
         Route::delete('/requests/{id}', [RequestsInfoController::class, 'destroy']);
         Route::get('/requests/search/type/{type}', [RequestsInfoController::class, 'searchType']); //search for single listing
-        Route::get('/requests/search/status/{status}', [RequestsInfoController::class, 'searchStatus']);
-        Route::get('/requests/search/location/{location}', [RequestsInfoController::class, 'searchLocation']);
+        Route::get('requests/search/status/{status}', [RequestsInfoController::class, 'searchStatus']);
+        Route::get('requests/search/location/{location}', [RequestsInfoController::class, 'searchLocation']);
+        Route::get('requests/accuracy/{id}', [RequestsInfoController::class, 'calculateAccuracyReports']);
     
         // Send Message
         Route::post('requests/{id}/chat', [ChatController::class, 'store']);

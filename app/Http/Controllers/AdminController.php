@@ -2,73 +2,111 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\User;
+use App\Mail\MailPDF;
 use App\Models\Response;
 use App\Models\Responder;
 use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class AdminController extends Controller
 {
 
-    public function getDataByDate($date){
+    public function getDataByDate(Request $request){
+        if($request['end'] === 'null'){
+            $allRequests = count(RequestsInfo::where('created_at', 'like', '%'.$request['start'].'%')->get());
+            $allAvailableRequests = count(RequestsInfo::withTrashed()->where('created_at', 'like', '%'.$request['start'].'%')->where('status', 'like', '%'.'Searching'.'%')->get());
+            $allOngoingRequests = count(Response::where('created_at', 'like', '%'.$request['start'].'%')->get());
+            $allCompletedRequests = count(RequestsInfo::onlyTrashed()->where('updated_at', 'like', '%'.$request['start'].'%')->where('status', 'Completed')->get());
+            $allCancelledRequests = count(RequestsInfo::onlyTrashed()->where('updated_at', 'like', '%'.$request['start'].'%')->where('status', 'Cancelled')->get());
+            $allRespondersHandlingRequests = Response::where('created_at', 'like', '%'.$request['start'].'%')->get();
+            $allIdleResponders = $allRequests;
+            $allResponders = count(Responder::where('created_at', 'like', '%'.$request['start'].'%')->get());
+            $allHandlingResponders = count($allRespondersHandlingRequests);
+            $allAccounts = count(User::where('created_at', 'like', '%'.$request['start'].'%')->get());
+            $allRoleUsers = count(User::where('created_at', 'like', '%'.$request['start'].'%')->where('role', 'User')->get());
+            $allRoleResponders = count(User::where('created_at', 'like', '%'.$request['start'].'%')->where('role', 'Responder')->get());
+            $allRoleAdmin = count(User::where('created_at', 'like', '%'.$request['start'].'%')->where('role', 'Admin')->get());
 
-        // $data = User::where('created_at', 'like', '%'.$date.'%')->get();
-        $allRequests = count(RequestsInfo::where('created_at', 'like', '%'.$date.'%')->get());
-        $allAvailableRequests = count(RequestsInfo::where('created_at', 'like', '%'.$date.'%')->where('status', 'like', '%'.'Searching'.'%')->get());
-        $allOngoingRequests = count(Response::where('created_at', 'like', '%'.$date.'%')->get());
-        $allCompletedRequests = count(RequestsInfo::onlyTrashed()->where('updated_at', 'like', '%'.$date.'%')->where('status', 'Completed')->get());
-        $allCancelledRequests = count(RequestsInfo::onlyTrashed()->where('updated_at', 'like', '%'.$date.'%')->where('status', 'Cancelled')->get());
+            return response([
+                'data' => [
+                    'allRequests' => $allRequests,
+                    'allAvailableRequests' => $allAvailableRequests,
+                    'allOngoingRequests' => $allOngoingRequests,
+                    'allCompletedRequests' => $allCompletedRequests,
+                    'allCancelledRequests' => $allCancelledRequests,
+                    'allIdleRequests' => $allIdleResponders,
+                    'allResponders' => $allResponders,
+                    'allHandlingResponders' => $allHandlingResponders,
+                    'allAccounts' => $allAccounts,
+                    'allRoleUsers' => $allRoleUsers,
+                    'allRoleResponders' => $allRoleResponders,
+                    'allRoleAdmin' => $allRoleAdmin
+                ]
+            ]);
+        }else{
+            $allRequests = count(RequestsInfo::withTrashed()->whereBetween('created_at', [$request['start'],$request['end']])->get());
+            $allAvailableRequests = count(RequestsInfo::whereBetween('created_at', [$request['start'],$request['end']])->where('status', 'like', '%'.'Searching'.'%')->get());
+            $allOngoingRequests = count(Response::whereBetween('created_at', [$request['start'],$request['end']])->get());
+            $allCompletedRequests = count(RequestsInfo::onlyTrashed()->whereBetween('updated_at', [$request['start'],$request['end']])->where('status', 'Completed')->get());
+            $allCancelledRequests = count(RequestsInfo::onlyTrashed()->whereBetween('created_at', [$request['start'],$request['end']])->where('status', 'Cancelled')->get());
+            $allIdleResponders = $allRequests;
+            $allRespondersHandlingRequests = Response::whereBetween('created_at', [$request['start'],$request['end']])->get();
+            $allResponders = count(Responder::whereBetween('created_at', [$request['start'],$request['end']])->get());
+            $allHandlingResponders = count($allRespondersHandlingRequests);
+            $allAccounts = count(User::whereBetween('created_at', [$request['start'],$request['end']])->get());
+            $allRoleUsers = count(User::whereBetween('created_at', [$request['start'],$request['end']])->where('role', 'User')->get());
+            $allRoleResponders = count(User::whereBetween('created_at', [$request['start'],$request['end']])->where('role', 'Responder')->get());
+            $allRoleAdmin = count(User::whereBetween('created_at', [$request['start'],$request['end']])->where('role', 'Admin')->get());
 
-        $allRespondersHandlingRequests = Response::where('created_at', 'like', '%'.$date.'%')->get();
-        // $allIdleResponders = count();
-        $allResponders = count(Responder::where('created_at', 'like', '%'.$date.'%')->get());
-        $allHandlingResponders = count($allRespondersHandlingRequests);
-        $allAccounts = count(User::where('created_at', 'like', '%'.$date.'%')->get());
-        $allRoleUsers = count(User::where('created_at', 'like', '%'.$date.'%')->where('role', 'User')->get());
-        $allRoleResponders = count(User::where('created_at', 'like', '%'.$date.'%')->where('role', 'Responder')->get());
-        $allRoleAdmin = count(User::where('created_at', 'like', '%'.$date.'%')->where('role', 'Admin')->get());
-
-        return response([
-            'data' => [
-                'allRequests' => $allRequests,
-                'allAvailableRequests' => $allAvailableRequests,
-                'allOngoingRequests' => $allOngoingRequests,
-                'allCompletedRequests' => $allCompletedRequests,
-                'allCancelledRequests' => $allCancelledRequests,
-                'allIdleRequests' => 0,
-                'allResponders' => $allResponders,
-                'allHandlingResponders' => $allHandlingResponders,
-                'allAccounts' => $allAccounts,
-                'allRoleUsers' => $allRoleUsers,
-                'allRoleResponders' => $allRoleResponders,
-                'allRoleAdmin' => $allRoleAdmin
-            ]
-            
-        ]);
+            return response([
+                'data' => [
+                    'allRequests' => $allRequests,
+                    'allAvailableRequests' => $allAvailableRequests,
+                    'allOngoingRequests' => $allOngoingRequests,
+                    'allCompletedRequests' => $allCompletedRequests,
+                    'allCancelledRequests' => $allCancelledRequests,
+                    'allIdleRequests' => $allIdleResponders,
+                    'allResponders' => $allResponders,
+                    'allHandlingResponders' => $allHandlingResponders,
+                    'allAccounts' => $allAccounts,
+                    'allRoleUsers' => $allRoleUsers,
+                    'allRoleResponders' => $allRoleResponders,
+                    'allRoleAdmin' => $allRoleAdmin
+                ]
+            ]);
+        }
         
     }
 
     public function getGraphData(){
+        //Takes all data from Requests DB
         $allRequests = count(RequestsInfo::all());
+
+        //Takes all requests that are of status Searching
         $allAvailableRequests = count(RequestsInfo::where('status', 'like', '%'.'Searching'.'%')->get());
+
+        //Takes all responses from DB
         $allOngoingRequests = count(Response::all());
+
+        // Takes all requests that are completed
         $allCompletedRequests = count(RequestsInfo::onlyTrashed()->where('status', 'Completed')->get());
+
+        // take all requests that were cancelled
         $allCancelledRequests = count(RequestsInfo::onlyTrashed()->where('status', 'Cancelled')->get());
 
+        // Take all responses from DB regardless of status
         $allRespondersHandlingRequests = Response::all();
-        // $allIdleResponders = count();
+        $allIdleResponders = 0;
         $allResponders = count(Responder::all());
         $allHandlingResponders = count($allRespondersHandlingRequests);
         $allAccounts = count(User::all());
         $allRoleUsers = count(User::where('role', 'User')->get());
         $allRoleResponders = count(User::where('role', 'Responder')->get());
         $allRoleAdmin = count(User::where('role', 'Admin')->get());
-        // dd($allRoleAdmin);
 
         return response([
             'data' => [
@@ -85,16 +123,18 @@ class AdminController extends Controller
                 'allRoleResponders' => $allRoleResponders,
                 'allRoleAdmin' => $allRoleAdmin
             ]
-            
         ]);
     }
 
     public function getRoleUsers(){
-        $users = User::where('role', 'like',  '%'.'User'.'%')->get();
+        if(request('name')!=null){
+            $users = User::where('fname', 'like',  '%'.request('name').'%')->get();
+        }else{
+            $users = User::where('role', 'like',  '%'.'User'.'%')->get();
+        }
         $usersInfo = [];
         $today = date("Y-m-d");
         
-        // dd($users);
         for($i = 0; $i<count($users); $i++){
             $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userId', $users[$i]['id'])->get();
 
@@ -108,7 +148,6 @@ class AdminController extends Controller
                     }else if($requestsFromArchive[$j]->status == 'Completed'){
                         $completed++;
                     }
-                    
                 }
             }
 
@@ -123,7 +162,6 @@ class AdminController extends Controller
             $age = $diff->format('%y');
 
             $createDate = date("Y-m-d H:i:s",strtotime($users[$i]['created_at']));
-            // dd($users[$i]['fname']);
             array_push($usersInfo, [
                 'id' => $users[$i]['id'],
                 'accountType' => $users[$i]['role'],
@@ -152,7 +190,7 @@ class AdminController extends Controller
         return view('register');
     }
 
-    public function store(Request $request, ){
+    public function store(Request $request){
         $formInputs = $request->validate([ 
             'role' => ['required'],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
@@ -163,16 +201,13 @@ class AdminController extends Controller
             'gender' => ['required'],
             'birthdate' => ['required'],
             'contactNumber' => ['nullable', 'regex:/^(09|\+639)\d{9}$/', 'max:13',  Rule::unique('users', 'contactNumber')],
-            // 'avatar'  => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
         $formInputs['password'] = bcrypt($formInputs['password']);
         
-        // if($request->hasFile('avatar')){
-        //     $formInputs['avatar'] = $request->file('avatar')->store('avatars', 'public');
-        // }
 
         $user = User::create($formInputs);
+
         auth()->login($user); 
 
         return redirect('/dashboard');
@@ -210,7 +245,6 @@ class AdminController extends Controller
     }
 
     public function update(Request $request){
-        // dd(auth()->id());
         $fields = $request->validate([
             'email' => ['nullable', 'email'],
             'password' => ['nullable', 'min:6'],
@@ -221,53 +255,11 @@ class AdminController extends Controller
         ]);
 
         $user = User::find(auth()->id());
-        // dd($user->update($fields));
         if($user->update($fields)){
             return back()->with('message', 'Successfully Updated');
         }else{
             return back()->with('message', 'Something went wrong.');
         }
-    }
-
-    public function generatePDF(){
-        $allRequests = RequestsInfo::withTrashed()->get();
-        $collection = [];
-
-        foreach($allRequests as $singleRequest){
-            dd($singleRequest->id);
-            $user = User::where('id', $singleRequest->userId)->first();
-            $responseInfo = Response::where('requestId', $singleRequest->id)->first();
-            $createDate = date("Y-m-d",strtotime($singleRequest->created_at));
-            if($responseInfo == null){
-                array_push($collection, [
-                    'requestId' => $singleRequest->id,
-                    'userId' => $singleRequest->userId,
-                    'requester' => $user->fname.' '.$user->lname,
-                    'responderId' => 'None',
-                    'responder' =>  'None',
-                    'type' => $singleRequest->type,
-                    'location' => $singleRequest->location,
-                    'status' => $singleRequest->status,
-                    'created_at' => $createDate
-                ]);
-            }else{
-                $responder = Responder::where('id', $responseInfo->responderId)->first();
-                $responderDetails = User::find($responder->userId);
-                array_push($collection, [
-                    'requestId' => $singleRequest->id,
-                    'userId' => $singleRequest->userId,
-                    'requester' => $user->fname.' '.$user->lname,
-                    'responderId' => $responder->id,
-                    'responder' =>  $responderDetails->fname.' '.$responderDetails->lname,
-                    'type' => $singleRequest->type,
-                    'location' => $singleRequest->location,
-                    'status' => $singleRequest->status,
-                    'created_at' => $createDate
-                ]);
-            }
-        }
-        // dd($collection);
-        return view('export')->with('requests', $collection);
     }
 
     public function exportPDF(){
@@ -313,5 +305,12 @@ class AdminController extends Controller
         ])->setPaper('a4', 'landscape');
         return $pdf->download('91Watch-data.pdf');
 
+    }
+
+    public function sendEmail(Request $request){
+    
+        Mail::to($request->email)->send(new MailPDF());
+
+        return redirect()->back()->with('success', 'Email Sent!');
     }
 }

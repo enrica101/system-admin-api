@@ -1,62 +1,23 @@
 <x-layout>
-    <header>
-        <button class="btn btn-menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        <h2>Map Overview</h2>
-        <div class="right-header">
-            <!--PROFILE -->
-            <div class="profile">
-                <div class="avatar">
-                    <span>
-                        <small>Hey, {{auth()->user()->fname}}</small>
-                        <small>Admin</small>
-                    </span>
-                    <img src="img/avatar.png" alt="avatar">
-                </div>
-            </div>
-        </div>
-        {{-- PROFILE AREA --}}
-        <div class="profile-overview">
-            <img style="width:50px;margin:auto;" src="{{asset('img/avatar.png')}}" alt="avatar"><br>
-            <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
-            <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
-            <a href="/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
-        </div>
-    </header>
-
+<section>
     <div id="map"></div>
-
+</section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
             integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     document.body.style.overflowY = 'hidden'
-    
-    const menuBtn = document.querySelector('.btn-menu');
-    const nav = document.querySelector('.overlay')
-    const closeBtnNav = document.querySelector('.btn-close-nav')
     const profileBtn = document.querySelector('.avatar');
     const profileOverView = document.querySelector('.profile-overview')
     const footer = document.querySelector('.footer')
 
-    
-    // footer.style.display ='none'
 
-    menuBtn.addEventListener('click', () => {
-    nav.classList.add('active')
-    })
+//     profileBtn.addEventListener('click', () => {
+//     profileOverView.classList.toggle('active');
+// })
 
-    closeBtnNav.addEventListener('click', () => {
-        nav.classList.remove('active')
-    })
-
-    profileBtn.addEventListener('click', () => {
-    profileOverView.classList.toggle('active');
-})
-
-    var marker, map, allMarkers = [];
+    let marker, map, allMarkers = [];
 
     //Create a function creates a button that controls the filtering of requests on the map.
     function createFireFilter(map, allMarkers){
@@ -85,7 +46,7 @@
             // fireControlButton.style.backgroundColor = "#f4f4f4";
             displayAllMarkers(allMarkers)
             allMarkers.forEach(marker =>{
-                if(marker['title'] != 'Fire'){
+                if(marker['title'] != 'Fire & Rescue'){
                     marker.setVisible(false)
                 }
             })
@@ -184,8 +145,6 @@
         return resetControlButton;
     }
 
-    //Created a separate function that 
-    //sets each markers visibility to "true"
     function displayAllMarkers(allMarkers){
         allMarkers.forEach(marker =>{
                     marker.setVisible(true)
@@ -195,53 +154,43 @@
     function initMap(){
         var options = {
             center: {lat: 10.298099450420516, lng:123.88947252856845},
-            zoom: 13,
-            mapId: 'd1718992514fbee0',
+            zoom: 14,
+            mapId: '39d7b83c8e09ed62',
             disableDefaultUI: true, 
             zoomControl: true, 
             scaleControl: true 
         }
         map =  new google.maps.Map(document.getElementById('map'), options);
         
-        //Create a DIV to attach control UI to the map.
         const fireFilterControlDiv = document.createElement("div")
         const medicalFilterControlDiv = document.createElement("div")
         const policeFilterControlDiv = document.createElement("div")
         const resetFilterControlDiv = document.createElement("div")
 
-        //Create the control. This code calls a function that
-        //creates a new instance of a button control.
         const fireFilterControl = createFireFilter(map, allMarkers)
         const medicalFilterControl = createMedicalFilter(map, allMarkers)
         const policeFilterControl = createPoliceFilter(map, allMarkers)
         const resetFilterControl = createResetFilter(map, allMarkers)
 
-        //Append the control to the DIV
         fireFilterControlDiv.appendChild(fireFilterControl)
         medicalFilterControlDiv.appendChild(medicalFilterControl)
         policeFilterControlDiv.appendChild(policeFilterControl)
         resetFilterControlDiv.appendChild(resetFilterControl)
 
-        //Add the control to the map at a designated control position
-        //by pushing it on the position's array. This code will
-        //implicity add the control to the DOM, through the map
-        //object. You should not attach the control manually.
         map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(fireFilterControlDiv)
         map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(medicalFilterControlDiv)
         map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(policeFilterControlDiv)
-        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(resetFilterControlDiv)
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(resetFilterControlDiv)
         
         geo()
         function geo(){
             axios.get('/api/requests')
             .then( res => {
-                console.log(res);
                 res.data.forEach(location => {
                     var requestType = location['type']
                     var status = location['status']
                     var lat = parseFloat(location['lat'])
                     var lng = parseFloat(location['lng'])
-                    console.log(res.data.requests);
                     
                     addMarker({lat: lat, lng: lng}, requestType, status); //creates each map marker
                     
@@ -275,8 +224,6 @@
             }); 
             
             allMarkers.push(marker)
-
-            // console.log(marker['title'])
            
                 var infoWindow = new google.maps.InfoWindow({
                     content: 
@@ -289,12 +236,11 @@
                 })
 
             }
-            console.log(allMarkers)
     }
     
 </script>
 <script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTvsSu0ZGBeOQ_wLQu1Ochqlr8Yd8XPjg&map_ids=d1718992514fbee0&callback=initMap"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO4OEYomlZHvecy2E7N1GmDiN1zpZCPcI&map_ids=39d7b83c8e09ed62&callback=initMap"
   defer
 ></script>
 </x-layout>
