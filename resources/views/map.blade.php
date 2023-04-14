@@ -240,7 +240,7 @@
     
 </script>
 <script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpzxH-n6mF4SCHEopsGNGtd3oUw2uL2rQ&map_ids=39d7b83c8e09ed62&callback=initMap"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xcAyCALx3yLmzfs7cS3gjeYkV7bg_AU&map_ids=39d7b83c8e09ed62&callback=initMap"
   defer
 ></script>
 </x-layout>
