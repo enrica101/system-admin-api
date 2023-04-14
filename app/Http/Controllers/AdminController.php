@@ -307,10 +307,21 @@ class AdminController extends Controller
 
     }
 
-    public function sendEmail(Request $request){
+    // public function sendEmail(Request $request){
     
-        Mail::to($request->email)->send(new MailPDF());
+    //     Mail::to($request->email)->send(new MailPDF());
 
-        return redirect()->back()->with('success', 'Email Sent!');
+    //     return redirect()->back()->with('success', 'Email Sent!');
+    // }
+
+    public function sendEmail(Request $request){
+        $to_name = auth()->user()->fname;
+        $to_email = $request['email'];
+        $data = array('name'=>'Anon', "body"=> "Test Mail");
+       Mail::send('emails.mail', $data, function($message) use ($to_email, $to_name){
+        $message->to($to_email)->subject('Test');
+        $message->from('91watch@uylcph.org', 'Doe');
+       });
+       return redirect()->back()->with('success', 'Email Sent!');
     }
 }

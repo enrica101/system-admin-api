@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResponderController;
 use App\Http\Controllers\RequestsInfoController;
@@ -17,6 +18,9 @@ use App\Http\Controllers\RequestsInfoController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::post('/send-email', [AdminController::class, 'sendEmail']);
 
 Route::get('/', function () {
     return view('login');
@@ -51,6 +55,8 @@ Route::get('/mail', function () {
 
 Route::get('/accounts', [AdminController::class, 'getRoleUsers']);
 
+// Route::get('/send-mail', [MailController::class, 'sendMail']);
+
 Route::put('/settings',[AdminController::class, 'update'])->middleware('auth');
 
 Route::post('/create', [AdminController::class, 'store']);
@@ -58,8 +64,8 @@ Route::get('/register', [AdminController::class, 'create']);
 Route::post('/users/authenticate', [AdminController::class, 'authenticate']);
 Route::post('/logout', [AdminController::class, 'logout'])->middleware('auth');
 
+
 Route::get('/export', [AdminController::class, 'exportPDF'])->middleware('auth');
-Route::get('/send-email', [AdminController::class, 'sendEmail'])->middleware('auth');
 
 Route::get('/responders', [ResponderController::class, 'getRoleResponders'])->middleware('auth');
 

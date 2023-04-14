@@ -78,7 +78,8 @@
         
     </nav>
     <div class="overlay">
-        <div class="modal pdf-modal">
+        <form method="POST" action="/send-email" class="modal pdf-modal">
+            @csrf
             <span class="btn-close-modal">
                 <i class="fa-solid fa-xmark"></i>
             </span>
@@ -98,8 +99,8 @@
             <small>
                 Or click on the file attachment above to download
             </small>
-            <a href="/send-email" class="btn btn-send">Send file</a>
-        </div>
+            <input type="submit" value='Send file' class="btn btn-send">
+        </form>
     </div>
 
     <section class="wrapper">
