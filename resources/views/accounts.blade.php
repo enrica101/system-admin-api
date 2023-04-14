@@ -243,7 +243,7 @@ function displayUserInfo(data){
                             <h5>Bogus</h5>
                             </span>
                         </div>
-                        <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${ (data['bogusRequests']/data['all']*100).toFixed(2)}%</h4></div>
+                        <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${ (data['completedRequests']/data['all']*100).toFixed(2)}%</h4></div>
                     </div>
                 </div>`
 }
