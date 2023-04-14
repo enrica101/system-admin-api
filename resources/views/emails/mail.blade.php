@@ -16,7 +16,7 @@
             <h4>Hey {{auth()->user()->fname}},</h4>
             <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <p>Here is the PDF you requested!</p>
-            <a href="http://127.0.0.1:8000/export">Click me to download file</a>
+            <a href="http://system-admin.herokuapp.com/export">Click me to download file</a>
             <h5>From Team F2P</h5>
         </div>
         </div>
