@@ -239,7 +239,7 @@ function displayUserInfo(data){
                             <h5>Cancelled</h5>
                             </span>
                         </div>
-                        <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${data['bogusRequests'] && data['bogusRequests']/data['all']*100}%</h4></div>
+                        <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${data['bogusRequests'] && ceil(data['bogusRequests']/data['all'])*100}%</h4></div>
                     </div>
                 </div>`
 }
