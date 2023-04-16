@@ -16,9 +16,9 @@ class RequestsInfoController extends Controller
         if(request('location') != null){
            $allRequests = RequestsInfo::withTrashed()->where('location', 'like', '%'.request('location').'%')->get();
         }else if(request('type') == null || request('type') == 'All'){
-            $allRequests = RequestsInfo::withTrashed()->get();
+            $allRequests = RequestsInfo::withTrashed()->orderBy('created_at', 'desc')->orderBy('updated_at', 'desc')->get();
         }else{
-            $allRequests = RequestsInfo::withTrashed()->where('type', 'like',  '%'.request('type').'%')->get();
+            $allRequests = RequestsInfo::withTrashed()->where('type', 'like',  '%'.request('type').'%')->orderBy('created_at', 'desc')->orderBy('updated_at', 'desc')->get();
         }
 
         $responses = [];

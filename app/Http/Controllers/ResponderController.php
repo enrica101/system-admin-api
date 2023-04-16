@@ -46,9 +46,9 @@ class ResponderController extends Controller
         if(request('name')!=null){
             $allResponders = User::where('fname', 'like', '%'.request('name').'%')->where('role', 'Responder')->get('id');
         }else if(request('type') == null || request('type') == 'All'){
-            $allResponders = Responder::all('userId');
+            $allResponders = Responder::orderBy('created_at', 'desc')->get('userId');
         }else{
-            $allResponders = Responder::where('type', 'like', '%'.request('type').'%')->get('userId');
+            $allResponders = Responder::where('type', 'like', '%'.request('type').'%')->orderBy('created_at', 'desc')->get('userId');
         }
         
         $usersContainer = [];

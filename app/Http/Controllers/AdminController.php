@@ -192,9 +192,9 @@ class AdminController extends Controller
 
     public function getRoleUsers(){
         if(request('name')!=null){
-            $users = User::where('fname', 'like',  '%'.request('name').'%')->get();
+            $users = User::where('fname', 'like',  '%'.request('name').'%')->orderBy('created_at', 'desc')->get();
         }else{
-            $users = User::where('role', 'like',  '%'.'User'.'%')->get();
+            $users = User::where('role', 'like',  '%'.'User'.'%')->orderBy('created_at', 'desc')->get();
         }
         $usersInfo = [];
         $today = date("Y-m-d");

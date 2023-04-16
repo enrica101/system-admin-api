@@ -48,12 +48,6 @@
             <option value="Medical">Medical</option>
             <option value="Police">Police</option>
         </select>
-        {{-- <form action="/users" class="search">
-            <input type="text" name="search-bar" id="search-bar" placeholder="Search">
-            <button type="submit" class="btn-search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </form> --}}
 
         <div class="search">
             <input type="text" name="search-location" id="search-location" placeholder="Search location" />
