@@ -427,7 +427,23 @@ table.show{
     font-size: 12px;
     overflow: hidden;
     width: 100%;
-    //SCROLL BAR
+   
+    thead{
+        width: 100%;
+        tr{
+            display: grid;
+            grid-template-columns: repeat(7, auto);
+            grid-template-rows: 25px;
+            border-bottom: 1px solid #32323213;
+            padding-bottom: 6px;
+            th{
+                font-weight: 600;
+            }
+        }
+    }
+    tbody{
+        overflow: auto;
+         //SCROLL BAR
         /* width */
         &::-webkit-scrollbar {
             display: inline;
@@ -450,21 +466,6 @@ table.show{
           &::-webkit-scrollbar-thumb:hover {
             background: #d8edfc; 
           }
-    thead{
-        width: 100%;
-        tr{
-            display: grid;
-            grid-template-columns: repeat(7, auto);
-            grid-template-rows: 25px;
-            border-bottom: 1px solid #32323213;
-            padding-bottom: 6px;
-            th{
-                font-weight: 600;
-            }
-        }
-    }
-    tbody{
-        overflow: auto;
         tr{
             display: grid;
             grid-template-columns: repeat(7, auto);
