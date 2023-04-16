@@ -119,7 +119,7 @@ class AuthController extends Controller
             return response(['message'=> 'Logged out'], 200);
         }else{
             return response(['message'=> "Can't log out. Something went wrong."], 400);
-        }
+        }   
         
     }
 

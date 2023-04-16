@@ -187,11 +187,12 @@ class ResponseController extends Controller
                 $responseUpdated = Response::where('requestId', $id)->update(['status' => "Bogus"]);
                 if($responseUpdated){
                     $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => "Archived!"]);
+                    $requestinfo = RequestsInfo::where('id', $id)->first();
                     
                     if($requestUpdated){
                         if(RequestsInfo::where('id', $id)->delete()){
                             Response::where('requestId', $id)->delete();
-                            $user = User::where('id', $requestUpdated->userId)->first();
+                            $user = User::where('id', $requestinfo->userId)->first();
                             $user->delete();
                             $message = "Request is completed and is moved to archives.";
                         }

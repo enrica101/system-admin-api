@@ -383,6 +383,8 @@ table.show{
     border: 1px solid #32323211;
     background-color: #fff;
     height: fit-content;
+    max-height: 70vh;
+    overflow-y: auto;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 40px 1fr;
@@ -393,6 +395,10 @@ table.show{
     font-size: 12px;
     overflow: hidden;
     width: 100%;
+
+    // @media (min-height: 600px) {
+    //     height: ;
+    //   }
     thead{
         width: 100%;
         tr{

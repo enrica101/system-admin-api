@@ -382,12 +382,4 @@ class RequestsInfoController extends Controller
         
     }
 
-    public function calculateAccuracyReports($id)
-    {
-        if(RequestsInfo::onlyTrashed()->where('userId', $id)->get()->isNotEmpty()){
-            $archives = RequestsInfo::onlyTrashed()->where('userId', $id)->get();
-            
-        }
-    }
-
 }

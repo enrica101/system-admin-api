@@ -151,7 +151,6 @@ class ArchiveController extends Controller
     {
         $requestInfo =RequestsInfo::onlyTrashed()->where('id', $id)->first();
         if($requestInfo){
-            dd($requestInfo);
             return response([
                 'message' => 'Found',
                 'requestInfo' => $requestInfo
