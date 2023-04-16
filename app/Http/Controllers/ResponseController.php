@@ -7,6 +7,7 @@ use App\Models\Response;
 use App\Models\Responder;
 use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\UserController;
 
 class ResponseController extends Controller
@@ -194,7 +195,14 @@ class ResponseController extends Controller
                             Response::where('requestId', $id)->delete();
                             $user = User::where('id', $requestinfo->userId)->first();
                             $user->delete();
-                            $message = "Request is completed and is moved to archives.";
+                            $to_name = $user->fname;
+                            $to_email = $user->email;
+                            $data = array('name'=>$to_name, "id"=> $user->id);
+                            Mail::send('emails.restorationEmail', $data, function($message) use ($to_email, $to_name){
+                                $message->to($to_email, $to_name)->subject('Your account has been banned.');
+                                $message->from('91watch@uylcph.org', '91Watch Support Team');
+                            });
+                            $message = "Request is set to bogus and is moved to archives.";
                         }
                     }
                 }else{

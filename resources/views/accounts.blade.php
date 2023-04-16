@@ -42,14 +42,7 @@
     <div class="tables">
         <div class="horizontal-tabs">
             <div class="tab all  active"><h4>All Users</h4></div>
-            <div class="tab second" onclick="console.log('clicked')"><h4>Users Requests</h4></div>
-    
-            {{-- <form action="/users" class="search">
-                <input type="text" name="search-bar" id="search-bar" placeholder="Search">
-                <button type="submit" class="btn-search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form> --}}
+            <div class="tab second"><h4>Users Requests</h4></div>
 
             <div class="search">
                 <input type="text" name="search-user" id="search-user" placeholder="Search user" />
@@ -85,7 +78,8 @@
                     @endforeach
 
                     @else
-                    <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
+                    <tr>
+                        <td id="norecords">No record.</td></tr>
 
                     @endunless
                 </tbody>
@@ -125,7 +119,8 @@
                     @endforeach
 
                     @else
-                    <p style="margin: auto; padding-top: 100px; color:#8a8a8a">No record.</p>
+                    <tr>
+                        <td id="norecords">No record.</td></tr>
 
                     @endunless
                     
