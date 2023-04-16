@@ -163,55 +163,55 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-            $user = User::find($id);
-            $requestExist = RequestsInfo::where('userId', $id)->first();
-            if($user->role == 'Responder'||$user->role == 'responder'){
-                $responder = Responder::where('userId', $id)->first();
-                $responseExist = ResponseModel::where('responderId', $responder->id)->first();
-                if($responseExist){
-                    return response([
-                        'message' => 'Cannot delete this user while handling request.'
-                    ]);
-                }else{
-                    if($responder->delete()){
-                        if($user->delete()){
-                            return response([
-                                'message' => 'Deleted.'
-                            ]);
-                        }
-                    }  
-                }
+        $user = User::find($id);
+        $requestExist = RequestsInfo::where('userId', $id)->first();
+        if($user->role == 'Responder'||$user->role == 'responder'){
+            $responder = Responder::where('userId', $id)->first();
+            $responseExist = ResponseModel::where('responderId', $responder->id)->first();
+            if($responseExist){
+                return response([
+                    'message' => 'Cannot delete this user while handling request.'
+                ]);
             }else{
-                if($requestExist){
-                    $responseExist = ResponseModel::where('requestId', $requestExist->id)->first();
-                    if($responseExist){
-                        $responseExist->delete();
-                        if($requestExist->delete()){
-                            if($user->delete()){
-                                 return response([
-                            'message' => 'Deleted.'
-                        ]);
-                            }
-                        }
-                    }else{
-                        if($requestExist->delete()){
-                            if($user->delete()){
-                                 return response([
-                            'message' => 'Deleted.'
-                        ]);
-                            }
-                        }
-                    }
-                    
-                }else{
+                if($responder->delete()){
                     if($user->delete()){
                         return response([
                             'message' => 'Deleted.'
                         ]);
                     }
+                }  
+            }
+        }else{
+            if($requestExist){
+                $responseExist = ResponseModel::where('requestId', $requestExist->id)->first();
+                if($responseExist){
+                    $responseExist->delete();
+                    if($requestExist->delete()){
+                        if($user->delete()){
+                                return response([
+                        'message' => 'Deleted.'
+                    ]);
+                        }
+                    }
+                }else{
+                    if($requestExist->delete()){
+                        if($user->delete()){
+                                return response([
+                        'message' => 'Deleted.'
+                    ]);
+                        }
+                    }
                 }
                 
+            }else{
+                if($user->delete()){
+                    return response([
+                        'message' => 'Deleted.'
+                    ]);
+                }
             }
+            
+        }
     }
 
     public function restore($id){
