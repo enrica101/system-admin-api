@@ -174,9 +174,10 @@ class UserController extends Controller
                 ]);
             }else{
                 if($responder->delete()){
+                    $message = 'User '.$user->id.' banned @ request '.$requestExist->id;
                     if($user->delete()){
                         return response([
-                            'message' => 'Deleted.'
+                            'message' => $message
                         ]);
                     }
                 }  
@@ -187,17 +188,19 @@ class UserController extends Controller
                 if($responseExist){
                     $responseExist->delete();
                     if($requestExist->delete()){
+                        $message = 'User '.$user->id.' banned @ request '.$requestExist->id;
                         if($user->delete()){
                                 return response([
-                        'message' => 'Deleted.'
+                        'message' => $message
                     ]);
                         }
                     }
                 }else{
                     if($requestExist->delete()){
+                        $message = 'User '.$user->id.' banned @ request '.$requestExist->id;
                         if($user->delete()){
                                 return response([
-                        'message' => 'Deleted.'
+                        'message' => $message
                     ]);
                         }
                     }
@@ -205,8 +208,9 @@ class UserController extends Controller
                 
             }else{
                 if($user->delete()){
+                    $message = 'User '.$user->id.' banned @ request '.$requestExist->id;
                     return response([
-                        'message' => 'Deleted.'
+                        'message' => $message
                     ]);
                 }
             }
@@ -216,9 +220,10 @@ class UserController extends Controller
 
     public function restore($id){
         $user = User::where('id', $id)->withTrashed()->restore();
+        $userDetails = User::where('id', $id)->first();
         return response([
             'message' => 'Account Restored',
-            'user' => $user
+            'user' => $userDetails
         ]);
     }
 }

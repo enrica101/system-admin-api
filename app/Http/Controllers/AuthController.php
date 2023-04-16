@@ -77,13 +77,15 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
         
-        $user = User::where('email', $fields['email'])->first();
-        
+        $user = User::withTrashed()->where('email', $fields['email'])->first();
         if(!$user || !Hash::check($fields['password'], $user->password)){
-    
             return response([
                 'message' => 'Invalid Credentials'
             ], 401);
+        }else if(isset($user->deleted_at)){
+            return response([
+                'message' => 'User '.$user->id.' banned',
+            ], 400);
         }
         if($user->role == 'Responder' || $user->role == 'responder'){
             $responder = Responder::where('userId', $user->id)->first();

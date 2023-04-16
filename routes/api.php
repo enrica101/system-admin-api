@@ -40,6 +40,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::put('/users/{id}', [UserController::class, 'update']);
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
+    Route::get('/users/restore/{id}', [UserController::class, 'restore']);
+
 
     Route::get('accounts/search/{id}', [UserController::class, 'getUserAccount']); 
     Route::get('accounts/responders/search/{id}', [ResponderController::class, 'getAccountResponder']);
