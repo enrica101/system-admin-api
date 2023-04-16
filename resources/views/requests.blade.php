@@ -1,19 +1,6 @@
 <x-layout>
     <header class="header1">
         <h2>Requests</h2>
-            {{-- <div class="date-wrapper">
-                <button class="prev">
-
-                    <img src="icons/caret-left.svg" alt="caret-left">
-                </button>
-                <div class="date">
-                    <p class="month"></p><p class="day"></p>
-                </div>
-                <button class="next">
-
-                    <img src="icons/caret-right.svg" alt="caret-right">
-                </button>
-            </div> --}}
     </header>
 
     <header class="header2">
@@ -23,7 +10,6 @@
                 <br/>
                 <small class="accountType">Admin</small>
             </span>
-            {{-- <img src="img/avatar.png" alt="avatar"> --}}
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <circle cx="12" cy="12" r="9" />
@@ -31,11 +17,18 @@
                 <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
                 </svg>
         </div>
+        
         <div class="profile">
-            <img style="width:50px;margin:auto;" src="{{asset('img/avatar.png')}}" alt="avatar"><br>
             <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
             <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
             <a href="/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
+            <form action="/logout" method="post">
+                @csrf
+                <button class="btn" type="submit">
+                    <img src="icons/logout.svg" alt="Logout"> 
+                    Logout
+                </button>
+            </form>
         </div>
     </header>
     
@@ -214,6 +207,14 @@
         const rightViewer = document.querySelector('.view')
         const filterSelect = document.getElementById('type')
         const table = document.querySelector('.table.show')
+
+        // profile toggle
+        const profile = document.querySelector('.profile')
+        const avatar = document.querySelector('.avatar')
+
+        avatar.addEventListener('click', ()=>{
+            profile.classList.toggle('show')
+        })
 
         const searchLocation = document.getElementById('search-location')
         const searchBtn = document.querySelector('.btn-search')

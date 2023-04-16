@@ -17,11 +17,18 @@
                 <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
                 </svg>
         </div>
+        
         <div class="profile">
-            <img style="width:50px;margin:auto;" src="{{asset('img/avatar.png')}}" alt="avatar"><br>
             <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
             <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
             <a href="/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
+            <form action="/logout" method="post">
+                @csrf
+                <button class="btn" type="submit">
+                    <img src="icons/logout.svg" alt="Logout"> 
+                    Logout
+                </button>
+            </form>
         </div>
     </header>
 
@@ -147,6 +154,15 @@
         const table = document.querySelector('.table.show')
 
         const norecords = document.getElementById('norecords')
+
+        // profile toggle
+        const profile = document.querySelector('.profile')
+        const avatar = document.querySelector('.avatar')
+
+        avatar.addEventListener('click', ()=>{
+            profile.classList.toggle('show')
+        })
+    
 
         const searchResponder = document.getElementById('search-responder')
         const searchBtn = document.querySelector('.btn-search')
