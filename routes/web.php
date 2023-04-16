@@ -55,7 +55,7 @@ Route::get('/mail', function () {
 })->middleware('auth');
 
 Route::get('/success-restore', function () {
-    return view('successRestore');
+    return view('success-restore');
 });
 
 Route::get('/accounts', [AdminController::class, 'getRoleUsers']);
