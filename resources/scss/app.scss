@@ -427,6 +427,29 @@ table.show{
     font-size: 12px;
     overflow: hidden;
     width: 100%;
+    //SCROLL BAR
+        /* width */
+        &::-webkit-scrollbar {
+            display: inline;
+            height: 3px;
+            width: 5px;
+            transition: 2s ease-in-out;
+          }
+  
+          /* Track */
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+          }
+          
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            background: #32323250; 
+          }
+  
+          /* Handle on hover */
+          &::-webkit-scrollbar-thumb:hover {
+            background: #d8edfc; 
+          }
     thead{
         width: 100%;
         tr{
