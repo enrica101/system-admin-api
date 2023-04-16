@@ -230,9 +230,11 @@
                     '<b>Request Type: </b><br>'+ type +
                     '<br><b>Request Status: </b><br>'+ status 
                 });
-                
-                marker.addListener('click', function(){
+
+                allMarkers.forEach((marker)=>{
+                    marker.addListener('click', function(){
                     infoWindow.open(map,marker);
+                })
                 })
 
             }
