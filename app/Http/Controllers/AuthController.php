@@ -90,18 +90,17 @@ class AuthController extends Controller
         if($user->role == 'Responder' || $user->role == 'responder'){
             $responder = Responder::where('userId', $user->id)->first();
             return response([
-                'message' => 'Logged In', 
+                'message' => 'Logged in', 
                 'user' => $user,
                 'token' => $user->createToken('appToken')->plainTextToken,
                 'responder' => $responder,
             ], 200);
         }
             return response([
-                'message' => 'Logged In', 
+                'message' => 'Logged in', 
                 'user' => $user,
                 'token' => $user->createToken('appToken')->plainTextToken
             ], 200);
-            // return $user->createToken('appToken')->plainTextToken;
     }
 
     /**
