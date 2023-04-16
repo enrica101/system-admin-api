@@ -7,6 +7,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResponderController;
 use App\Http\Controllers\RequestsInfoController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,10 @@ Route::get('/mail', function () {
     return view('mail');
 })->middleware('auth');
 
+Route::get('/success-restore', function () {
+    return view('successRestore');
+});
+
 Route::get('/accounts', [AdminController::class, 'getRoleUsers']);
 
 Route::put('/settings',[AdminController::class, 'update'])->middleware('auth');
@@ -68,6 +73,8 @@ Route::get('/export', [AdminController::class, 'exportPDF'])->middleware('auth')
 Route::get('/responders', [ResponderController::class, 'getRoleResponders'])->middleware('auth');
 
 Route::get('/requests', [RequestsInfoController::class, 'getRequestsInfos']);
+
+
 
 
 

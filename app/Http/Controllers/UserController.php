@@ -219,9 +219,13 @@ class UserController extends Controller
     }
 
     public function restore($id){
-        $user = User::where('id', $id)->withTrashed()->restore();
+        User::where('id', $id)->withTrashed()->restore();
         $userDetails = User::where('id', $id)->first();
-        return response([
+        // return response([
+        //     'message' => 'Account Restored',
+        //     'user' => $userDetails
+        // ]);
+        return view('success-restore',[
             'message' => 'Account Restored',
             'user' => $userDetails
         ]);

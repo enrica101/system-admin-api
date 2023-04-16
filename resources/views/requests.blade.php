@@ -79,10 +79,10 @@
                 <th class="table-col-1">Created At</th>
             </tr>
             </thead>
+            <tbody>
             @unless(count($responses) == 0)
             @forEach($responses as $response)
-                <tbody class="table-row" id="{{$response['requestID']}}">
-                    <tr>
+                    <tr class="table-row" id="{{$response['requestID']}}">
                     <td class="table-cols" id="{{$response['requestID']}}">
                         {{$response['requestID']}}</td>
                     <td class="table-cols" id="{{$response['requestID']}}">{{$response['requestType']}}</td>
@@ -92,13 +92,14 @@
                     <td class="table-cols" id="{{$response['requestID']}}">{{$response['requesterfname']}} {{$response['requesterlname']}}</td>
                     <td class="table-cols" id="{{$response['requestID']}}">{{$response['created_at']}}</td>
                 </tr>
-                </tbody>
+                
             @endforeach
+        
             @else
             <tr>
                 <td id="norecords">No record.</td></tr>
-    
-            @endunless
+                @endunless
+            </tbody>
         </table>
         <table class="table">
             <thead class="table-header" >
@@ -113,10 +114,10 @@
             </tr>
             
             </thead>
+            <tbody>
             @unless(count($ongoingRequests) == 0)
             @forEach($ongoingRequests as $ongoingRequest)
-                <tbody class="table-row" id="{{$ongoingRequest['requestID']}}">
-                    <tr>
+                    <tr class="table-row" id="{{$ongoingRequest['requestID']}}">
                         <td class="table-cols" id="{{$ongoingRequest['requestID']}}">
                             {{$ongoingRequest['requestID']}}</td>
                         <td class="table-cols" id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['requestType']}}</td>
@@ -125,14 +126,14 @@
                         <td class="table-cols" id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['responderfname']}} {{$ongoingRequest['responderlname']}}</td>
                         <td class="table-cols" id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['requesterfname']}} {{$ongoingRequest['requesterlname']}}</td>
                         <td class="table-cols" id="{{$ongoingRequest['requestID']}}">{{$ongoingRequest['created_at']}}</td>
-                </tr>
+                    </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <td id="norecords">No record.</td></tr>
+                        
+                        @endunless
                     </tbody>
-            @endforeach
-            @else
-            <tr>
-                <td id="norecords">No record.</td></tr>
-    
-            @endunless
         </table>
         <table class="table">
             <thead class="table-header" style="">
@@ -144,12 +145,12 @@
                     <th class="table-col-1">Responder</th>
                     <th class="table-col-1">Requester</th>
                     <th class="table-col-1">Created At</th>
-            </tr>
+                </tr>
             </thead>
+            <tbody>
             @unless(count($completedRequests) == 0)
             @forEach($completedRequests as $completedRequest)
-                <tbody class="table-row" id="{{$completedRequest['requestID']}}">
-                    <tr>
+                    <tr class="table-row" id="{{$completedRequest['requestID']}}">
                         <td class="table-cols" style="width: 50px;" id="{{$completedRequest['requestID']}}">
                             {{$completedRequest['requestID']}}</td>
                         <td class="table-cols" style="width: 90px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['requestType']}}</td>
@@ -159,13 +160,12 @@
                         <td class="table-cols" style="width: 110px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['requesterfname']}} {{$completedRequest['requesterlname']}}</td>
                         <td class="table-cols" style="width: 100px;" id="{{$completedRequest['requestID']}}">{{$completedRequest['created_at']}}</td>
                     </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <td id="norecords">No record.</td></tr>
+                        @endunless
                     </tbody>
-            @endforeach
-            @else
-            <tr>
-                <td id="norecords">No record.</td></tr>
-    
-            @endunless
         </table>
         <table class="table">
             <thead class="table-header">
@@ -179,10 +179,10 @@
                 <th class="table-col-1">Created At</th>
             </tr>
             </thead>
+            <tbody>
             @unless(count($cancelledRequests) == 0)
             @forEach($cancelledRequests as $cancelledRequest)
-                <tbody class="table-row" id="{{$cancelledRequest['requestID']}}">
-                    <tr>
+                    <tr class="table-row" id="{{$cancelledRequest['requestID']}}">
                         <td class="table-cols"id="{{$cancelledRequest['requestID']}}">
                             {{$cancelledRequest['requestID']}}</td>
                         <td class="table-cols"id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['requestType']}}</td>
@@ -192,13 +192,12 @@
                         <td class="table-cols" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['requesterfname']}} {{$cancelledRequest['requesterlname']}}</td>
                         <td class="table-cols" id="{{$cancelledRequest['requestID']}}">{{$cancelledRequest['created_at']}}</td>
                     </tr>
-                </tbody>
-            @endforeach
-            @else
-            <tr>
-                <td id="norecords">No record.</td></tr>
-    
-            @endunless
+                    @endforeach
+                    @else
+                    <tr>
+                        <td id="norecords">No record.</td></tr>
+                        @endunless
+                    </tbody>
         </table>
     </div>   
     <div class="view">

@@ -216,14 +216,44 @@ section.wrapper{
                     color: #32323280;
                 }
             }
+            &:hover{
+                cursor: pointer;
+            }
         }
         .profile{
             position: absolute;
+            top: 70px;
+            right: 30px;
+            font-family: var(--secondary-font-family);
             visibility: hidden;
+            z-index: 3;
+            &.show{
+                visibility: initial;
+                background-color: #fff;
+                height: fit-content;
+                width: fit-content;
+                padding: 5%;
+                border-radius: 4px;
+                box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+                button{
+                    border: none;
+                    background-color: transparent;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    margin-top: 20px;
+                    font-size: 13px;
+                    cursor: pointer;
+                    img{
+                        width: 20px;
+                    }
+                }
+            }
+            
         }
      
-
-        }
     }
 
     .right{
@@ -385,11 +415,10 @@ table.show{
     border-radius: 5px;
     border: 1px solid #32323211;
     background-color: #fff;
-    height: fit-content;
-    max-height: 70vh;
+    height: 80vh;
     overflow-y: auto;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: auto;
     grid-template-rows: 40px 1fr;
     padding: 20px 0;
 
@@ -398,30 +427,23 @@ table.show{
     font-size: 12px;
     overflow: hidden;
     width: 100%;
-
-    // @media (min-height: 600px) {
-    //     height: ;
-    //   }
     thead{
         width: 100%;
         tr{
             display: grid;
             grid-template-columns: repeat(7, auto);
-            // grid-template-columns: 0.3fr 1fr 0.5fr 0.3fr 1fr 1fr 1fr;
             grid-template-rows: 25px;
             border-bottom: 1px solid #32323213;
             padding-bottom: 6px;
             th{
                 font-weight: 600;
             }
-            
         }
     }
     tbody{
         overflow: auto;
         tr{
             display: grid;
-            // grid-template-columns: 0.3fr 1fr 0.5fr 0.3fr 1fr 1fr 1fr;
             grid-template-columns: repeat(7, auto);
             grid-template-rows: 25px;
             height: 25px;
@@ -692,5 +714,20 @@ table.show{
         .body{
             font-family: 'Poppins', sans-serif;
         }
+    }
+}
+
+// RESTORATION ACCOUNT VIEW
+.restore-account-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+    
+    font-family: var(--primary-font-family);
+    i{
+        font-weight: 500;
     }
 }

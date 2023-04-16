@@ -187,21 +187,21 @@ class ResponseController extends Controller
             case '7':
                 $responseUpdated = Response::where('requestId', $id)->update(['status' => "Bogus"]);
                 if($responseUpdated){
-                    $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => "Archived!"]);
+                    $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => "Bogus"]);
                     $requestinfo = RequestsInfo::where('id', $id)->first();
                     
                     if($requestUpdated){
                         if(RequestsInfo::where('id', $id)->delete()){
                             Response::where('requestId', $id)->delete();
                             $user = User::where('id', $requestinfo->userId)->first();
-                            $user->delete();
                             $to_name = $user->fname;
                             $to_email = $user->email;
                             $data = array('name'=>$to_name, "id"=> $user->id);
                             Mail::send('emails.restorationEmail', $data, function($message) use ($to_email, $to_name){
-                                $message->to($to_email, $to_name)->subject('Your account has been banned.');
+                                $message->to($to_email, $to_name)->subject('Your account is temporarily banned.');
                                 $message->from('91watch@uylcph.org', '91Watch Support Team');
                             });
+                            $user->delete();
                             $message = "Request is set to bogus and is moved to archives.";
                         }
                     }

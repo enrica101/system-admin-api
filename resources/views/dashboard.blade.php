@@ -48,10 +48,16 @@
     </div>
     
     <div class="profile">
-        <img style="width:50px;margin:auto;" src="{{asset('img/avatar.png')}}" alt="avatar"><br>
         <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
         <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
         <a href="/settings" style="font-weight: 400; font-size:12px; color:blue;">Update your info</a>
+        <form action="/logout" method="post">
+            @csrf
+            <button class="btn" type="submit">
+                <img src="icons/logout.svg" alt="Logout"> 
+                Logout
+            </button>
+        </form>
     </div>
 </header>
 <div class="right">
@@ -133,6 +139,14 @@ let request5Tally = document.querySelector('.request5Tally')
 let startDate = document.querySelector('.startDate')
 let endDate = document.querySelector('.endDate')
 let btnGet = document.querySelector('.filterDate')
+
+// profile toggle
+const profile = document.querySelector('.profile')
+const avatar = document.querySelector('.avatar')
+
+avatar.addEventListener('click', ()=>{
+    profile.classList.toggle('show')
+})
 
 let locations = document.querySelector('.locations')
 getAllRequestLocations()

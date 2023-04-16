@@ -1,19 +1,6 @@
 <x-layout>
     <header class="header1">
         <h2>Responders</h2>
-            {{-- <div class="date-wrapper">
-                <button class="prev">
-
-                    <img src="icons/caret-left.svg" alt="caret-left">
-                </button>
-                <div class="date">
-                    <p class="month"></p><p class="day"></p>
-                </div>
-                <button class="next">
-
-                    <img src="icons/caret-right.svg" alt="caret-right">
-                </button>
-            </div> --}}
     </header>
 
     <header class="header2">
@@ -23,7 +10,6 @@
                 <br/>
                 <small class="accountType">Admin</small>
             </span>
-            {{-- <img src="img/avatar.png" alt="avatar"> --}}
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <circle cx="12" cy="12" r="9" />
@@ -52,12 +38,6 @@
                 <option value="Medical">Medical</option>
                 <option value="Police">Police</option>
             </select>
-            {{-- <form action="/users" class="search">
-                <input type="text" name="search-bar" id="search-bar" placeholder="Search">
-                <button type="submit" class="btn-search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form> --}}
             <div class="search">
                 <input type="text" name="search-responder" id="search-responder" placeholder="Search responder" />
                 <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
