@@ -141,8 +141,12 @@ class UserController extends Controller
         $user = User::find($id);
         
         if($user){
-            
-            $user->update($request->all());
+            if($request['password']){
+                $user->password = bcrypt($request['password']);
+                $user->update($request->all());
+            }else{
+                $user->update($request->all());
+            }
 
             return response([
                 'message' => 'Updated',
