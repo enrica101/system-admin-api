@@ -153,7 +153,6 @@ function getAllRequestLocations(){
     }).catch(err => console.log(err))
 }
 
-
 locations.addEventListener('change', ()=>{
     let start = new Date(startDate.value)
     let end = new Date(endDate.value)
@@ -165,7 +164,6 @@ locations.addEventListener('change', ()=>{
         document.querySelector('.progress5').style.width = `0`
     }else{
         getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null, locations.value)
-        
     }
 })
 
@@ -192,7 +190,7 @@ btnGet.addEventListener('click', ()=>{
     }else{
         getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null, locations.value)
         
-    }
+        }
     })
 })
 

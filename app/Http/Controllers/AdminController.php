@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Mail\MailPDF;
 use App\Models\Response;
 use App\Models\Responder;
 use App\Models\RequestsInfo;
@@ -16,8 +15,9 @@ class AdminController extends Controller
 {
 
     public function getDataByDate(Request $request){
-            if($request['end'] === 'null'){
+            
         if($request['location'] !== null || $request['location']!=='undefined'){
+            if($request['end'] === 'null'){
             $allRequests = count(RequestsInfo::withTrashed()->where('created_at', 'like', '%'.$request['start'].'%')->where('location', 'like', '%'.$request['location'].'%')->get());
             $allAvailableRequests = count(RequestsInfo::withTrashed()->where('created_at', 'like', '%'.$request['start'].'%')->where('status', 'like', '%'.'Searching'.'%')->where('location', 'like', '%'.$request['location'].'%')->get());
             $allOngoingRequests = count(Response::where('created_at', 'like', '%'.$request['start'].'%')->get());
@@ -204,6 +204,7 @@ class AdminController extends Controller
 
             $completed = 0;
             $cancelled = 0;
+            $bogus = 0;
 
             if(!empty($requestsFromArchive)){
                 for($j=0;$j<count($requestsFromArchive);$j++){
@@ -211,6 +212,8 @@ class AdminController extends Controller
                         $cancelled++;
                     }else if($requestsFromArchive[$j]->status == 'Completed'){
                         $completed++;
+                    }else{
+                        $bogus++;
                     }
                 }
             }
@@ -240,6 +243,7 @@ class AdminController extends Controller
                 'created_at' => $createDate,
                 'completedRequests' => $completed,
                 'cancelledRequests' => $cancelled,
+                'bogusRequests' => $bogus,
                 'ongoingRequest' => $ongoing,
                 'joined' => $users[$i]['created_at'],
             ]);

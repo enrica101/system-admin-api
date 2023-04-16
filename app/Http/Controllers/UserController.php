@@ -6,10 +6,7 @@ use App\Models\User;
 use App\Models\Responder;
 use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Http\Controllers\AdminController;
 use App\Models\Response as ResponseModel;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UserController extends Controller
 {
@@ -21,7 +18,6 @@ class UserController extends Controller
     public function indexUsers()
     {
         return User::where('role', 'like',  '%'.'User'.'%')->get();
-
     }
 
     /**
@@ -133,8 +129,6 @@ class UserController extends Controller
         }
     }
 
-
-
     /**
      * Update the specified resource in storage.
      *
@@ -218,5 +212,13 @@ class UserController extends Controller
                 }
                 
             }
+    }
+
+    public function restore($id){
+        $user = User::where('id', $id)->withTrashed()->restore();
+        return response([
+            'message' => 'Account Restored',
+            'user' => $user
+        ]);
     }
 }

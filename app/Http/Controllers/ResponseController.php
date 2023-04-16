@@ -7,6 +7,7 @@ use App\Models\Response;
 use App\Models\Responder;
 use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 
 class ResponseController extends Controller
 {
@@ -186,9 +187,12 @@ class ResponseController extends Controller
                 $responseUpdated = Response::where('requestId', $id)->update(['status' => "Bogus"]);
                 if($responseUpdated){
                     $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => "Archived!"]);
+                    
                     if($requestUpdated){
                         if(RequestsInfo::where('id', $id)->delete()){
                             Response::where('requestId', $id)->delete();
+                            $user = User::where('id', $requestUpdated->userId)->first();
+                            $user->delete();
                             $message = "Request is completed and is moved to archives.";
                         }
                     }
@@ -281,4 +285,6 @@ class ResponseController extends Controller
             ], 400);
         }
     }
+
+    
 }

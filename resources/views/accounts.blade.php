@@ -97,6 +97,7 @@
                     <th class="table-col-1">Name</th>
                     <th class="table-col-1">Completed</th>
                     <th class="table-col-1">Cancelled</th>
+                    <th class="table-col-1">Bogus</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -115,6 +116,9 @@
                             </td>
                             <td class="table-cols"  id="{{$user['id']}}" >
                                 {{$user['cancelledRequests']}}
+                            </td>
+                            <td class="table-cols"  id="{{$user['id']}}" >
+                                {{$user['bogusRequests']}}
                             </td>
                         </tr>
 
