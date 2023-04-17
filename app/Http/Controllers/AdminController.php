@@ -192,20 +192,17 @@ class AdminController extends Controller
 
     public function getRoleUsers(){
         if(request('name')!=null){
-            $users = User::where('fname', 'like',  '%'.request('name').'%')->orderBy('created_at', 'desc')->get();
+            $users = User::withTrashed()->where('fname', 'like',  '%'.request('name').'%')->orderBy('created_at', 'desc')->get();
         }else{
-            $users = User::where('role', 'like',  '%'.'User'.'%')->orderBy('created_at', 'desc')->get();
+            $users = User::withTrashed()->where('role', 'like',  '%'.'User'.'%')->orderBy('created_at', 'desc')->orderBy('deleted_at', 'desc')->get();
         }
         $usersInfo = [];
         $today = date("Y-m-d");
-        
+        $completed = 0;
+        $cancelled = 0;
+        $bogus = 0;
         for($i = 0; $i<count($users); $i++){
             $requestsFromArchive = RequestsInfo::onlyTrashed()->where('userId', $users[$i]['id'])->get();
-
-            $completed = 0;
-            $cancelled = 0;
-            $bogus = 0;
-
             if(!empty($requestsFromArchive)){
                 for($j=0;$j<count($requestsFromArchive);$j++){
                     if($requestsFromArchive[$j]->status == 'Cancelled'){

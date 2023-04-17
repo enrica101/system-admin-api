@@ -48,7 +48,7 @@ class UserController extends Controller
      */
     public function getUserAccount($id)
     {
-        $user = User::find($id);
+        $user = User::withTrashed()->find($id);
         $usersInfo = [];
         $today = date("Y-m-d");
         
@@ -79,8 +79,12 @@ class UserController extends Controller
             
             $diff = date_diff(date_create($user['birthdate']), date_create($today));
             $age = $diff->format('%y');
+            $banned = false;
 
             $createDate = date("Y-m-d H:i:s",strtotime($user['created_at']));
+            if($user['deleted_at'] != null){
+                $banned =true;
+            }
 
             array_push($usersInfo, [
                     'id' => $user['id'],
@@ -100,6 +104,7 @@ class UserController extends Controller
                     'bogusRequests' => $bogus,
                     'ongoingRequest' => $ongoing,
                     'joined' => $createDate,
+                    'banned' => $banned,
             ]);
 
         return response([

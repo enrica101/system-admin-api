@@ -137,7 +137,6 @@
 <div class="view">
             <h4>Select a user to see more information.</h4>
         </div>
-<script src="/scripts/main.js"></script>
 <script>
     const nav = document.querySelector('.overlay')
     const closeBtnNav = document.querySelector('.btn-close-nav')
@@ -153,6 +152,12 @@
     // profile toggle
     const profile = document.querySelector('.profile')
     const avatar = document.querySelector('.avatar')
+
+    function restoreAccount(id){
+        axios.get('api/users/restore/'+id).then(res =>{
+        console.log(res)
+        }).catch(err => console.log(err))
+    }
 
     avatar.addEventListener('click', ()=>{
         profile.classList.toggle('show')
@@ -206,20 +211,27 @@ function getUserInformation(userId){
 }
 
 function displayUserInfo(data){
+    if(data['banned']){
         rightViewer.innerHTML =
         `<div class="account">
+            
                     <div class="top">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <circle cx="12" cy="12" r="9" />
-                <circle cx="12" cy="10" r="3" />
-                <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
-                </svg>
-                        <span>
-                            <h3>${data['fname']} ${data['lname']}</h3>
-                            <h4>${data['email']}</h4>
+                        <div class='user-details'>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <circle cx="12" cy="12" r="9" />
+                            <circle cx="12" cy="10" r="3" />
+                            <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                            </svg>
+                            <span>
+                                <h3>${data['fname']} ${data['lname']}</h3>
+                                <h4>${data['email']}</h4>
+                            </span>
+                        </div>
+                       <span class='bannedAccount'>
+                            <p>Banned Account</p>
+                        <button class='restoreBtn'" onclick="restoreAccount(${data['id']})">Restore Account</button>
                         </span>
-                        
                     </div>
                     <div class="middle">
                         <div>
@@ -258,6 +270,60 @@ function displayUserInfo(data){
                         <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${ (data['completedRequests']/data['all']*100).toFixed(2)}%</h4></div>
                     </div>
                 </div>`
+    }else{
+        rightViewer.innerHTML =
+        `<div class="account">
+                    <div class="top">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <circle cx="12" cy="12" r="9" />
+                            <circle cx="12" cy="10" r="3" />
+                            <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                            </svg>
+                            <span>
+                                <h3>${data['fname']} ${data['lname']}</h3>
+                                <h4>${data['email']}</h4>
+                            </span>
+                    </div>
+                    <div class="middle">
+                        <div>
+                            Contact Number: <p>${data['contactNumber']}</p>
+                        </div>
+                        <div>
+                            Gender: <p>${data['gender']}</p>
+                        </div>
+                        <div>
+                            Age: <p>${data['age']}</p>
+                        </div>
+                        <div>
+                            Joined: <p>${data['joined']}</p>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <h4>Requests</h4>
+                        <div class="statusCounts">
+                            <span>
+                               <h3>${data['ongoingRequest']}</h3>
+                            <h5>Ongoing</h5> 
+                            </span>
+                            <span>
+                               <h3>${parseInt(data['completedRequests'])}</h3>
+                            <h5>Completed</h5> 
+                            </span>
+                            <span>
+                                <h3>${data['cancelledRequests']}</h3>
+                            <h5>Cancelled</h5>
+                            </span>
+                            <span>
+                                <h3>${data['bogusRequests']}</h3>
+                            <h5>Bogus</h5>
+                            </span>
+                        </div>
+                        <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${ (data['completedRequests']/data['all']*100).toFixed(2)}%</h4></div>
+                    </div>
+                </div>`
+    }
+        
 }
 
 </script>

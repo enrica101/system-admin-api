@@ -526,6 +526,25 @@ table.show{
                 font-family: var(--secondary-font-family);
                 font-size: 12px;
             }
+            &:has(.bannedAccount){
+                display: grid;
+                grid-template-columns: 1fr 100px;
+                grid-template-rows: 100%;
+                .user-details{
+                    display: grid;
+                    grid-template-columns: 20% 80%;
+                    grid-template-rows: 1fr;
+                    svg{
+                        align-self: center;
+                        justify-self: center;
+                    }
+                    span{
+                        align-self: center;
+                        font-family: var(--secondary-font-family);
+                        font-size: 12px;
+                    }
+                }
+            }
         }.middle{
             display: flex;
             flex-direction: column;
