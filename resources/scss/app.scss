@@ -262,8 +262,13 @@ section.wrapper{
 
         .locationFilter{
             display: grid;
-            grid-template-columns: 1fr 1fr;            
-            width: 90%;
+            grid-template-columns: 1fr 200px;       
+            margin-right: 30px;
+            select{
+                height: 33px;
+                border: 1px solid #32323250;
+                border-radius: 5px;
+            }
             button{
                 width: fit-content;
                 justify-self: end;

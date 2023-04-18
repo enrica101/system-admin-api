@@ -89,7 +89,7 @@ main{
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 10px 12px;
+        /* padding: 10px 12px;/ */
         margin-top: 45px;
 
         background-color: #FB993550;

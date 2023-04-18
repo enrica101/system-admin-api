@@ -63,7 +63,6 @@
 <div class="right">
     <div class="locationFilter">
         <h3 class="title">Requests Overview</h3>
-        {{-- <button><i class="fa-solid fa-filter"></i> By location</button> --}}
         <select defaultValue='Select location' class="locations">
             <option value='' hidden>Select location</option>
             

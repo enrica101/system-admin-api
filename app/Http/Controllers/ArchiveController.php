@@ -215,7 +215,6 @@ class ArchiveController extends Controller
     public function searchResponsesArchive($id)
     {
         $responsesInfo = Response::onlyTrashed()->where('responderId', $id)-> get()->sortDesc();
-        dd($responsesInfo);
         if($responsesInfo){
             return response([
                 'message' => 'Found', 
