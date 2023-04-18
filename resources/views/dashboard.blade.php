@@ -64,8 +64,13 @@
     <div class="locationFilter">
         <h3 class="title">Requests Overview</h3>
         {{-- <button><i class="fa-solid fa-filter"></i> By location</button> --}}
-        <select class="locations">
-            <option value="">Select location</option>
+        <select defaultValue='Select location' class="locations">
+            <option disabled hidden>Select location</option>
+            {{-- @unless($requests === 0)
+            @foreach ($requests as $request)
+                <option value={{$request->location}}>{{$request->location}}</option>
+            @endforeach
+            @endunless --}}
         </select>
     </div>
     <div class="statistics">
@@ -114,6 +119,15 @@
                 <span class="progress5"></span>
             </span>
         </div>
+        <div class="rectangle">
+            <div class="content">
+                <p class="label">Bogus Requests</p>
+                <p class="request6Tally">0</p>
+            </div>
+            <span class="bar">
+                <span class="progress6"></span>
+            </span>
+        </div>
     </div>
 </div>
 <script>
@@ -135,6 +149,7 @@ let request2Tally = document.querySelector('.request2Tally')
 let request3Tally = document.querySelector('.request3Tally')
 let request4Tally = document.querySelector('.request4Tally')
 let request5Tally = document.querySelector('.request5Tally')
+let request6Tally = document.querySelector('.request6Tally')
 
 let startDate = document.querySelector('.startDate')
 let endDate = document.querySelector('.endDate')
@@ -149,37 +164,45 @@ avatar.addEventListener('click', ()=>{
 })
 
 let locations = document.querySelector('.locations')
+let found = []
+let foundLocations = []
+
 getAllRequestLocations()
 function getAllRequestLocations(){
-    axios.get(`/api/requests`)
+    axios.get(`/api/requests/all`)
     .then(res => {
-        console.log(res.data)
-        let loc = ''
-        if(res.data.length > 0){
-            res.data.map((request)=>{
-                if(request.location == loc){
-                    locations.innerHTML += `<option value='${request.location}'>${request.location}</option>`
-                }
-                loc = request.location
+        if(res.data.requests.length>0){
+            res.data.requests.map((request)=>{
+                found.push(request.location)
             })
+        }else{
+            found.push(res.data[0].location)
         }
-   
+       foundLocations = Array.from(new Set(found))
+       if(foundLocations.length>1){
+        foundLocations.map((loc)=>{
+            locations.innerHTML += `<option value='${loc}''>${loc}</option>`
+        })
+       }else{
+        locations.innerHTML = `<option value=${foundLocations}>${foundLocations}</option>`
+        }
     }).catch(err => console.log(err))
 }
 
-locations.addEventListener('change', ()=>{
-    let start = new Date(startDate.value)
-    let end = new Date(endDate.value)
-    if(locations.value == 'undefined'){
-        document.querySelector('.progress1').style.width = `0`
-        document.querySelector('.progress2').style.width = `0`
-        document.querySelector('.progress3').style.width = `0`
-        document.querySelector('.progress4').style.width = `0`
-        document.querySelector('.progress5').style.width = `0`
-    }else{
-        getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null, locations.value)
-    }
-})
+// locations.addEventListener('change', ()=>{
+//     let start = new Date(startDate.value)
+//     let end = new Date(endDate.value)
+//     if(locations.value == 'undefined'){
+//         document.querySelector('.progress1').style.width = `0`
+//         document.querySelector('.progress2').style.width = `0`
+//         document.querySelector('.progress3').style.width = `0`
+//         document.querySelector('.progress4').style.width = `0`
+//         document.querySelector('.progress5').style.width = `0`
+//         document.querySelector('.progress6').style.width = `0`
+//     }else{
+//         getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null, locations.value)
+//     }
+// })
 
 let start = new Date(startDate.value)
 getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null)
@@ -188,24 +211,14 @@ btnGet.addEventListener('click', ()=>{
     let start = new Date(startDate.value)
     let end = new Date(endDate.value)
 
-    if(end == 'Invalid Date'){
+    if(end === 'Invalid Date' || end === null){
         getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null)
-    }else{
-        getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate())+" "+start.getHours()+":"+ start.getMinutes()+":"+start.getSeconds(), end.getFullYear()+"-"+addLeadingZero(end.getMonth()+1)+"-"+addLeadingZero(end.getDate())+" "+end.getHours()+":"+ end.getMinutes()+":"+end.getSeconds())
+    }
+    else{
+        getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), end.getFullYear()+"-"+addLeadingZero(end.getMonth()+1)+"-"+addLeadingZero(end.getDate()))
+
     }
     
-    locations.addEventListener('change', ()=>{
-        if(locations.value == 'undefined'){
-        document.querySelector('.progress1').style.width = `0`
-        document.querySelector('.progress2').style.width = `0`
-        document.querySelector('.progress3').style.width = `0`
-        document.querySelector('.progress4').style.width = `0`
-        document.querySelector('.progress5').style.width = `0`
-    }else{
-        getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null, locations.value)
-        
-        }
-    })
 })
 
 profileBtn.addEventListener('click', () => {
@@ -349,16 +362,18 @@ const barChart1 = new Chart(barChart,{
   },
 });
 
-async function getDataFromDate(start, end, location){
-    console.log(location)
+async function getDataFromDate(start, end){
+    console.log(start)
+    // console.log(end)
         document.querySelector('.progress1').style.width = `0`
         document.querySelector('.progress2').style.width = `0`
         document.querySelector('.progress3').style.width = `0`
         document.querySelector('.progress4').style.width = `0`
         document.querySelector('.progress5').style.width = `0`
-    axios.get(`/api/sysad/graphData/byDate?start=${start}&end=${end}&location=${location}`)
+        document.querySelector('.progress6').style.width = `0`
+    axios.get(`/api/sysad/graphData/byDate?start=${start}&end=${end}`)
     .then(res => {
-        console.log(res)
+        console.log(res.data)
         // Responder Data
         let data1 = res.data['data']['allResponders']
         let data2 = res.data['data']['allIdleRequests']
@@ -376,6 +391,7 @@ async function getDataFromDate(start, end, location){
         let ongoingRequestTally = res.data['data']['allOngoingRequests']
         let completedRequestTally = res.data['data']['allCompletedRequests']
         let cancelledRequestTally = res.data['data']['allCancelledRequests']
+        let bogusRequestTally = res.data['data']['allBogusRequests']
 
             chart1Tally.innerHTML = data1
             chart2Tally.innerHTML = data2
@@ -391,6 +407,8 @@ async function getDataFromDate(start, end, location){
             document.querySelector('.progress4').style.width = `${completedRequestTally/allRequestTally*100}%`
             request5Tally.innerHTML = cancelledRequestTally
             document.querySelector('.progress5').style.width = `${cancelledRequestTally/allRequestTally*100}%`
+            request6Tally.innerHTML = bogusRequestTally
+            document.querySelector('.progress6').style.width = `${bogusRequestTally/allRequestTally*100}%`
             doughnutChart1.config.data.datasets.forEach(dataset => {dataset.data = [data1]})
             doughnutChart1.update();
 
@@ -402,8 +420,6 @@ async function getDataFromDate(start, end, location){
 
             barChart1.config.data.datasets.forEach(dataset => {dataset.data = [barData1, barData2, barData3, barData4]})
             barChart1.update();
-
-
    
     }).catch(err => console.log(err))
 }

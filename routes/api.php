@@ -52,6 +52,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
   //Requests
         Route::get('/requests', [RequestsInfoController::class, 'index']);
         Route::get('/requests/available', [RequestsInfoController::class, 'indexAvailable']);
+        Route::get('/requests/all', [RequestsInfoController::class, 'getAllrequests']);
         Route::get('/requests/{id}', [RequestsInfoController::class, 'show']);
         Route::post('/requests', [RequestsInfoController::class, 'store']);
         Route::put('/requests/{id}', [RequestsInfoController::class, 'update']);

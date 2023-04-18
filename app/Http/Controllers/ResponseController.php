@@ -216,7 +216,7 @@ class ResponseController extends Controller
                     if($requestUpdated){
                         if(RequestsInfo::where('id', $id)->delete()){
                             Response::where('requestId', $id)->delete();
-                            $message = "Request is completed and is moved to archives.";
+                            $message = "Request is cancelled and is moved to archives.";
                         }
                     }
                 }else{

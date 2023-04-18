@@ -179,8 +179,6 @@ class RequestsInfoController extends Controller
             'cancelledCount' => count($cancelled),
             'requestsCount' => count($responses),
         ]);
-
-       
     }
 
     public function getSingleRequestInfo($id){
@@ -221,6 +219,7 @@ class RequestsInfoController extends Controller
         }
     }
 
+
     /**
      * Display a listing of the resource.
      *
@@ -229,6 +228,18 @@ class RequestsInfoController extends Controller
     public function index()
     {
         return RequestsInfo::all();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllRequests()
+    {
+        return response([
+            'requests' => RequestsInfo::withTrashed()->get()
+        ]);
     }
 
     /**

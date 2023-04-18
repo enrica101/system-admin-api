@@ -287,7 +287,7 @@ section.wrapper{
         .statistics{
             display: grid;
             grid-template-columns: 90%;
-            grid-template-rows: repeat(5, 25%);
+            grid-template-rows: repeat(6, 19%);
 
             margin-top: 5%;
 
@@ -328,7 +328,13 @@ section.wrapper{
                     width: 100%;
                     background-color: #32323213;
                     border-radius: 25px;
-                    .progress1, .progress2, .progress3, .progress4, .progress5{
+                    .progress1, 
+                    .progress2, 
+                    .progress3, 
+                    .progress4, 
+                    .progress5,
+                    .progress6
+                    {
                         position: absolute;
                         left: 0;
                         top: 0;
