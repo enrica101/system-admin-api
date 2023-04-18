@@ -65,12 +65,8 @@
         <h3 class="title">Requests Overview</h3>
         {{-- <button><i class="fa-solid fa-filter"></i> By location</button> --}}
         <select defaultValue='Select location' class="locations">
-            <option disabled hidden>Select location</option>
-            {{-- @unless($requests === 0)
-            @foreach ($requests as $request)
-                <option value={{$request->location}}>{{$request->location}}</option>
-            @endforeach
-            @endunless --}}
+            <option value='' hidden>Select location</option>
+            
         </select>
     </div>
     <div class="statistics">
@@ -155,7 +151,6 @@ let startDate = document.querySelector('.startDate')
 let endDate = document.querySelector('.endDate')
 let btnGet = document.querySelector('.filterDate')
 
-// profile toggle
 const profile = document.querySelector('.profile')
 const avatar = document.querySelector('.avatar')
 
@@ -189,25 +184,72 @@ function getAllRequestLocations(){
     }).catch(err => console.log(err))
 }
 
-// locations.addEventListener('change', ()=>{
-//     let start = new Date(startDate.value)
-//     let end = new Date(endDate.value)
-//     if(locations.value == 'undefined'){
-//         document.querySelector('.progress1').style.width = `0`
-//         document.querySelector('.progress2').style.width = `0`
-//         document.querySelector('.progress3').style.width = `0`
-//         document.querySelector('.progress4').style.width = `0`
-//         document.querySelector('.progress5').style.width = `0`
-//         document.querySelector('.progress6').style.width = `0`
-//     }else{
-//         getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null, locations.value)
-//     }
-// })
+locations.addEventListener('change', ()=>{
+    document.querySelector('.progress1').style.width = `0`
+        document.querySelector('.progress2').style.width = `0`
+        document.querySelector('.progress3').style.width = `0`
+        document.querySelector('.progress4').style.width = `0`
+        document.querySelector('.progress5').style.width = `0`
+        document.querySelector('.progress6').style.width = `0`
+    console.log(locations.value)
+    let all = 0
+    let available = 0
+    let ongoing = 0
+    let completed = 0
+    let cancelled = 0
+    let bogus = 0
+    axios.get(`/api/requests/search/location/${locations.value}`)
+    .then(res => {
+        console.log(res.data.length)
+        all = res.data.length
+        res.data.map((request)=>{
+            if(request.status == "Completed"){
+                completed++
+                console.log(completed)
+            }else if(request.status == "Cancelled"){
+                cancelled++
+                console.log(cancelled)
+            }else if(request.status== "Bogus"){
+                bogus++
+                console.log(bogus)
+            }else if(request.status.includes("Searching")){
+                available++
+                console.log(available)
+            }else{
+                ongoing++
+                console.log(ongoing)
+
+            }
+        })
+        //  Requests
+         let allRequestTally = all
+        let availableRequestTally = available
+        let ongoingRequestTally = ongoing
+        let completedRequestTally = completed
+        let cancelledRequestTally = cancelled
+        let bogusRequestTally = bogus
+
+            request1Tally.innerHTML = allRequestTally
+            document.querySelector('.progress1').style.width = `${allRequestTally/allRequestTally*100}%`
+            request2Tally.innerHTML = availableRequestTally
+            document.querySelector('.progress2').style.width = `${availableRequestTally/allRequestTally*100}%`
+            request3Tally.innerHTML = ongoingRequestTally
+            document.querySelector('.progress3').style.width = `${ongoingRequestTally/allRequestTally*100}%`
+            request4Tally.innerHTML = completedRequestTally
+            document.querySelector('.progress4').style.width = `${completedRequestTally/allRequestTally*100}%`
+            request5Tally.innerHTML = cancelledRequestTally
+            document.querySelector('.progress5').style.width = `${cancelledRequestTally/allRequestTally*100}%`
+            request6Tally.innerHTML = bogusRequestTally
+            document.querySelector('.progress6').style.width = `${bogusRequestTally/allRequestTally*100}%`
+
+    }).catch(err => console.log(err))
+})
 
 let start = new Date(startDate.value)
 getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null)
 
 btnGet.addEventListener('click', ()=>{
+    locations.value =''
     let start = new Date(startDate.value)
     let end = new Date(endDate.value)
 
@@ -216,7 +258,6 @@ btnGet.addEventListener('click', ()=>{
     }
     else{
         getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), end.getFullYear()+"-"+addLeadingZero(end.getMonth()+1)+"-"+addLeadingZero(end.getDate()))
-
     }
     
 })

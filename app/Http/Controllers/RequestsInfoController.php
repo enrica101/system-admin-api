@@ -389,7 +389,7 @@ class RequestsInfoController extends Controller
     public function searchLocation($location)
     {
        
-        return RequestsInfo::where('location', 'like', '%'.$location.'%')->get();
+        return RequestsInfo::withTrashed()->where('location', 'like', '%'.$location.'%')->get();
         
     }
 
