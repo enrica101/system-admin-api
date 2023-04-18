@@ -253,7 +253,7 @@ btnGet.addEventListener('click', ()=>{
     let start = new Date(startDate.value)
     let end = new Date(endDate.value)
 
-    if(end === 'Invalid Date' || end === null){
+    if(end == 'Invalid Date' || end === null){
         getDataFromDate(start.getFullYear()+"-"+addLeadingZero(start.getMonth()+1)+"-"+addLeadingZero(start.getDate()), null)
     }
     else{
