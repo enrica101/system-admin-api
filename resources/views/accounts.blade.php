@@ -136,12 +136,9 @@
     const overlayReactivate = document.querySelector('.overlay-modal')
     const loaderModal = document.querySelector('.loader')
 
-        // console.log(exitModal)
-        // exitModal.addEventListener('click', ()=>{
-        //     overlayReactivate.classList.remove('show')
-        // })
         overlayReactivate.addEventListener('click', ()=>{
             overlayReactivate.classList.remove('show')
+            reload()
         })
 
     const profileBtn = document.querySelector('.avatar');
