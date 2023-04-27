@@ -59,7 +59,7 @@ Route::get('/success-restore', function () {
 });
 
 
-Route::get('/accounts', [AdminController::class, 'getRoleUsers']);
+Route::get('/accounts', [AdminController::class, 'getRoleUsers'])->middleware('auth');
 
 Route::put('/settings',[AdminController::class, 'update'])->middleware('auth');
 
@@ -72,7 +72,7 @@ Route::get('/export', [AdminController::class, 'exportPDF']);
 
 Route::get('/responders', [ResponderController::class, 'getRoleResponders'])->middleware('auth');
 
-Route::get('/requests', [RequestsInfoController::class, 'getRequestsInfos']);
+Route::get('/requests', [RequestsInfoController::class, 'getRequestsInfos'])->middleware('auth');
 
 
 

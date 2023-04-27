@@ -405,7 +405,6 @@ async function getDataFromDate(start, end){
         document.querySelector('.progress6').style.width = `0`
     axios.get(`/api/sysad/graphData/byDate?start=${start}&end=${end}`)
     .then(res => {
-        console.log(res.data)
         // Responder Data
         let data1 = res.data['data']['allResponders']
         let data2 = res.data['data']['allIdleRequests']
