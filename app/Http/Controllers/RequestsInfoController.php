@@ -13,8 +13,8 @@ class RequestsInfoController extends Controller
 {
 
     public function getRequestsInfos(){
-        if(request('location') != null){
-           $allRequests = RequestsInfo::withTrashed()->where('location', 'like', '%'.request('location').'%')->get();
+        if(request('id') != null){
+           $allRequests = RequestsInfo::withTrashed()->where('id', 'like', '%'.request('id').'%')->get();
         }else if(request('type') == null || request('type') == 'All'){
             $allRequests = RequestsInfo::withTrashed()->orderBy('created_at', 'desc')->orderBy('updated_at', 'desc')->get();
         }else{

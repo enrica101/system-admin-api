@@ -50,7 +50,7 @@
         </select>
 
         <div class="search">
-            <input type="text" name="search-location" id="search-location" placeholder="Search location" />
+            <input type="text" name="search-input" id="search-input" placeholder="Search request" />
             <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </div>
@@ -210,14 +210,13 @@
             profile.classList.toggle('show')
         })
 
-        const searchLocation = document.getElementById('search-location')
+        const searchInput = document.getElementById('search-input')
         const searchBtn = document.querySelector('.btn-search')
 
         searchBtn.addEventListener('click', ()=>{
-            console.log(searchLocation.value)
-                if(searchLocation.value !='' && searchLocation.value != null){
-                    const url = new URL('http://system-admin.herokuapp.com/requests');
-                    url.searchParams.append('location', searchLocation.value);
+                if(searchInput.value !='' && searchInput.value != null){
+                    const url = new URL('http://127.0.0.1:8000/requests');
+                    url.searchParams.append('id', searchInput.value);
                     const urlString = url.toString();
                     window.location.href = urlString;
             }
@@ -280,13 +279,13 @@
             console.log('this is window performance working')
         }
         if (performance.navigation.type == 1) {
-                window.location.href = "http://127.0.0.1:8000/requests"
+                window.location.href = "http://system-admin.herokuapp.com/requests"
         }
 
         filterSelect.addEventListener('change', (e) => {
             
             console.log(e.target.value)
-            const url = new URL('http://127.0.0.1:8000/requests');
+            const url = new URL('http://system-admin.herokuapp.com/requests');
             url.searchParams.append('type', e.target.value);
             const urlString = url.toString();
             window.location.href = urlString;
@@ -303,14 +302,12 @@
 
             function getRequestsInfos(requestId){
             axios.get('api/sysad/requests/search/'+requestId).then(res => {
-                console.log(res.data);
                 displaySingleRequest(res.data['request'], res.data['response'], res.data['responder'], res.data['responderUserDetails'], res.data['user'], res.data['request_created_at'], res.data['user_created_at'])
 
             }).catch(err => console.log(err))
         }
 
         function displaySingleRequest(request,response, responder,responderUserDetails, user, request_created_at, user_created_at){
-            console.log(user_created_at, request_created_at)
             if(response==null){
                 rightViewer.innerHTML =
                 `<div class="request">

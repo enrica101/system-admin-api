@@ -170,14 +170,13 @@
         searchBtn.addEventListener('click', ()=>{
             console.log(searchResponder.value)
                 if(searchResponder.value !='' && searchResponder.value != null){
-                    const url = new URL('http://127.0.0.1:8000/responders');
+                    const url = new URL('http://system-admin.herokuapp.com/responders');
                     url.searchParams.append('name', searchResponder.value);
                     const urlString = url.toString();
                     window.location.href = urlString;
             }
         })
 
-        // console.log(tables)
         allBtn.addEventListener('click', () => {
             tables[0].classList.add('show');
             tables[1].classList.remove('show');
@@ -218,7 +217,7 @@
 
 
         filterSelect.addEventListener('change', (e) => {
-            const url = new URL('http://127.0.0.1:8000/responders');
+            const url = new URL('http://system-admin.herokuapp.com/responders');
             url.searchParams.append('type', e.target.value);
             const urlString = url.toString();
             window.location.href = urlString;

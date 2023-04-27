@@ -67,8 +67,7 @@ Route::get('/register', [AdminController::class, 'create']);
 Route::post('/users/authenticate', [AdminController::class, 'authenticate']);
 Route::post('/logout', [AdminController::class, 'logout'])->middleware('auth');
 
-
-Route::get('/export', [AdminController::class, 'exportPDF'])->middleware('auth');
+Route::get('/export', [AdminController::class, 'exportPDF']);
 
 Route::get('/responders', [ResponderController::class, 'getRoleResponders'])->middleware('auth');
 

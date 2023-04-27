@@ -198,25 +198,18 @@ locations.addEventListener('change', ()=>{
     let bogus = 0
     axios.get(`/api/requests/search/location/${locations.value}`)
     .then(res => {
-        console.log(res.data.length)
         all = res.data.length
         res.data.map((request)=>{
             if(request.status == "Completed"){
                 completed++
-                console.log(completed)
             }else if(request.status == "Cancelled"){
                 cancelled++
-                console.log(cancelled)
             }else if(request.status== "Bogus"){
                 bogus++
-                console.log(bogus)
             }else if(request.status.includes("Searching")){
                 available++
-                console.log(available)
             }else{
                 ongoing++
-                console.log(ongoing)
-
             }
         })
         //  Requests

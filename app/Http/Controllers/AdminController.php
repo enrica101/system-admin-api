@@ -80,7 +80,7 @@ class AdminController extends Controller
 
     public function getRoleUsers(){
         if(request('name')!=null){
-            $users = User::withTrashed()->where('fname', 'like',  '%'.request('name').'%')->orderBy('created_at', 'desc')->get();
+            $users = User::withTrashed()->where('fname', 'like',  '%'.request('name').'%')->orWhere('id', 'like',  '%'.request('name').'%')->orderBy('created_at', 'desc')->get();
         }else{
             $users = User::withTrashed()->where('role', 'like',  '%'.'User'.'%')->orderBy('created_at', 'desc')->orderBy('deleted_at', 'desc')->get();
         }
