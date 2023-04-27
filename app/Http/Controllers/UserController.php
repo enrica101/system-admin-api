@@ -232,8 +232,8 @@ class UserController extends Controller
         $userDetails = User::where('id', $id)->first();
         $to_name = $userDetails->fname;
         $to_email = $userDetails->email;
-        $data = array('name'=>$to_name, "id"=> $userDetails->id);
-        Mail::send('emails.success-restore', $data, function($message) use ($to_email, $to_name){
+        $data = array('name'=>$to_name, "id"=> $id);
+        Mail::send('success-restore', $data, function($message) use ($to_email, $to_name){
             $message->to($to_email, $to_name)->subject('Your account is successfully restored.');
             $message->from('91watch@uylcph.org', '91Watch Support Team');
         });
