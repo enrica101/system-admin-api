@@ -122,12 +122,27 @@
                 </tbody>
             </table>
     </div>
-<div class="view">
-            <h4>Select a user to see more information.</h4>
+    <div class="view">
+        <h4>Select a user to see more information.</h4>
+    </div>
+    <div class="overlay-modal">
+        <div class="loader">
+            Reactivating Account...
+            {{-- <button class="btn-close"><i class="fa-solid fa-xmark"></i></button> --}}
         </div>
+    </div>
 <script>
-    const nav = document.querySelector('.overlay')
-    const closeBtnNav = document.querySelector('.btn-close-nav')
+    const exitModal = document.querySelector('.btn-close')
+    const overlayReactivate = document.querySelector('.overlay-modal')
+    const loaderModal = document.querySelector('.loader')
+
+        // console.log(exitModal)
+        // exitModal.addEventListener('click', ()=>{
+        //     overlayReactivate.classList.remove('show')
+        // })
+        overlayReactivate.addEventListener('click', ()=>{
+            overlayReactivate.classList.remove('show')
+        })
 
     const profileBtn = document.querySelector('.avatar');
     const profileOverView = document.querySelector('.profile-overview')
@@ -142,9 +157,16 @@
     const avatar = document.querySelector('.avatar')
 
     function restoreAccount(id){
-        axios.get('api/users/restore/'+id).then(res =>{
-        console.log(res)
-        }).catch(err => console.log(err))
+        if(id){
+            overlayReactivate.classList.add('show')
+            setTimeout(function() {
+                loaderModal.innerHTML = ''
+                loaderModal.innerHTML = 'Successfully Reactivated! User has received an email regarding this change.'
+            }, 1300)
+            axios.get('api/users/restore/'+id).then(res =>{
+                console.log(res)
+            }).catch(err => console.log(err))
+        }
     }
 
     avatar.addEventListener('click', ()=>{
@@ -193,19 +215,18 @@
             rightViewer.innerHTML = ''
             getUserInformation(e.target.id)
         })
-})
+    })
 
-function getUserInformation(userId){
-    axios.get('api/accounts/search/'+userId).then(res =>{
-        displayUserInfo(res.data['user'][0])
-    }).catch(err => console.log(err))
-}
+    function getUserInformation(userId){
+        axios.get('api/accounts/search/'+userId).then(res =>{
+            displayUserInfo(res.data['user'][0])
+        }).catch(err => console.log(err))
+    }
 
 function displayUserInfo(data){
     if(data['banned']){
         rightViewer.innerHTML =
         `<div class="account">
-            
                     <div class="top">
                         <div class='user-details'>
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -314,7 +335,6 @@ function displayUserInfo(data){
                     </div>
                 </div>`
     }
-        
 }
 
 </script>
