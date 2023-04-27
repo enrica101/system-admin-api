@@ -58,6 +58,7 @@ Route::get('/success-restore', function () {
     return view('success-restore');
 });
 
+
 Route::get('/accounts', [AdminController::class, 'getRoleUsers']);
 
 Route::put('/settings',[AdminController::class, 'update'])->middleware('auth');

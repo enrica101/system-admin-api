@@ -36,8 +36,8 @@ class AdminController extends Controller
             $allCompletedRequests = RequestsInfo::onlyTrashed()->where('deleted_at', 'like', '%'.$request['start'].'%')->where('status', 'Completed')->get();
             $allCancelledRequests = RequestsInfo::onlyTrashed()->where('deleted_at', 'like', '%'.$request['start'].'%')->where('status', 'Cancelled')->get();
             $allBogusRequests = RequestsInfo::onlyTrashed()->where('deleted_at', 'like', '%'.$request['start'].'%')->where('status', 'Bogus')->get();
-            $allRespondersHandlingRequests = Response::where('updated_at', 'like', '%'.$request['start'].'%')->get();
-            $allResponders = Responder::where('updated_at', 'like', '%'.$request['start'].'%')->get();
+            $allRespondersHandlingRequests = Response::where('updated_at', 'like', '%'.$request['start'].'%')->orWhere('created_at', 'like', '%'.$request['start'].'%')->get();
+            $allResponders = Responder::where('updated_at', 'like', '%'.$request['start'].'%')->orWhere('created_at', 'like', '%'.$request['start'].'%')->get();
             $allHandlingResponders = $allRespondersHandlingRequests;
             $allAccounts = User::where('updated_at', 'like', '%'.$request['start'].'%')->get();
             $allRoleUsers = User::where('updated_at', 'like', '%'.$request['start'].'%')->where('role', 'User')->get();
@@ -257,7 +257,6 @@ class AdminController extends Controller
             'requests' => $collection
         ])->setPaper('a4', 'landscape');
         return $pdf->download('91Watch-data.pdf');
-
     }
 
     public function sendEmail(Request $request){
@@ -265,8 +264,8 @@ class AdminController extends Controller
         $to_email = $request['email'];
         $data = array('name'=>$to_name, "body"=> "Test Mail");
        Mail::send('emails.mail', $data, function($message) use ($to_email, $to_name){
-        $message->to($to_email, $to_name)->subject('Test');
-        $message->from('91watch@uylcph.org', 'Requested PDF File');
+        $message->to($to_email, $to_name)->subject('Requested PDF File');
+        $message->from('91watch@uylcph.org', '91Watch Support Team');
        });
        return redirect()->back()->with('success', 'Email Sent!');
     }

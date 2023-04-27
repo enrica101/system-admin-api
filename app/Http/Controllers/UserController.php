@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Responder;
 use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Response as ResponseModel;
 
 class UserController extends Controller
@@ -230,6 +231,13 @@ class UserController extends Controller
     public function restore($id){
         User::where('id', $id)->withTrashed()->restore();
         $userDetails = User::where('id', $id)->first();
+        $to_name = $userDetails->fname;
+        $to_email = $userDetails->email;
+        $data = array('name'=>$to_name, "id"=> $userDetails->id);
+        Mail::send('emails.success-restore', $data, function($message) use ($to_email, $to_name){
+            $message->to($to_email, $to_name)->subject('Your account is successfully restored.');
+            $message->from('91watch@uylcph.org', '91Watch Support Team');
+        });
         return view('success-restore',[
             'message' => 'Account Restored',
             'user' => $userDetails
