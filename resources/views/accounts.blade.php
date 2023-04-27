@@ -1,19 +1,6 @@
 <x-layout>
     <header class="header1">
         <h2>Accounts</h2>
-            {{-- <div class="date-wrapper">
-                <button class="prev">
-
-                    <img src="icons/caret-left.svg" alt="caret-left">
-                </button>
-                <div class="date">
-                    <p class="month"></p><p class="day"></p>
-                </div>
-                <button class="next">
-
-                    <img src="icons/caret-right.svg" alt="caret-right">
-                </button>
-            </div> --}}
     </header>
 
     <header class="header2">

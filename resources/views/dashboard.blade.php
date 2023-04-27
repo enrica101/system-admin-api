@@ -190,7 +190,6 @@ locations.addEventListener('change', ()=>{
         document.querySelector('.progress4').style.width = `0`
         document.querySelector('.progress5').style.width = `0`
         document.querySelector('.progress6').style.width = `0`
-    console.log(locations.value)
     let all = 0
     let available = 0
     let ongoing = 0
