@@ -160,6 +160,8 @@
         const profile = document.querySelector('.profile')
         const avatar = document.querySelector('.avatar')
 
+        
+
         avatar.addEventListener('click', ()=>{
             profile.classList.toggle('show')
         })
@@ -171,8 +173,7 @@
         const searchResponder = document.getElementById('search-responder')
         const searchBtn = document.querySelector('.btn-search')
 
-        searchBtn.addEventListener('click', ()=>{
-            console.log(searchResponder.value)
+        searchResponder.addEventListener('change', ()=>{
                 if(searchResponder.value !='' && searchResponder.value != null){
                     const url = new URL('http://system-admin.herokuapp.com/responders');
                     url.searchParams.append('name', searchResponder.value);
@@ -219,6 +220,16 @@
             profileOverView.classList.toggle('active');
         })
 
+
+        //getting query params 
+        let params = (new URL(document.location)).searchParams
+        let type = params.get('type')
+        if(type){
+            if(type!="All")
+            filterSelect.value = type
+            else 
+            reload()
+        }
 
         filterSelect.addEventListener('change', (e) => {
             const url = new URL('http://system-admin.herokuapp.com/responders');
