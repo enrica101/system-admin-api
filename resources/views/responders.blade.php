@@ -165,7 +165,7 @@
         })
     
         function reload(){
-            location.reload()
+            window.location.href = 'http://system-admin.herokuapp.com/responders'
         }
 
         const searchResponder = document.getElementById('search-responder')

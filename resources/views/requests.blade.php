@@ -212,7 +212,8 @@
         })
 
         function reload(){
-            location.reload()
+            window.location.href = 'http://system-admin.herokuapp.com/requests'
+
         }
 
         const searchInput = document.getElementById('search-input')
