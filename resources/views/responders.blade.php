@@ -34,6 +34,7 @@
 
     <div class="tables">
         <div class="horizontal-tabs">
+            <button class="reload" onclick="reload()"><i class="fa-solid fa-rotate-right"></i></button>
             <div class="tab all active"><h4>All Responders</h4></div>
             <div class="tab second"><h4>Idle Responders</h4></div>
             <div class="tab third"><h4>Handling Requests</h4></div>
@@ -163,6 +164,9 @@
             profile.classList.toggle('show')
         })
     
+        function reload(){
+            location.reload()
+        }
 
         const searchResponder = document.getElementById('search-responder')
         const searchBtn = document.querySelector('.btn-search')

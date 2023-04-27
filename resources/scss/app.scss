@@ -373,10 +373,25 @@ section.wrapper{
         padding-left: 30px;
         width: 93%;
     .horizontal-tabs{
+        position: relative;
         display: flex;
         align-items: center;
         margin-top: 24px;
         margin-left: 15px;
+        .reload{
+            position: absolute;
+            height: 13px;
+            width: 13px;
+            background-color: transparent;
+            border: none;
+            color: #323232;
+            top: -19px;
+            right: 0;
+            &:hover{
+                color: #32323290;
+                cursor: pointer;
+            }
+        }
         .search{
             white-space: nowrap;
             input[type='text']{

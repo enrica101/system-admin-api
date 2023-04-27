@@ -35,6 +35,7 @@
   
     <div class="tables">
         <div class="horizontal-tabs">
+            <button class="reload" onclick="reload()"><i class="fa-solid fa-rotate-right"></i></button>
             <div class="tab all  active"><h4>All Users</h4></div>
             <div class="tab second"><h4>Users Requests</h4></div>
 
@@ -149,6 +150,10 @@
     avatar.addEventListener('click', ()=>{
         profile.classList.toggle('show')
     })
+
+    function reload(){
+            location.reload()
+        }
     
     const searchUser = document.getElementById('search-user')
     const searchBtn = document.querySelector('.btn-search')

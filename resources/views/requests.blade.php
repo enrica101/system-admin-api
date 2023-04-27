@@ -35,6 +35,7 @@
 
 <div class="tables">
     <div class="horizontal-tabs">
+        <button class="reload" onclick="reload()"><i class="fa-solid fa-rotate-right"></i></button>
         <div class="tab all requests active"><h4>All Requests</h4></div>
         <div class="tab second requests"><h4>Ongoing
         </h4></div>
@@ -210,12 +211,16 @@
             profile.classList.toggle('show')
         })
 
+        function reload(){
+            location.reload()
+        }
+
         const searchInput = document.getElementById('search-input')
         const searchBtn = document.querySelector('.btn-search')
 
         searchBtn.addEventListener('click', ()=>{
                 if(searchInput.value !='' && searchInput.value != null){
-                    const url = new URL('http://127.0.0.1:8000/requests');
+                    const url = new URL('http://system-admin.herokuapp.com/requests');
                     url.searchParams.append('id', searchInput.value);
                     const urlString = url.toString();
                     window.location.href = urlString;
