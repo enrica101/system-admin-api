@@ -159,7 +159,6 @@
     const searchBtn = document.querySelector('.btn-search')
 
     searchUser.addEventListener('change', ()=>{
-            console.log(searchUser.value)
                 if(searchUser.value !='' && searchUser.value != null){
                     const url = new URL('http://system-admin.herokuapp.com/accounts');
                     url.searchParams.append('name', searchUser.value);
@@ -222,7 +221,7 @@ function displayUserInfo(data){
                         </div>
                        <span class='bannedAccount'>
                             <p>Banned Account</p>
-                        <button class='restoreBtn'" onclick="restoreAccount(${data['id']})">Restore Account</button>
+                        <button class='restoreBtn'" onclick="restoreAccount(${data['id']})">Reactivate</button>
                         </span>
                     </div>
                     <div class="middle">
