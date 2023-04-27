@@ -395,6 +395,8 @@ const barChart1 = new Chart(barChart,{
 });
 
 async function getDataFromDate(start, end){
+    console.log(start)
+    console.log(end)
         document.querySelector('.progress1').style.width = `0`
         document.querySelector('.progress2').style.width = `0`
         document.querySelector('.progress3').style.width = `0`
