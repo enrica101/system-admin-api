@@ -32,32 +32,32 @@ class AdminController extends Controller
         
         if($request['end'] === 'null'){
             $allRequests = RequestsInfo::withTrashed()->where('updated_at', 'like', '%'.$request['start'].'%')->get();
-            $allAvailableRequests = RequestsInfo::where('status', 'like', '%'.'Searching'.'%')->where('updated_at', 'like', '%'.$request['start'].'%')->orWhere('created_at', 'like', '%'.$request['start'].'%')->get();
-            $allOngoingRequests = Response::where('updated_at', 'like', '%'.$request['start'].'%')->where('created_at', 'like', '%'.$request['start'].'%')->get();
+            $allAvailableRequests = RequestsInfo::where('status', 'like', '%'.'Searching'.'%')->where('updated_at', 'like', '%'.$request['start'].'%')->get();
+            $allOngoingRequests = Response::where('updated_at', 'like', '%'.$request['start'].'%')->get();
             $allCompletedRequests = RequestsInfo::onlyTrashed()->where('deleted_at', 'like', '%'.$request['start'].'%')->where('status', 'Completed')->get();
             $allCancelledRequests = RequestsInfo::onlyTrashed()->where('deleted_at', 'like', '%'.$request['start'].'%')->where('status', 'Cancelled')->get();
             $allBogusRequests = RequestsInfo::onlyTrashed()->where('deleted_at', 'like', '%'.$request['start'].'%')->where('status', 'Bogus')->get();
-            $allRespondersHandlingRequests = Response::where('updated_at', 'like', '%'.$request['start'].'%')->where('created_at', 'like', '%'.$request['start'].'%')->get();
-            $allResponders = Responder::where('updated_at', 'like', '%'.$request['start'].'%')->where('created_at', 'like', '%'.$request['start'].'%')->get();
+            $allRespondersHandlingRequests = Response::where('updated_at', 'like', '%'.$request['start'].'%')->get();
+            $allResponders = Responder::where('updated_at', 'like', '%'.$request['start'].'%')->get();
             $allHandlingResponders = $allRespondersHandlingRequests;
-            $allAccounts = User::orWhere('created_at', 'like', '%'.$request['start'].'%')->orWhere('updated_at', 'like', '%'.$request['start'].'%')->get();
-            $allRoleUsers = User::where('role', 'User')->where('created_at', 'like', '%'.$request['start'].'%')->where('updated_at', 'like', '%'.$request['start'].'%')->get();
-            $allRoleResponders = User::where('role', 'Responder')->where('created_at', 'like', '%'.$request['start'].'%')->where('updated_at', 'like', '%'.$request['start'].'%')->get();
-            $allRoleAdmin = User::where('role', 'Admin')->where('created_at', 'like', '%'.$request['start'].'%')->where('updated_at', 'like', '%'.$request['start'].'%')->get();
+            $allAccounts = User::orWhere('updated_at', 'like', '%'.$request['start'].'%')->get();
+            $allRoleUsers = User::where('role', 'User')->where('updated_at', 'like', '%'.$request['start'].'%')->get();
+            $allRoleResponders = User::where('role', 'Responder')->where('updated_at', 'like', '%'.$request['start'].'%')->get();
+            $allRoleAdmin = User::where('role', 'Admin')->where('updated_at', 'like', '%'.$request['start'].'%')->get();
         }else{
-            $allRequests = RequestsInfo::withTrashed()->whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->orWhereBetween('created_at',[$request['start'].'%', $request['end'].'%'])->get();
-            $allAvailableRequests = RequestsInfo::where('status', 'like', '%'.'Searching'.'%')->whereBetween('updated_at', [$request['start'].'%', $request['end'].'%'])->orWhereBetween('created_at',[$request['start'].'%', $request['end'].'%'])->get();
+            $allRequests = RequestsInfo::withTrashed()->whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->get();
+            $allAvailableRequests = RequestsInfo::where('status', 'like', '%'.'Searching'.'%')->whereBetween('updated_at', [$request['start'].'%', $request['end'].'%'])->get();
             $allOngoingRequests = Response::whereBetween('updated_at', [$request['start'].'%', $request['end'].'%'])->get();
             $allCompletedRequests = RequestsInfo::onlyTrashed()->whereBetween('deleted_at', [$request['start'].'%', $request['end'].'%'])->where('status', 'Completed')->get();
             $allCancelledRequests = RequestsInfo::onlyTrashed()->whereBetween('deleted_at', [$request['start'].'%', $request['end'].'%'])->where('status', 'Cancelled')->get();
             $allBogusRequests = RequestsInfo::onlyTrashed()->whereBetween('deleted_at', [$request['start'].'%', $request['end'].'%'])->where('status', 'Bogus')->get();
-            $allRespondersHandlingRequests = Response::whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->orWhereBetween('created_at',[$request['start'].'%', $request['end'].'%'])->get();
-            $allResponders = Responder::whereBetween('updated_at', [$request['start'].'%', $request['end'].'%'])->whereBetween('created_at',[$request['start'].'%', $request['end'].'%'])->get();
+            $allRespondersHandlingRequests = Response::whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->get();
+            $allResponders = Responder::whereBetween('updated_at', [$request['start'].'%', $request['end'].'%'])->get();
             $allHandlingResponders = $allRespondersHandlingRequests;
-            $allAccounts = User::whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->whereBetween('created_at',[$request['start'].'%', $request['end'].'%'])->get();
-            $allRoleUsers = User::where('role', 'User')->whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->whereBetween('created_at',[$request['start'].'%', $request['end'].'%'])->get();
-            $allRoleResponders = User::where('role', 'Responder')->whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->whereBetween('created_at',[$request['start'].'%', $request['end'].'%'])->get();
-            $allRoleAdmin = User::where('role' ,'Admin')->whereBetween('created_at',[$request['start'].'%', $request['end'].'%'])->whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->get();
+            $allAccounts = User::whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->get();
+            $allRoleUsers = User::where('role', 'User')->whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->get();
+            $allRoleResponders = User::where('role', 'Responder')->whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->get();
+            $allRoleAdmin = User::where('role' ,'Admin')->whereBetween('updated_at',[$request['start'].'%', $request['end'].'%'])->get();
         }
             return response([
                 'data' => [
