@@ -132,7 +132,6 @@ class RequestsInfoController extends Controller
                         'requestStatus' => $singleRequest->status,
                         'created_at' => $requestDate,
                     ]);
-
                 }
                 else if($singleRequest->status === 'Completed'){
                     array_push($completed, [
@@ -164,7 +163,7 @@ class RequestsInfoController extends Controller
                         'requestType' => $singleRequest->type,
                         'requestStatus' => $singleRequest->status,
                         'created_at' => $requestDate,
-                            ]);
+                    ]);
                 }
             }
         }
