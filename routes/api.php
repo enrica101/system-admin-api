@@ -42,7 +42,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
     Route::get('/users/restore/{id}', [UserController::class, 'restore']);
 
-
+    //verify user --daryllwashere
+    Route::get('/users/verify/{id}', [UserController::class, 'verify']);
+    //get user's ID photo from string --daryllwashere
+    Route::get('/users/idphoto/{id}', [UserController::class, 'getIDPhoto']);
     Route::get('accounts/search/{id}', [UserController::class, 'getUserAccount']); 
     Route::get('accounts/responders/search/{id}', [ResponderController::class, 'getAccountResponder']);
     Route::get('sysad/requests/search/{id}', [RequestsInfoController::class, 'getSingleRequestInfo']);

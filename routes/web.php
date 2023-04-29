@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResponderController;
 use App\Http\Controllers\RequestsInfoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,10 @@ Route::get('/success-restore', function () {
     return view('success-restore');
 });
 
+Route::get('/user-entry', [AccountController::class, 'create'])->name('account.create');
+Route::post('/user-store', [AccountController::class, 'store']);
+Route::put('/user-manage/{user}', [AdminController::class, 'updateInfo'])->name('account.manage');
+Route::get('/{id}', [AdminController::class, 'edit'])->name('account.edit');
 
 Route::get('/accounts', [AdminController::class, 'getRoleUsers'])->middleware('auth');
 

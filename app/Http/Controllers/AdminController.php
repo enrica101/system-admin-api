@@ -144,6 +144,55 @@ class AdminController extends Controller
         return view('register');
     }
 
+    //daryll was here
+    public function edit($id){
+        // $user = User::findOrFail(user()->id);
+        $user = User::findOrFail($id);
+        // dd($user);
+        return view('accountupdate', compact('user'));
+    }
+   
+    public function updateInfo(Request $request, $id) {
+        $user = User::findOrFail($id);
+        $formInputs = $request->validate([
+            'role' => ['required'],
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user)],
+            'fname' => ['required', 'min:3'],
+            'mname' => ['nullable', 'min:3'],
+            'lname' => ['required', 'min:3'],
+            'gender' => ['required'],
+            'birthdate' => ['required'],
+            'type' => ['nullable'],
+            'contactNumber' => ['nullable', 'regex:/^(09|\+639)\d{9}$/', 'max:13', Rule::unique('users', 'contactNumber')->ignore($user)],
+        ]);
+    
+        if(!empty($formInputs['password'])) {
+            $formInputs['password'] = bcrypt($formInputs['password']);
+        } else {
+            unset($formInputs['password']);
+        }
+    
+        $user->update($formInputs);
+    
+        if($user->role == 'Responder') {
+            $responder = $user->responder;
+            if($responder) {
+                $responder->type = $formInputs['type'];
+                $responder->save();
+            }
+        }
+        
+    
+        return redirect('/dashboard');
+    }
+    
+    public function verifyUser($id){
+        $user = User::findOrFail($id);
+        $user->email_verified_at = now();
+        $user->save();
+        return redirect('/dashboard');
+    }
+
     public function store(Request $request){
         $formInputs = $request->validate([ 
             'role' => ['required'],
@@ -154,15 +203,32 @@ class AdminController extends Controller
             'lname' => ['required', 'min:3'],
             'gender' => ['required'],
             'birthdate' => ['required'],
+            'type' => ['nullable'],
             'contactNumber' => ['nullable', 'regex:/^(09|\+639)\d{9}$/', 'max:13',  Rule::unique('users', 'contactNumber')],
         ]);
 
         $formInputs['password'] = bcrypt($formInputs['password']);
-        
-
+        if($formInputs['role'] == 'User'){
+        $user = User::create($formInputs);
+        }
+        else if($formInputs['role'] == 'Responder'){
         $user = User::create($formInputs);
 
-        auth()->login($user); 
+        $responderInfo = [
+
+            'type' => $formInputs['type'],
+            
+        ];
+        $responderInfo['userId'] = $user->id;
+
+        
+        $responder = Responder::create($responderInfo);
+        }
+
+     
+        
+
+        // auth()->login($user); 
 
         return redirect('/dashboard');
     }

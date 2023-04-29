@@ -31,6 +31,42 @@ class UserController extends Controller
         return User::where('role', 'like',  '%'.'Responder'.'%')->get();
     }
 
+    public function verify($id){
+        $user = User::find($id);
+
+        if($user->email_verified_at != null){
+            $user->email_verified_at = null;
+            $user->save();
+            
+            return response()->json([
+                'message' => 'User unverified!',
+            ], 200);
+            
+        }
+        $user->email_verified_at = date("Y-m-d H:i:s");
+        $user->save();
+
+
+
+        return response()->json([
+            'message' => 'User verified!',
+        ], 200);
+    }
+
+
+    public function getIDPhoto($id){
+        $user = User::find($id);
+
+        if($user->id_image == null){
+            return response()->json([
+                'message' => 'No ID Photo found!',
+            ], 200);
+        }
+        return response()->json([
+            'message' => 'Retrieved ID Photo of: '.$user->fname.' '.$user->lname.'!',
+            'idPhoto' => $user->id_image,
+        ], 200);
+    }
     /**
      * Display a listing of the resource.
      *

@@ -126,6 +126,35 @@ section.wrapper{
         }
     }
 
+    .daryllwashere{
+        input[type='text']{
+            width: 200px;
+            align-items: start;
+        }
+        
+        align-items: start;
+        overflow-y: auto;
+    }
+
+    form.daryllwashere{
+        height: 600px;
+
+    label{
+        font-family: var(--secondary-font-family);
+        font-size: 14px;
+        color: #323232;
+        margin-bottom: 0px;
+        padding: 0px;
+    }
+
+    }
+
+    .daryllcard{
+        height: 100px;
+        overflow-y: auto;
+        height: fit-content;
+    }
+
     .dashboard{
         background-image: linear-gradient(to right,#f8f8f842, #fff);
 

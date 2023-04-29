@@ -19,5 +19,7 @@ class Responder extends Model
     public function users(){
         return $this->hasMany(User::class, 'userId');
     }
+
+   
     
 }

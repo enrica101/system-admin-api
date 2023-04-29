@@ -2,6 +2,7 @@
 
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -46,6 +47,11 @@
                         src="icons/users.svg" 
                         alt="Users">
                         Users</li></a>
+                        <a href="/user-entry">
+                    <li><img 
+                        src="icons/users.svg" 
+                        alt="User Entry">
+                        User Entry</li></a>
                 <a href="/responders">
                     <li><img 
                         src="icons/speakerphone.svg" 

@@ -54,6 +54,7 @@
                     <th class="table-col-1">Contact Number</th>
                     <th class="table-col-1">Email Address</th>
                     <th class="table-col-1">Registered on</th>
+                    <th class="table-col-1">Manage</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,6 +69,7 @@
                             <td class="table-cols"  id="{{$user['id']}}"  >{{$user['contactNumber']}}</td>
                             <td class="table-cols"  id="{{$user['id']}}"  >{{$user['email']}}</td>
                             <td class="table-cols"  id="{{$user['id']}}"  >{{$user['created_at']}}</td>
+                            <td class="table-cols"  id="{{$user['id']}}" ><button onclick="window.location.href='/{{$user['id']}}'">MANAGE USER</button>
                         </tr>
 
                     @endforeach
