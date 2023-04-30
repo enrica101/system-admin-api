@@ -145,7 +145,8 @@ class AdminController extends Controller
     }
 
     //daryll was here
-    public function edit($id){
+    public function editUser($id){
+
         // $user = User::findOrFail(user()->id);
         $user = User::findOrFail($id);
         // dd($user);
