@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+//import DB
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -146,7 +150,9 @@ class AdminController extends Controller
 
     //daryll was here
     public function editUser($id){
-
+        DB::enableQueryLog();
+$user = User::where('id', $id)->first();
+dd(DB::getQueryLog());
         // $user = User::findOrFail(user()->id);
         $user = User::findOrFail($id);
         // dd($user);
