@@ -45,7 +45,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
     //verify user --daryllwashere
     Route::get('/users/verify/{id}', [UserController::class, 'verify']);
     //get user's ID photo from string --daryllwashere
-    Route::get('/users/idphoto/{id}', [UserController::class, 'getImage']);
+    Route::get('/users/idphoto/{id}', [UserController::class, 'getIDPhoto']);
     Route::get('accounts/search/{id}', [UserController::class, 'getUserAccount']); 
     Route::post('users/idphoto/upload/{id}', [UserController::class, 'uploadIDPhoto']);
     Route::get('accounts/responders/search/{id}', [ResponderController::class, 'getAccountResponder']);

@@ -117,13 +117,13 @@
                                             .then(function(response) {
                                                 console.log(response);
 
-                                                if (response.data.url != null) {
+                                                if (response.data.idPhoto != null) {
                                                     Swal.fire({
                                                         icon: 'success',
                                                         title: 'Success!',
                                                         text: response.data.message,
                                                         //image path from id_photo column
-                                                        imageUrl: response.data.url,
+                                                        imageUrl: response.data.idPhoto,
                                                         imageWidth: 400,
                                                         imageHeight: 200,
                                                         imageAlt: 'User ID',

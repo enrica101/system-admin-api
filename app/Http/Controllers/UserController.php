@@ -72,7 +72,7 @@ class UserController extends Controller
             $newFilename = $user->id . '.' . $extension;
             $user->id_image = 'images/' . $newFilename;
             Storage::makeDirectory('public/images');
-            Storage::putFileAs('public/images', $uploadedFile, $newFilename);
+            Storage::putFileAs('public/images', $uploadedFile, $newFilename, 'public');
             $user->save();
             return response()->json([
                 'message' => 'ID Photo uploaded!',
@@ -112,19 +112,26 @@ class UserController extends Controller
     }
 
 
-    public function getIDPhoto($id){
+    public function getIDPhoto($id) {
         $user = User::find($id);
-
+    
         if($user->id_image == null){
             return response()->json([
                 'message' => 'No ID Photo found!',
             ], 200);
         }
+    
+        // $url = Storage::disk('public')->url($user->id_image);
+        $url = Storage::disk('public')->url('public/'.$user->id_image);
+        
+    
         return response()->json([
             'message' => 'Retrieved ID Photo of: '.$user->fname.' '.$user->lname.'!',
-            'idPhoto' => $user->id_image,
+            'idPhoto' => $url,
         ], 200);
     }
+    
+    
     /**
      * Display a listing of the resource.
      *
