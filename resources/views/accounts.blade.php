@@ -367,7 +367,7 @@ function displayUserInfo(data){
 }
 function manageAccount(userId){
    //redirect to account management page
-    window.location.href = '/'+userId;
+    window.location.href = '/user-update/'+userId;
 }
 
 </script>

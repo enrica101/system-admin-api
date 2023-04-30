@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -14,7 +15,7 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
     />
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
             integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -22,53 +23,53 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="http://system-admin.herokuapp.com/css/grid.css">
     <title>System Dashboard</title>
 </head>
 <body>
     <main class="container">
     <nav class="sidenav">
         <div class="logo">
-            <img src="img/default-img-dark.png" alt="">
+            <img src="http://system-admin.herokuapp.com/img/default-img-dark.png" alt="">
         </div>
             <ul class='lists'>
-                <a href="/dashboard">
+                <a href="http://system-admin.herokuapp.com/dashboard">
                     <li><img 
-                        src="icons/dashboard.svg" 
+                        src="http://system-admin.herokuapp.com/icons/dashboard.svg" 
                         alt="Dashboard">
                         Dashboard</li></a>
                 <a href="/map">
                     <li><img 
-                        src="icons/map.svg" 
+                        src="http://system-admin.herokuapp.com/icons/map.svg" 
                         alt="Map"> 
                         Map</li></a>
                 <a href="/accounts">
                     <li><img 
-                        src="icons/users.svg" 
+                        src="http://system-admin.herokuapp.com/icons/users.svg" 
                         alt="Users">
                         Users</li></a>
                         <a href="/user-entry">
                     <li><img 
-                        src="icons/users.svg" 
+                        src="http://system-admin.herokuapp.com/icons/users.svg" 
                         alt="User Entry">
                         User Entry</li></a>
-                <a href="/responders">
+                <a href="http://system-admin.herokuapp.com/responders">
                     <li><img 
-                        src="icons/speakerphone.svg" 
+                        src="http://system-admin.herokuapp.com/icons/speakerphone.svg" 
                         alt="Speakerphone"> 
                         Responders</li></a>
-                <a href="/requests">
+                <a href="http://system-admin.herokuapp.com/requests">
                     <li><img 
-                        src="icons/ambulance.svg" 
+                        src="http://system-admin.herokuapp.com/icons/ambulance.svg" 
                         alt="Ambulance"> 
                         Requests</li></a>
-                <a href="/settings">
+                <a href="http://system-admin.herokuapp.com/settings">
                     <li><img 
-                        src="icons/settings.svg" 
+                        src="http://system-admin.herokuapp.com/icons/settings.svg" 
                         alt="Settings"> 
                         Settings</li></a>
                 {{-- <li>
-                    <form action="/logout" method="post">
+                    <form action="http://system-admin.herokuapp.com/logout" method="post">
                         @csrf
                         <button class="btn" type="submit">
                             <img src="icons/logout.svg" alt="Logout"> 
@@ -97,7 +98,7 @@
             <label style="display: flex; flex-direction:row; align-items:center; margin-top:10px;">Filename: 
                 <a href="/export"  style="display: flex; align-items:center; margin-left:10px;">
                     <img 
-                    src="icons/download-pdf.svg" 
+                    src="http://system-admin.herokuapp.com/icons/download-pdf.svg" 
                     alt="Download-PDF" style="height:15px"> 
                     91Watch-data.pdf
                 </a>
