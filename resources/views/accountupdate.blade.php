@@ -123,7 +123,7 @@
                                                         title: 'Success!',
                                                         text: response.data.message,
                                                         //image path from id_photo column
-                                                        imageUrl: 'storage/' + response.data.idPhoto,
+                                                        imageUrl: 'https://system-admin.herokuapp.com/storage/' + response.data.idPhoto,
                                                         imageWidth: 400,
                                                         imageHeight: 200,
                                                         imageAlt: 'User ID',

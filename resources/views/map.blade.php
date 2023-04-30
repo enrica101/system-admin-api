@@ -379,7 +379,12 @@
             map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(medicalFilterControlDiv)
             map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(policeFilterControlDiv)
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(resetFilterControlDiv)
+            allMarkers.forEach(marker => {
+                    if (marker['title'] != 'Fire & Rescue') {
+                        marker.setVisible(false)
+                    }
 
+                });
                 const locations = [{
                         lat: 10.29777159357524,
                         lng: 123.89194542056934,
@@ -447,27 +452,6 @@
                         unit: 'BUREAU OF FIRE PROTECTION',
                     },
                 ];
-
-             geo();
-
-             allMarkers.forEach(marker => {
-                    marker.setMap(map);
-                    marker.addListener('click', function() {
-                        var infoWindow = new google.maps.InfoWindow({
-                            content: '<b>' + marker.title + '</b><br>' + marker.position.lat() + ', ' +
-                                marker.position.lng() + '<br><b>' + marker.type + '</b>' + '<br><b>' +
-                                marker.unit + '</b>'
-                        });
-                        infoWindow.open(map, marker);
-                    })
-                });
-                displayAllMarkers(allMarkers)
-                allMarkers.forEach(marker => {
-                    if (marker['title'] != 'Fire & Rescue') {
-                        marker.setVisible(false)
-                    }
-                });
-
                 locations.forEach(location => {
                     const marker = new google.maps.Marker({
                         position: {
@@ -483,6 +467,31 @@
                     allMarkers.push(marker);
 
                 });
+             
+             allMarkers.forEach(marker => {
+                if(marker['title'] != 'Fire & Rescue'){
+                    marker.setVisible(false)
+                }else{
+                    marker.setMap(map);
+                    marker.addListener('click', function() {
+                        var infoWindow = new google.maps.InfoWindow({
+                            content: '<b>' + marker.title + '</b><br>' + marker.position.lat() + ', ' +
+                                marker.position.lng() + '<br><b>' + marker.type + '</b>' + '<br><b>' +
+                                marker.unit + '</b>'
+                        });
+                        infoWindow.open(map, marker);
+                    })
+                }
+                });
+                displayAllMarkers(allMarkers)
+                allMarkers.forEach(marker => {
+                    if (marker['title'] != 'Fire & Rescue') {
+                        marker.setVisible(false)
+                    }
+                    
+                });
+
+               
             });
 
             return fireControlButton;
@@ -615,13 +624,18 @@
             map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(policeFilterControlDiv)
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(resetFilterControlDiv)
 
-
-                displayAllMarkers(allMarkers)
-                allMarkers.forEach(marker => {
+allMarkers.forEach(marker => {
                     if (marker['title'] != 'Police') {
                         marker.setVisible(false)
                     }
+
                 });
+                // displayAllMarkers(allMarkers)
+                // allMarkers.forEach(marker => {
+                //     if (marker['title'] != 'Police') {
+                //         marker.setVisible(false)
+                //     }
+                // });
 
 
                 const policeLocs = [{
@@ -663,7 +677,7 @@
                     }
                 ];
 
-                geo();
+                // geo();
 
                 policeLocs.forEach(location => {
                     const marker = new google.maps.Marker({
@@ -677,6 +691,7 @@
                         title: location.title,
                         icon: location.icon
                     });
+                    if(marker.unit == 'PHILIPPINE NATIONAL POLICE')
                     allMarkers.push(marker);
                 });
 
@@ -688,6 +703,7 @@
                                 marker.position.lng() + '<br><b>' + marker.type + '</b>' + '<br><b>' +
                                 marker.unit + '</b>'
                         });
+                        if(marker.unit == 'PHILIPPINE NATIONAL POLICE')
                         infoWindow.open(map, marker);
                     })
                 });
@@ -870,6 +886,18 @@
                             content: '<b>' + marker.title + '</b><br>' + '<br><b>' + marker.type + '</b>' + '<br><b>' +
                                 marker.unit + '</b>'
                         });
+                        if(marker.unit == 'BUREAU OF FIRE PROTECTION') {
+                            infoWindow = new google.maps.InfoWindow({
+                                content: '<b>' + marker.title + '</b><br>' + '<br><b>' + marker.type + '</b>' + '<br><b>' +
+                                    marker.unit + '</b>' + '<br><a href="https://www.facebook.com/BFP-National-Headquarters-Official-Page-100327218383997/" target="_blank">Visit Page</a>'
+                            });
+                        }else if(marker.unit == 'PHILIPPINE NATIONAL POLICE') {
+                            infoWindow = new google.maps.InfoWindow({
+                                content: '<b>' + marker.title + '</b><br>' + '<br><b>' + marker.type + '</b>' + '<br><b>' +
+                                    marker.unit + '</b>' + '<br><a href="https://www.facebook.com/pnp.pio/" target="_blank">Visit Page</a>'
+                            });
+                        }
+
                         infoWindow.open(map, marker);
                     })
                 });

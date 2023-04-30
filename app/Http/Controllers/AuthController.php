@@ -48,8 +48,16 @@ class AuthController extends Controller
             $filename = pathinfo($image, PATHINFO_FILENAME);
             $extension = pathinfo($image, PATHINFO_EXTENSION);
             $newFilename = $newId . '.' . $extension;
+            Storage::makeDirectory('public/images');
+
             Storage::move('public/' . $image, 'public/images/' . $newFilename);
+            
             $fields['id_image'] = 'images/' . $newFilename;
+            $user = User::create($fields);
+            $response = [
+                'message' => 'User Registered!',
+                'user' => $user,
+            ];
         }
 
         if($fields['role'] == 'Responder'){
