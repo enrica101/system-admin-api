@@ -113,6 +113,8 @@ class AuthController extends Controller
                 'responder' => $responder,
             ], 200);
         }
+
+        Storage::disk('public')->put('filename.txt', 'Hello World!');
             return response([
                 'message' => 'Logged in', 
                 'user' => $user,
