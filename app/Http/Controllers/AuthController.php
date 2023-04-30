@@ -40,6 +40,8 @@ class AuthController extends Controller
      
          if ($request->hasFile('id_image')) {
              $idImage = $request->file('id_image');
+             $lastID = User::orderBy('id', 'desc')->first()->id;
+             $lastID++;
      
              if (!$idImage->isValid()) {
                  return response()->json([
@@ -48,9 +50,9 @@ class AuthController extends Controller
              }
      
              $extension = $idImage->getClientOriginalExtension();
-             $newFilename = uniqid() . '.' . $extension;
+             $newFilename = $lastID . '.' . $extension;
              Storage::makeDirectory('public/images');
-             Storage::putFileAs('public/images', $idImage, $newFilename);
+             Storage::putFileAs('public/images', $idImage, $newFilename, 'public');
              $fields['id_image'] = 'images/' . $newFilename;
          }
      
