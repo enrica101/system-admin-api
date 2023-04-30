@@ -150,9 +150,9 @@ class AdminController extends Controller
 
     //daryll was here
     public function editUser($id){
-        DB::enableQueryLog();
+
 $user = User::where('id', $id)->first();
-dd(DB::getQueryLog());
+
         // $user = User::findOrFail(user()->id);
         $user = User::findOrFail($id);
         // dd($user);

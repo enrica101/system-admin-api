@@ -122,8 +122,8 @@
                                                         icon: 'success',
                                                         title: 'Success!',
                                                         text: response.data.message,
-                                                        //base64 string to image
-                                                        imageUrl: 'data:image/jpeg;base64,' + response.data.idPhoto,
+                                                        //image path from id_photo column
+                                                        imageUrl: 'storage/' + response.data.idPhoto,
                                                         imageWidth: 400,
                                                         imageHeight: 200,
                                                         imageAlt: 'User ID',
