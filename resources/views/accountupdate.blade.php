@@ -40,7 +40,7 @@
                                 <script>
                                     function verifyUser(id) {
                                         console.log("ID + " + id);
-                                        axios.get('api/users/verify/' + id)
+                                        axios.get('/api/users/verify/' + id)
                                             .then(function(response) {
                                                 if (response.data.message == 'User unverified!') {
                                                     Swal.fire({
@@ -84,7 +84,7 @@
                                 <script>
                                     function userQuery(id) {
                                         console.log("ID + " + id);
-                                        axios.get('api/users/' + id)
+                                        axios.get('/api/users/' + id)
                                             .then(function(response) {
                                                 console.log(response);
                                                 Swal.fire({
@@ -113,17 +113,17 @@
                                 <script>
                                     function viewID(id) {
                                         console.log("ID + " + id);
-                                        axios.get('api/users/idphoto/' + id)
+                                        axios.get('/api/users/idphoto/'+  id)
                                             .then(function(response) {
                                                 console.log(response);
 
-                                                if (response.data.idPhoto != null) {
+                                                if (response.data.url != null) {
                                                     Swal.fire({
                                                         icon: 'success',
                                                         title: 'Success!',
                                                         text: response.data.message,
                                                         //image path from id_photo column
-                                                        imageUrl: 'https://system-admin.herokuapp.com/storage/' + response.data.idPhoto,
+                                                        imageUrl: response.data.url,
                                                         imageWidth: 400,
                                                         imageHeight: 200,
                                                         imageAlt: 'User ID',

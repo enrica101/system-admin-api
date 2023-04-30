@@ -22,72 +22,66 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
-    {
-        $fields = $request->validate([
-            'role' => ['required'],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => ['required', 'confirmed', 'min:6'],
-            'fname' => ['required', 'min:3'],
-            'mname' => ['nullable', 'min:3'],
-            'lname' => ['required', 'min:3'],
-            'gender' => ['required'],
-            'birthdate' => ['required'],
-            'contactNumber' => ['required', 'regex:/^(09|\+639)\d{9}$/', 'max:13',  Rule::unique('users', 'contactNumber')],
-            'id_image' => ['nullable', 'image'],
-        ]);
-
-        $fields['password'] = bcrypt($fields['password']);
-        //first, get the last user id and add 1
-        $lastUser = User::orderBy('id', 'desc')->first();
-        //get the id and add plus 1
-        $newId = $lastUser->id + 1;
-
-        if ($request->hasFile('id_image')) {
-            $image = $request->file('id_image')->store('images', 'public');
-            $filename = pathinfo($image, PATHINFO_FILENAME);
-            $extension = pathinfo($image, PATHINFO_EXTENSION);
-            $newFilename = $newId . '.' . $extension;
-            Storage::makeDirectory('public/images');
-
-            Storage::move('public/' . $image, 'public/images/' . $newFilename);
-            
-            $fields['id_image'] = 'images/' . $newFilename;
-            $user = User::create($fields);
-            $response = [
-                'message' => 'User Registered!',
-                'user' => $user,
-            ];
-        }
-
-        if($fields['role'] == 'Responder'){
-            
-            $user = User::create($fields);
-            $responderFields = $request->validate([
-                'type' => 'required',
-            ]);
-
-            $responderFields['userId'] = $user->id;
-
-            $responder = Responder::create($responderFields);
-            
+    
+     public function register(Request $request)
+     {
+         $fields = $request->validate([
+             'role' => ['required'],
+             'email' => ['required', 'email', Rule::unique('users', 'email')],
+             'password' => ['required', 'confirmed', 'min:6'],
+             'fname' => ['required', 'min:3'],
+             'mname' => ['nullable', 'min:3'],
+             'lname' => ['required', 'min:3'],
+             'gender' => ['required'],
+             'birthdate' => ['required'],
+             'contactNumber' => ['required', 'regex:/^(09|\+639)\d{9}$/', 'max:13',  Rule::unique('users', 'contactNumber')],
+             'id_image' => ['nullable', 'image'],
+         ]);
+     
+         if ($request->hasFile('id_image')) {
+             $idImage = $request->file('id_image');
+     
+             if (!$idImage->isValid()) {
+                 return response()->json([
+                     'message' => 'Invalid ID Photo uploaded!',
+                 ], 500);
+             }
+     
+             $extension = $idImage->getClientOriginalExtension();
+             $newFilename = uniqid() . '.' . $extension;
+             Storage::makeDirectory('public/images');
+             Storage::putFileAs('public/images', $idImage, $newFilename);
+             $fields['id_image'] = 'images/' . $newFilename;
+         }
+     
+         $fields['password'] = bcrypt($fields['password']);
+     
+         $user = User::create($fields);
+     
+         if ($fields['role'] == 'Responder') {
+             $responderFields = $request->validate([
+                 'type' => 'required',
+             ]);
+     
+             $responderFields['user_id'] = $user->id;
+     
+             $responder = Responder::create($responderFields);
+     
              $response = [
-                'message' => 'Responder Registered!',
-                'user' => $user,
-                'responder' => $responder,
-            ];
-        }else{
-
-            $user = User::create($fields);
-            // event(new Registered($user));
-            $response = [
-            'message' => 'User Registered!',
-            'user' => $user,
-            ];
-        }
-        return response($response, 201);
-    }
-
+                 'message' => 'Responder Registered!',
+                 'user' => $user,
+                 'responder' => $responder,
+             ];
+         } else {
+             $response = [
+                 'message' => 'User Registered!',
+                 'user' => $user,
+             ];
+         }
+     
+         return response($response, 201);
+     }
+     
     /**
      * Log user into account.
      *

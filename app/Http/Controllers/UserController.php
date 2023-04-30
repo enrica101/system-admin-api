@@ -8,6 +8,7 @@ use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Response as ResponseModel;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -21,6 +22,20 @@ class UserController extends Controller
         return User::where('role', 'like',  '%'.'User'.'%')->get();
     }
 
+    public function getImage($userId) {
+        $user = User::find($userId);
+        if ($user && $user->id_image) {
+            $imageUrl = asset('storage/' . $user->id_image);
+            return response()->json([
+                'url' => $imageUrl,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Image not found!',
+            ], 404);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,28 +46,48 @@ class UserController extends Controller
         return User::where('role', 'like',  '%'.'Responder'.'%')->get();
     }
 
-    public function uploadIDPhoto(Request $request){
+    public function uploadIDPhoto(Request $request) {
         $user = User::find($request->id);
-
-        if($user->id_image != null){
-            $user->id_image = $request->id_image;
-            return response()->json([
-                'message' => 'ID Photo replaced!',
-            ], 200);
-        }
-        if($request->id_image == null){
+    
+        if (!$request->hasFile('id_image')) {
             return response()->json([
                 'message' => 'No ID Photo uploaded!',
             ], 500);
         }
-        $user->id_image = $request->id_image;
-        $user->save();
-
+    
+        $idImage = $request->file('id_image');
+    
+        if (!$idImage->isValid()) {
+            return response()->json([
+                'message' => 'Invalid ID Photo uploaded!',
+            ], 500);
+        }
+    
+        //$user->id_image = $idImage->store('images', 'public');
+        //rename image to id of user
+        if ($request->hasFile('id_image')) {
+            $uploadedFile = $request->file('id_image');
+            $extension = $uploadedFile->getClientOriginalExtension();
+            $newFilename = $user->id . '.' . $extension;
+            $user->id_image = 'images/' . $newFilename;
+            Storage::makeDirectory('public/images');
+            Storage::putFileAs('public/images', $uploadedFile, $newFilename);
+            $user->save();
+            return response()->json([
+                'message' => 'ID Photo uploaded!',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'No ID Photo uploaded!',
+            ], 500);
+        }
+        
+    
         return response()->json([
             'message' => 'ID Photo uploaded!',
         ], 200);
-
     }
+    
     public function verify($id){
         $user = User::find($id);
 
