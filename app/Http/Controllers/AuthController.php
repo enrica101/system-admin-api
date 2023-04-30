@@ -54,11 +54,22 @@ class AuthController extends Controller
              Storage::makeDirectory('public/images');
              Storage::putFileAs('public/images', $idImage, $newFilename, 'public');
              $fields['id_image'] = 'images/' . $newFilename;
+             $fields['password'] = bcrypt($fields['password']);
+             $user = User::create($fields);
+             $user->id_image = 'images/' . $newFilename;
+             $user->save();
+             return response()->json([
+                 'message' => 'User Registered with Image!',
+                 'user' => $user,
+             ], 201);
+
+
          }
      
          $fields['password'] = bcrypt($fields['password']);
      
          $user = User::create($fields);
+        
      
          if ($fields['role'] == 'Responder') {
              $responderFields = $request->validate([
