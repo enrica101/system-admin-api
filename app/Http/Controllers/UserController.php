@@ -31,6 +31,28 @@ class UserController extends Controller
         return User::where('role', 'like',  '%'.'Responder'.'%')->get();
     }
 
+    public function uploadIDPhoto(Request $request){
+        $user = User::find($request->id);
+
+        if($user->id_image != null){
+            $user->id_image = $request->id_image;
+            return response()->json([
+                'message' => 'ID Photo replaced!',
+            ], 200);
+        }
+        if($request->id_image == null){
+            return response()->json([
+                'message' => 'No ID Photo uploaded!',
+            ], 500);
+        }
+        $user->id_image = $request->id_image;
+        $user->save();
+
+        return response()->json([
+            'message' => 'ID Photo uploaded!',
+        ], 200);
+
+    }
     public function verify($id){
         $user = User::find($id);
 
@@ -123,6 +145,11 @@ class UserController extends Controller
                 $banned =true;
             }
 
+            if($user->email_verified_at == null){
+                $accVerified = 'Not verified';
+            }else{
+               $accVerified = "User is verified";
+            }
             array_push($usersInfo, [
                     'id' => $user['id'],
                     'accountType' => $user['role'],
@@ -131,6 +158,7 @@ class UserController extends Controller
                     'mname' => $user['mname'],
                     'lname' => $user['lname'],
                     'gender' => $user['gender'],
+                    'accVerified' => $accVerified,
                     'birthdate' => $user['birthdate'],
                     'age' => $age,
                     'contactNumber' => $user['contactNumber'],

@@ -487,10 +487,20 @@ section.wrapper{
     }
     
 }
+
+.table-col-1{
+    // width: 10%;
+}
 table{
     display: none;
 }
+
+
+// td.table-cols{
+//     // width: fit-content;
+// }
 table.show{
+    table-layout: fixed;
     position: relative;
     z-index: 1;
     border-radius: 5px;
@@ -502,6 +512,7 @@ table.show{
     grid-template-columns: auto;
     grid-template-rows: 40px 1fr;
     padding: 20px 0;
+    text-align: start;
 
     font-family: var(--secondary-font-family);
     color: #323232;
@@ -519,10 +530,12 @@ table.show{
             padding-bottom: 6px;
             th{
                 font-weight: 600;
+               
             }
         }
     }
     tbody{
+        
         overflow: auto;
          //SCROLL BAR
         /* width */
@@ -548,7 +561,51 @@ table.show{
             background: #d8edfc; 
           }
         tr{
-            display: grid;
+            .id{
+                width: 20px;
+                padding: 15px;
+                padding-left: 30px;
+             
+            }
+            .age{
+                width: 10px;
+                // padding: 45px;
+                padding-right: 50px;
+                padding-left: 45px;
+                
+            }
+            .gender{
+                width: 10px;
+                padding-right: 30px;
+            }
+            .number{
+                width: 75px;
+                padding-left: 20px
+                ;
+                padding-right: 60px;
+            }
+            .name{
+                width: 150px;
+            
+            }
+            .email{
+                width: 125px;
+            }
+            .regdate{
+                width: 100px;
+                padding-left: 20px;
+            }
+            .completed{
+                width: 100px;
+                padding-left: 40px;
+                padding-right: 50px;
+            }
+            .cancelled{
+                width: 100px;
+                padding-left: 0px;
+                padding-right: 50px;
+            }
+            // display: grid;
             grid-template-columns: repeat(7, auto);
             grid-template-rows: 25px;
             height: 25px;
@@ -556,12 +613,15 @@ table.show{
                 cursor: pointer;
                 background-color: #32323212;
             }
+
             td{
-                display: flex;
-                justify-content: center;
-                align-items: center;
+             justify-content: start;
+                align-items: start;
                 padding: 0;
                 margin: 0;
+                height: fit-content;
+                width: 100px;
+
             }
             P{
                 display: flex;

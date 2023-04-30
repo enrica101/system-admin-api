@@ -172,15 +172,32 @@ class AdminController extends Controller
             unset($formInputs['password']);
         }
     
-        $user->update($formInputs);
+       
+
+        
     
         if($user->role == 'Responder') {
+
+            if($formInputs['role'] == 'User'){
+
+                //delete responder entity
+              $respData = Responder::where('userId', $user->id)->first();
+              //dd($respData);
+                $respData->delete();
+
+                
+                $user->role = $formInputs['role'];
+                $user->save();
+
+            }
             $responder = $user->responder;
             if($responder) {
                 $responder->type = $formInputs['type'];
                 $responder->save();
             }
         }
+
+        $user->update($formInputs);
         
     
         return redirect('/dashboard');

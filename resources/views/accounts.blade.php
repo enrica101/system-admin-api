@@ -54,7 +54,7 @@
                     <th class="table-col-1">Contact Number</th>
                     <th class="table-col-1">Email Address</th>
                     <th class="table-col-1">Registered on</th>
-                    <th class="table-col-1">Manage</th>
+                    <!-- <th class="table-col-1">Manage</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -62,14 +62,14 @@
                     @forEach($users as $user)
                         
                         <tr class="table-row" id="{{$user['id']}}">
-                            <td class="table-cols"  id="{{$user['id']}}" >{{$user['id']}}</td>
-                            <td class="table-cols"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</td>
-                            <td class="table-cols"  id="{{$user['id']}}"  >{{$user['gender']}}</td>
-                            <td class="table-cols"  id="{{$user['id']}}" >{{$user['age']}}</td>
-                            <td class="table-cols"  id="{{$user['id']}}"  >{{$user['contactNumber']}}</td>
-                            <td class="table-cols"  id="{{$user['id']}}"  >{{$user['email']}}</td>
-                            <td class="table-cols"  id="{{$user['id']}}"  >{{$user['created_at']}}</td>
-                            <td class="table-cols"  id="{{$user['id']}}" ><button onclick="window.location.href='/{{$user['id']}}'">MANAGE USER</button>
+                            <td class="table-cols id"  id="{{$user['id']}}" >{{$user['id']}}</td>
+                            <td class="table-cols name"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</td>
+                            <td class="table-cols gender"  id="{{$user['id']}}"  >{{$user['gender']}}</td>
+                            <td class="table-cols age"  id="{{$user['id']}}" >{{$user['age']}}</td>
+                            <td class="table-cols number"  id="{{$user['id']}}"  >{{$user['contactNumber']}}</td>
+                            <td class="table-cols email"  id="{{$user['id']}}"  >{{$user['email']}}</td>
+                            <td class="table-cols regdate"  id="{{$user['id']}}"  >{{$user['created_at']}}</td>
+                            <!-- <td class="table-cols"  id="{{$user['id']}}" ><button onclick="window.location.href='/{{$user['id']}}'">MANAGE USER</button> -->
                         </tr>
 
                     @endforeach
@@ -96,19 +96,19 @@
                     @forEach($users as $user)
 
                         <tr class="table-row" id="{{$user['id']}}">
-                            <td class="table-cols" id="{{$user['id']}}" >
+                            <td class="table-cols id" id="{{$user['id']}}" >
                                 {{$user['id']}}
                             </td>
-                            <td class="table-cols"  id="{{$user['id']}}" >
+                            <td class="table-cols name"  id="{{$user['id']}}" >
                                 {{$user['fname']}} {{$user['lname']}}
                             </td>
-                            <td class="table-cols" id="{{$user['id']}}">
+                            <td class="table-cols completed" id="{{$user['id']}}">
                                 {{$user['completedRequests']}}
                             </td>
-                            <td class="table-cols"  id="{{$user['id']}}" >
+                            <td class="table-cols cancelled"  id="{{$user['id']}}" >
                                 {{$user['cancelledRequests']}}
                             </td>
-                            <td class="table-cols"  id="{{$user['id']}}" >
+                            <td class="table-cols bogus"  id="{{$user['id']}}" >
                                 {{$user['bogusRequests']}}
                             </td>
                         </tr>
@@ -294,6 +294,8 @@ function displayUserInfo(data){
                             <span>
                                 <h3>${data['fname']} ${data['lname']}</h3>
                                 <h4>${data['email']}</h4>
+                                <h3>${data['accVerified']}</h3>
+                          
                             </span>
                     </div>
                     <div class="middle">
@@ -332,8 +334,40 @@ function displayUserInfo(data){
                         </div>
                         <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${ (data['completedRequests']/data['all']*100).toFixed(2)}%</h4></div>
                     </div>
-                </div>`
+                </div>
+                <center>
+                <button class="custom-btn" onclick="manageAccount(${data['id']})">Manage Account</button>
+                </center>
+
+<style>
+.custom-btn {
+  
+  display: inline-block;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.custom-btn:hover {
+  background-color: #0069d9;
+}
+</style>
+
+
+                `
+
     }
+}
+function manageAccount(userId){
+   //redirect to account management page
+    window.location.href = '/'+userId;
 }
 
 </script>

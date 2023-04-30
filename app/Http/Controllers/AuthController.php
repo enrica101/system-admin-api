@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\Storage;
 // use Illuminate\Auth\Events\Registered;
 
 class AuthController extends Controller
@@ -33,9 +34,23 @@ class AuthController extends Controller
             'gender' => ['required'],
             'birthdate' => ['required'],
             'contactNumber' => ['required', 'regex:/^(09|\+639)\d{9}$/', 'max:13',  Rule::unique('users', 'contactNumber')],
+            'id_image' => ['nullable', 'image'],
         ]);
 
         $fields['password'] = bcrypt($fields['password']);
+        //first, get the last user id and add 1
+        $lastUser = User::orderBy('id', 'desc')->first();
+        //get the id and add plus 1
+        $newId = $lastUser->id + 1;
+
+        if ($request->hasFile('id_image')) {
+            $image = $request->file('id_image')->store('images', 'public');
+            $filename = pathinfo($image, PATHINFO_FILENAME);
+            $extension = pathinfo($image, PATHINFO_EXTENSION);
+            $newFilename = $newId . '.' . $extension;
+            Storage::move('public/' . $image, 'public/images/' . $newFilename);
+            $fields['id_image'] = 'images/' . $newFilename;
+        }
 
         if($fields['role'] == 'Responder'){
             
