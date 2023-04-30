@@ -46,6 +46,7 @@ class UserController extends Controller
         return User::where('role', 'like',  '%'.'Responder'.'%')->get();
     }
 
+    
     public function uploadIDPhoto(Request $request) {
         $user = User::find($request->id);
     
