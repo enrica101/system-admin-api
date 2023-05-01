@@ -27,8 +27,8 @@
                         <div class="form-group mt-4">
                             <label for="role">Account Type*</label>
                             <select class="form-control" name="role" id="role">
-                                <!-- <option value="Admin">Admin</option>
-                                <option value="User">User</option> -->
+                                <option value="Admin">Admin</option>
+                                <option value="User">User</option>
                                 <option value="Responder">Responder</option>
                             </select>
                         </div>
