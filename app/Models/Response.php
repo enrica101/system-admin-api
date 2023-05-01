@@ -17,13 +17,16 @@ class Response extends Model
         'lat',
         'lng',
         'status',
+        'escalation'
     ];
 
     public function requests_infos(){
         return $this->belongsTo(RequestsInfo::class, 'requestId');
     }
 
-    public function responders(){
-        return $this->belongsTo(Responder::class, 'responderId');
+    public function responders()
+    {
+        return $this->hasMany(Responder::class, 'responderId');
     }
+    
 }  

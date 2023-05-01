@@ -193,6 +193,12 @@ class UserController extends Controller
             }else{
                $accVerified = "User is verified";
             }
+
+            if($user->email_verified_at == null){
+                $accVerify = false;
+            }else{
+                $accVerify = true;
+            }
             array_push($usersInfo, [
                     'id' => $user['id'],
                     'accountType' => $user['role'],
@@ -202,6 +208,7 @@ class UserController extends Controller
                     'lname' => $user['lname'],
                     'gender' => $user['gender'],
                     'accVerified' => $accVerified,
+                    'accVerify' => $accVerify,
                     'birthdate' => $user['birthdate'],
                     'age' => $age,
                     'contactNumber' => $user['contactNumber'],

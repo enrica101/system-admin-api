@@ -336,7 +336,10 @@ function displayUserInfo(data){
                     </div>
                 </div>
                 <center>
-                <button class="custom-btn" onclick="manageAccount(${data['id']})">Manage Account</button>
+
+                <button class="custom-btn" onclick="manageAccount(${data['id']})">
+  ${data['accVerify'] ? 'Unverify Account' : 'Verify Account'}
+</button>
                 </center>
 
 <style>

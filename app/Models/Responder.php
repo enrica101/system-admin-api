@@ -9,17 +9,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Responder extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     protected $table = 'responders';
     protected $fillable = [
         'userId',
         'type',
     ];
 
-    public function users(){
+    public function users()
+    {
         return $this->hasMany(User::class, 'userId');
     }
 
-   
-    
+    public function response()
+    {
+        return $this->belongsTo(Response::class, 'responderId');
+    }
 }

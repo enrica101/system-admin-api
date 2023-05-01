@@ -60,7 +60,6 @@ Route::get('/success-restore', function () {
 });
 
 Route::get('/user-entry', [AccountController::class, 'create'])->name('account.create');
-Route::post('/user-store', [AccountController::class, 'store']);
 Route::put('/user-manage/{user}', [AdminController::class, 'updateInfo'])->name('account.manage');
 // Route::get('/{id}', [AdminController::class, 'editUser'])->name('account.edit');
 Route::get('/user-update/{id}', [AdminController::class, 'editUser'])->name('account.edit');

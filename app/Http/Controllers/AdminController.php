@@ -232,22 +232,22 @@ $user = User::where('id', $id)->first();
         ]);
 
         $formInputs['password'] = bcrypt($formInputs['password']);
-        if($formInputs['role'] == 'User'){
+        // if($formInputs['role'] == 'User'){
         $user = User::create($formInputs);
-        }
-        else if($formInputs['role'] == 'Responder'){
-        $user = User::create($formInputs);
+        // }
+        // else if($formInputs['role'] == 'Responder'){
+        // $user = User::create($formInputs);
 
-        $responderInfo = [
+        // $responderInfo = [
 
-            'type' => $formInputs['type'],
+        //     'type' => $formInputs['type'],
             
-        ];
-        $responderInfo['userId'] = $user->id;
+        // ];
+        // $responderInfo['userId'] = $user->id;
 
         
-        $responder = Responder::create($responderInfo);
-        }
+        // $responder = Responder::create($responderInfo);
+        // }
 
      
         
