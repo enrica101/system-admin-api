@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //change id_image to blob
-            $table->binary('id_image')->nullable()->change();
+            //change id_image to varchar
+            $table->string('id_image', 255)->nullable()->change();
+            
         });
     }
 
