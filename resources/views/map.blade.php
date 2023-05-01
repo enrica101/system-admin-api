@@ -20,7 +20,8 @@
         //     profileOverView.classList.toggle('active');
         // })
 
-        let marker, map, allMarkers = [];
+        let marker, map, placeMarkers = [];
+        let allMarkers = [];
         //array of array of polygon vertices
         const polygonCoords = [
             [
@@ -379,12 +380,7 @@
             map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(medicalFilterControlDiv)
             map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(policeFilterControlDiv)
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(resetFilterControlDiv)
-            allMarkers.forEach(marker => {
-                    if (marker['title'] != 'Fire & Rescue') {
-                        marker.setVisible(false)
-                    }
-
-                });
+         
                 const locations = [{
                         lat: 10.29777159357524,
                         lng: 123.89194542056934,
@@ -452,7 +448,7 @@
                         unit: 'BUREAU OF FIRE PROTECTION',
                     },
                 ];
-                locations.forEach(location => {
+                locations.forEach((location) => {
                     const marker = new google.maps.Marker({
                         position: {
                             lat: location.lat,
@@ -464,14 +460,13 @@
                         title: location.title,
                         icon: location.icon
                     });
-                    allMarkers.push(marker);
+               
+                    placeMarkers.push(marker);
 
                 });
+         
+                placeMarkers.forEach((marker) => {
              
-             allMarkers.forEach(marker => {
-                if(marker['title'] != 'Fire & Rescue'){
-                    marker.setVisible(false)
-                }else{
                     marker.setMap(map);
                     marker.addListener('click', function() {
                         var infoWindow = new google.maps.InfoWindow({
@@ -480,16 +475,22 @@
                                 marker.unit + '</b>'
                         });
                         infoWindow.open(map, marker);
+                        marker.setVisible(true);
                     })
                 }
-                });
-                displayAllMarkers(allMarkers)
-                allMarkers.forEach(marker => {
-                    if (marker['title'] != 'Fire & Rescue') {
+                );
+
+                geo();
+                displayAllMarkers(placeMarkers);
+
+                allMarkers.forEach((marker) => {
+                    if (marker['title'] != 'Fire and Rescue') {
                         marker.setVisible(false)
                     }
                     
                 });
+
+                displayAllMarkers(allMarkers);
 
                
             });
@@ -554,18 +555,13 @@
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(resetFilterControlDiv)
            
                 displayAllMarkers(allMarkers)
-                allMarkers.forEach(marker => {
+                allMarkers.forEach((marker) => {
                     if (marker['title'] != 'Medical') {
                         marker.setVisible(false)
                     }
 
                 });
-
-
-
             });
-
-
 
             return medicalControlButton;
 
@@ -624,7 +620,8 @@
             map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(policeFilterControlDiv)
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(resetFilterControlDiv)
 
-allMarkers.forEach(marker => {
+            allMarkers.forEach((marker) => {
+                console.log(marker);
                     if (marker['title'] != 'Police') {
                         marker.setVisible(false)
                     }
@@ -679,7 +676,7 @@ allMarkers.forEach(marker => {
 
                 // geo();
 
-                policeLocs.forEach(location => {
+                policeLocs.forEach((location) => {
                     const marker = new google.maps.Marker({
                         position: {
                             lat: location.lat,
@@ -695,7 +692,7 @@ allMarkers.forEach(marker => {
                     allMarkers.push(marker);
                 });
 
-                allMarkers.forEach(marker => {
+                placeMarkers.forEach((marker) => {
                     marker.setMap(map);
                     marker.addListener('click', function() {
                         var infoWindow = new google.maps.InfoWindow({
@@ -709,7 +706,7 @@ allMarkers.forEach(marker => {
                 });
 
                  //iterate through array of array of polygon vertices
-                 polygonCoords.forEach(polygonCoord => {
+                 polygonCoords.forEach((polygonCoord) => {
                     // Construct the polygon.
                     const polygon = new google.maps.Polygon({
                         paths: polygonCoord,
@@ -864,7 +861,7 @@ allMarkers.forEach(marker => {
                 ];
 
 
-                locations.forEach(location => {
+                locations.forEach((location) => {
                     const marker = new google.maps.Marker({
                         position: {
                             lat: location.lat,
@@ -879,7 +876,7 @@ allMarkers.forEach(marker => {
                     allMarkers.push(marker);
                 });
 
-                allMarkers.forEach(marker => {
+                placeMarkers.forEach((marker) => {
                     marker.setMap(map);
                     marker.addListener('click', function() {
                         var infoWindow = new google.maps.InfoWindow({
@@ -901,7 +898,7 @@ allMarkers.forEach(marker => {
                         infoWindow.open(map, marker);
                     })
                 });
-
+                displayAllMarkers(placeMarkers);
 
 
 
@@ -934,7 +931,7 @@ allMarkers.forEach(marker => {
         }
 
         function displayAllMarkers(allMarkers) {
-            allMarkers.forEach(marker => {
+            allMarkers.forEach((marker) => {
                 marker.setVisible(true)
             })
 
@@ -945,7 +942,7 @@ allMarkers.forEach(marker => {
         function geo() {
             axios.get('/api/requests')
                 .then(res => {
-                    res.data.forEach(location => {
+                    res.data.forEach((location) => {
                         var requestType = location['type']
                         var status = location['status']
                         var lat = parseFloat(location['lat'])
@@ -987,7 +984,7 @@ allMarkers.forEach(marker => {
                         33) // this customly sets the height and width dimensions of all icon markers on map
                 },
             });
-
+console.log(marker);
             allMarkers.push(marker)
 
             var infoWindow = new google.maps.InfoWindow({
