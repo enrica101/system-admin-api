@@ -259,7 +259,7 @@ class AdminController extends Controller
 
             ];
 
-            dd($responderInfo);
+      
         
             $responderInfo['userId'] = $user->id;
 
