@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Unit extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id';
+
     protected $table = 'units';
     protected $fillable = [
       'name',
