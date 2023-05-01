@@ -14,6 +14,7 @@ class Responder extends Model
     protected $fillable = [
         'userId',
         'type',
+        'unit_id',
     ];
 
     public function users()

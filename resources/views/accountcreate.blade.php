@@ -33,6 +33,32 @@
                             </select>
                         </div>
 
+                        <div class="form-group mt-4">
+                            <label for="unit">Unit</label>
+                           
+                            <select class=form-control name="unit" id="unit">
+                                <optgroup label="BFP">
+                                <option value="1">BFP CEBU PROVINCIAL OFFICE</option>
+                                </optgroup>
+                                <optgroup label="PNP">
+                                <option value="2">PNP CCPO PARDO STATION</option>
+                                <option value="3">PNP CCPO CARBON STATION</option>
+                                <option value="4">PNP CCPO GUADALUPE STATION</option>
+                                <option value="5">PNP CCPO MABOLO STATION</option>
+                                <option value="6">PNP CCPO PUNTA PRINCESA STATION</option>
+                            </optgroup>
+                            <optgroup label="MEDICAL-LGU">
+                                <option value="7">CEBU CITY DISASTER RISK REDUCTION AND MANAGEMENT OFFICE</option>
+                                <option value="8">DOH CEBU</option>
+                            </optgroup>
+                            <optgroup label="MEDICAL-ERUF">
+                                <option value="9">EMERGENCY RESCUE UNIT FOUNDATION</option>
+                            </optgroup>
+                            </optgroup>
+                            </select>
+                            
+                        </div>
+
                         <br>
                         <div id="responder-options" style="display:none;">
     <label for="type">Responder Type*</label>
