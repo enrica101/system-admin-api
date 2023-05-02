@@ -54,24 +54,24 @@
             <table class="table show">
                 <thead class="table-header">
                     <tr>
-                        <th class="table-col-1">ID</th>
-                        <th class="table-col-1">Name</th>
-                        <th class="table-col-1">Responder Type</th>
-                        <th class="table-col-1">Request ID</th>
-                        <th class="table-col-1">Status</th>
-                        <th class="table-col-1">Timestamp</th>
+                        <th class="table-col-1 id_resp">ID</th>
+                        <th class="table-col-1 id_name">Name</th>
+                        <th class="table-col-1 id_respType">Responder Type</th>
+                        <th class="table-col-1 id_resID">Request ID</th>
+                        <th class="table-col-1 res_stat">Status</th>
+                        <th class="table-col-1 res_t">Timestamp</th>
                     </tr>
                 </thead>
                 <tbody>
                 @unless(count($responses) == 0)
                 @forEach($responses as $response)
-                <tr class="table-row" id="{{$response['responderID']}}">
-                    <td class="table-cols" id="{{$response['responderID']}}">{{$response['responderID']}}</td>
-                    <td class="table-cols" id="{{$response['responderID']}}">{{$response['fname']}} {{$response['lname']}}</td>
-                    <td class="table-cols" id="{{$response['responderID']}}">{{$response['responderType']}}</td>
-                    <td class="table-cols" id="{{$response['responderID']}}">{{$response['requestID']}}</td>
-                    <td class="table-cols" id="{{$response['responderID']}}">{{$response['status']}}</td>
-                    <td class="table-cols" id="{{$response['responderID']}}">{{$response['created_at']}}</td>
+                <tr class="table-row" id="{{$response['responderID']}} id_resp">
+                    <td class="table-cols id_resp" id="{{$response['responderID']}}">{{$response['responderID']}}</td>
+                    <td class="table-cols name_resp" id="{{$response['responderID']}}">{{$response['fname']}} {{$response['lname']}}</td>
+                    <td class="table-cols res_type" id="{{$response['responderID']}}">{{$response['responderType']}}</td>
+                    <td class="table-cols res_id" id="{{$response['responderID']}}">{{$response['requestID']}}</td>
+                    <td class="table-cols res_stat" id="{{$response['responderID']}}">{{$response['status']}}</td>
+                    <td class="table-cols res_t" id="{{$response['responderID']}}">{{$response['created_at']}}</td>
                 </tr>
                 @endforeach
                 @else
@@ -95,12 +95,12 @@
                 @unless(count($idleResponders) == 0)
                 @forEach($idleResponders as $idleResponder)
                 <tr class="table-row" id="{{$idleResponder['responderID']}}">
-                    <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['responderID']}}</td>
-                    <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['fname']}} {{$idleResponder['lname']}}</td>
-                    <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['responderType']}}</td>
-                    <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['requestID']}}</td>
-                    <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['status']}}</td>
-                    <td class="table-cols" id="{{$idleResponder['responderID']}}">{{$idleResponder['created_at']}}</td>
+                <td class="table-cols id_resp" id="{{$response['responderID']}}">{{$response['responderID']}}</td>
+                    <td class="table-cols name_resp" id="{{$response['responderID']}}">{{$response['fname']}} {{$response['lname']}}</td>
+                    <td class="table-cols res_type" id="{{$response['responderID']}}">{{$response['responderType']}}</td>
+                    <td class="table-cols res_id" id="{{$response['responderID']}}">{{$response['requestID']}}</td>
+                    <td class="table-cols res_stat" id="{{$response['responderID']}}">{{$response['status']}}</td>
+                    <td class="table-cols res_t" id="{{$response['responderID']}}">{{$response['created_at']}}</td>
                 </tr>
                 @endforeach
                 @else
@@ -124,12 +124,12 @@
                 @unless(count($handlingRequests) == 0)
                 @forEach($handlingRequests as $handlingRequest)
                 <tr class="table-row" id="{{$handlingRequest['responderID']}}">
-                    <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['responderID']}}</td>
-                    <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['fname']}} {{$handlingRequest['lname']}}</td>
-                    <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['responderType']}}</td>
-                    <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['requestID']}}</td>
-                    <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['status']}}</td>
-                    <td class="table-cols" id="{{$handlingRequest['responderID']}}">{{$handlingRequest['created_at']}}</td>
+                <td class="table-cols id_resp" id="{{$response['responderID']}}">{{$response['responderID']}}</td>
+                    <td class="table-cols name_resp" id="{{$response['responderID']}}">{{$response['fname']}} {{$response['lname']}}</td>
+                    <td class="table-cols res_type" id="{{$response['responderID']}}">{{$response['responderType']}}</td>
+                    <td class="table-cols res_id" id="{{$response['responderID']}}">{{$response['requestID']}}</td>
+                    <td class="table-cols res_stat" id="{{$response['responderID']}}">{{$response['status']}}</td>
+                    <td class="table-cols res_t" id="{{$response['responderID']}}">{{$response['created_at']}}</td>
                 </tr>
                 @endforeach
                 @else

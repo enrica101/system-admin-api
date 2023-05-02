@@ -561,6 +561,32 @@ table.show{
             background: #d8edfc; 
           }
         tr{
+
+            .id_resp{
+                width: 20px;
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+            .name_resp{
+                width: 100px;
+                padding-left: 30px;
+                padding-right: px;
+            }
+            .res_type{
+                width: 20px;
+                padding-left: 50px;
+                padding-right: 100px;
+            }
+            .res_id{
+                width: 10px;
+                padding-left: 10px;
+                padding-right: 75px;
+            }
+            .res_stat{
+                width: 10px;
+                padding-left: 10px;
+                padding-right: 75px;
+            }
             .id{
                 width: 20px;
                 padding: 15px;
@@ -578,8 +604,9 @@ table.show{
                 width: 10px;
                 padding-right: 30px;
             }
+        
             .number{
-                width: 75px;
+                width: 20px;
                 padding-left: 20px
                 ;
                 padding-right: 60px;
@@ -621,6 +648,8 @@ table.show{
                 margin: 0;
                 height: fit-content;
                 width: 100px;
+
+                
 
             }
             P{
