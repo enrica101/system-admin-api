@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('response', function (Blueprint $table) {
+        Schema::table('responses', function (Blueprint $table) {
             $table->string('escalation')->nullable();
             //
         });
@@ -26,8 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('response', function (Blueprint $table) {
+        Schema::table('responses', function (Blueprint $table) {
             //
+
         });
     }
 };

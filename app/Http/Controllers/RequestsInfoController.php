@@ -218,7 +218,33 @@ class RequestsInfoController extends Controller
         }
     }
 
-
+    public function getRequestInfoWithResponses($id){
+        $request = RequestsInfo::withTrashed()->where('id', $id)->first();
+        $requestCreateDateTime = date("Y-m-d H:i",strtotime($request->created_at));
+        
+        $responses = Response::withTrashed()->where('requestId', $id)->get();
+        
+        $responseList = [];
+        foreach ($responses as $response) {
+            $responder = Responder::withTrashed()->find($response->responderId);
+            $responderUserDetails = User::withTrashed()->find($responder->userId);
+            $responseCreateDateTime = date("Y-m-d H:i",strtotime($response->created_at));
+            $responseList[] = [
+                'responseId' => $response->id,
+                'responder' => $responder,
+                'responderUserDetails' => $responderUserDetails,
+                'response_created_at' => $responseCreateDateTime
+            ];
+        }
+        
+        return response([
+            'message' => 'Found request responses',
+            'request' => $request,
+            'request_created_at' => $requestCreateDateTime,
+            'responses' => $responseList,
+        ], 200);
+    }
+    
     /**
      * Display a listing of the resource.
      *

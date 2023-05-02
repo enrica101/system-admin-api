@@ -113,14 +113,14 @@
                                 <script>
                                     function viewID(id) {
                                         console.log("ID + " + id);
-                                        axios.get('/api/users/idphoto/'+  id)
+                                        axios.get('/api/users/idphoto/' + id)
                                             .then(function(response) {
                                                 console.log(response);
 
                                                 if (response.data.idPhoto != null) {
                                                     Swal.fire({
-                                                        icon: 'success',
-                                                        title: 'Success!',
+                                                        
+                                                        title: 'Attached ID!',
                                                         text: response.data.message,
                                                         //image path from id_photo column
                                                         imageUrl: response.data.idPhoto,

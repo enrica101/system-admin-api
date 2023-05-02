@@ -7,18 +7,18 @@
         <div class="avatar">
             <span>
                 <small>Hey, {{auth()->user()->fname}}</small>
-                <br/>
+                <br />
                 <small class="accountType">Admin</small>
             </span>
             {{-- <img src="img/avatar.png" alt="avatar"> --}}
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <circle cx="12" cy="12" r="9" />
                 <circle cx="12" cy="10" r="3" />
                 <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
-                </svg>
+            </svg>
         </div>
-        
+
         <div class="profile">
             <h4>{{auth()->user()->fname}} {{auth()->user()->lname}}</h4>
             <h5 style="font-weight: 400;">{{auth()->user()->email}}</h5><br>
@@ -26,27 +26,31 @@
             <form action="/logout" method="post">
                 @csrf
                 <button class="btn" type="submit">
-                    <img src="icons/logout.svg" alt="Logout"> 
+                    <img src="icons/logout.svg" alt="Logout">
                     Logout
                 </button>
             </form>
         </div>
     </header>
-  
+
     <div class="tables">
         <div class="horizontal-tabs">
             <button class="reload" onclick="reload()"><i class="fa-solid fa-rotate-right"></i></button>
-            <div class="tab all  active"><h4>All Users</h4></div>
-            <div class="tab second"><h4>Users Requests</h4></div>
+            <div class="tab all  active">
+                <h4>All Users</h4>
+            </div>
+            <div class="tab second">
+                <h4>Users Requests</h4>
+            </div>
 
             <div class="search">
                 <input type="text" name="search-user" id="search-user" placeholder="Search user" />
                 <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
-            <table class="table show">
-                <thead class="table-header">
-                    <tr>
+        <table class="table show">
+            <thead class="table-header">
+                <tr>
                     <th class="table-col-1">ID</th>
                     <th class="table-col-1">Name</th>
                     <th class="table-col-1">Gender</th>
@@ -55,74 +59,76 @@
                     <th class="table-col-1">Email Address</th>
                     <th class="table-col-1">Registered on</th>
                     <!-- <th class="table-col-1">Manage</th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    @unless(count($users) == 0)
-                    @forEach($users as $user)
-                        
-                        <tr class="table-row" id="{{$user['id']}}">
-                            <td class="table-cols id"  id="{{$user['id']}}" >{{$user['id']}}</td>
-                            <td class="table-cols name"  id="{{$user['id']}}" >{{$user['fname']}} {{$user['lname']}}</td>
-                            <td class="table-cols gender"  id="{{$user['id']}}"  >{{$user['gender']}}</td>
-                            <td class="table-cols age"  id="{{$user['id']}}" >{{$user['age']}}</td>
-                            <td class="table-cols number"  id="{{$user['id']}}"  >{{$user['contactNumber']}}</td>
-                            <td class="table-cols email"  id="{{$user['id']}}"  >{{$user['email']}}</td>
-                            <td class="table-cols regdate"  id="{{$user['id']}}"  >{{$user['created_at']}}</td>
-                            <!-- <td class="table-cols"  id="{{$user['id']}}" ><button onclick="window.location.href='/{{$user['id']}}'">MANAGE USER</button> -->
-                        </tr>
+                </tr>
+            </thead>
+            <tbody>
+                @unless(count($users) == 0)
+                @forEach($users as $user)
 
-                    @endforeach
+                <tr class="table-row" id="{{$user['id']}}">
+                    <td class="table-cols id" id="{{$user['id']}}">{{$user['id']}}</td>
+                    <td class="table-cols name" id="{{$user['id']}}">{{$user['fname']}} {{$user['lname']}}</td>
+                    <td class="table-cols gender" id="{{$user['id']}}">{{$user['gender']}}</td>
+                    <td class="table-cols age" id="{{$user['id']}}">{{$user['age']}}</td>
+                    <td class="table-cols number" id="{{$user['id']}}">{{$user['contactNumber']}}</td>
+                    <td class="table-cols email" id="{{$user['id']}}">{{$user['email']}}</td>
+                    <td class="table-cols regdate" id="{{$user['id']}}">{{$user['created_at']}}</td>
+                    <!-- <td class="table-cols"  id="{{$user['id']}}" ><button onclick="window.location.href='/{{$user['id']}}'">MANAGE USER</button> -->
+                </tr>
 
-                    @else
-                    <tr>
-                        <td id="norecords">No record.</td></tr>
+                @endforeach
 
-                    @endunless
-                </tbody>
-            </table>
-            <table class="table">
-                <thead class="table-header">
-                    <tr>
+                @else
+                <tr>
+                    <td id="norecords">No record.</td>
+                </tr>
+
+                @endunless
+            </tbody>
+        </table>
+        <table class="table">
+            <thead class="table-header">
+                <tr>
                     <th class="table-col-1">ID</th>
                     <th class="table-col-1">Name</th>
                     <th class="table-col-1">Completed</th>
                     <th class="table-col-1">Cancelled</th>
                     <th class="table-col-1">Bogus</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @unless(count($users) == 0)
-                    @forEach($users as $user)
+                </tr>
+            </thead>
+            <tbody>
+                @unless(count($users) == 0)
+                @forEach($users as $user)
 
-                        <tr class="table-row" id="{{$user['id']}}">
-                            <td class="table-cols id" id="{{$user['id']}}" >
-                                {{$user['id']}}
-                            </td>
-                            <td class="table-cols name"  id="{{$user['id']}}" >
-                                {{$user['fname']}} {{$user['lname']}}
-                            </td>
-                            <td class="table-cols completed" id="{{$user['id']}}">
-                                {{$user['completedRequests']}}
-                            </td>
-                            <td class="table-cols cancelled"  id="{{$user['id']}}" >
-                                {{$user['cancelledRequests']}}
-                            </td>
-                            <td class="table-cols bogus"  id="{{$user['id']}}" >
-                                {{$user['bogusRequests']}}
-                            </td>
-                        </tr>
+                <tr class="table-row" id="{{$user['id']}}">
+                    <td class="table-cols id" id="{{$user['id']}}">
+                        {{$user['id']}}
+                    </td>
+                    <td class="table-cols name" id="{{$user['id']}}">
+                        {{$user['fname']}} {{$user['lname']}}
+                    </td>
+                    <td class="table-cols completed" id="{{$user['id']}}">
+                        {{$user['completedRequests']}}
+                    </td>
+                    <td class="table-cols cancelled" id="{{$user['id']}}">
+                        {{$user['cancelledRequests']}}
+                    </td>
+                    <td class="table-cols bogus" id="{{$user['id']}}">
+                        {{$user['bogusRequests']}}
+                    </td>
+                </tr>
 
-                    @endforeach
+                @endforeach
 
-                    @else
-                    <tr>
-                        <td id="norecords">No record.</td></tr>
+                @else
+                <tr>
+                    <td id="norecords">No record.</td>
+                </tr>
 
-                    @endunless
-                    
-                </tbody>
-            </table>
+                @endunless
+
+            </tbody>
+        </table>
     </div>
     <div class="view">
         <h4>Select a user to see more information.</h4>
@@ -133,99 +139,99 @@
             {{-- <button class="btn-close"><i class="fa-solid fa-xmark"></i></button> --}}
         </div>
     </div>
-<script>
-    const exitModal = document.querySelector('.btn-close')
-    const overlayReactivate = document.querySelector('.overlay-modal')
-    const loaderModal = document.querySelector('.loader')
+    <script>
+        const exitModal = document.querySelector('.btn-close')
+        const overlayReactivate = document.querySelector('.overlay-modal')
+        const loaderModal = document.querySelector('.loader')
 
-        overlayReactivate.addEventListener('click', ()=>{
+        overlayReactivate.addEventListener('click', () => {
             overlayReactivate.classList.remove('show')
             reload()
         })
 
-    const profileBtn = document.querySelector('.avatar');
-    const profileOverView = document.querySelector('.profile-overview')
+        const profileBtn = document.querySelector('.avatar');
+        const profileOverView = document.querySelector('.profile-overview')
 
-    const allBtn = document.querySelector('.all');
-    const secondBtn = document.querySelector('.second');
-    const tables = document.querySelectorAll('.table');
-    const rowSelect = document.querySelectorAll('.table-row');
-    const rightViewer = document.querySelector('.view')
-    // profile toggle
-    const profile = document.querySelector('.profile')
-    const avatar = document.querySelector('.avatar')
+        const allBtn = document.querySelector('.all');
+        const secondBtn = document.querySelector('.second');
+        const tables = document.querySelectorAll('.table');
+        const rowSelect = document.querySelectorAll('.table-row');
+        const rightViewer = document.querySelector('.view')
+        // profile toggle
+        const profile = document.querySelector('.profile')
+        const avatar = document.querySelector('.avatar')
 
-    function restoreAccount(id){
-        if(id){
-            overlayReactivate.classList.add('show')
-            setTimeout(function() {
-                loaderModal.innerHTML = ''
-                loaderModal.innerHTML = 'Successfully Reactivated! User has received an email regarding this change.'
-            }, 1300)
-            axios.get('api/users/restore/'+id).then(res =>{
-                console.log(res)
-            }).catch(err => console.log(err))
+        function restoreAccount(id) {
+            if (id) {
+                overlayReactivate.classList.add('show')
+                setTimeout(function() {
+                    loaderModal.innerHTML = ''
+                    loaderModal.innerHTML = 'Successfully Reactivated! User has received an email regarding this change.'
+                }, 1300)
+                axios.get('api/users/restore/' + id).then(res => {
+                    console.log(res)
+                }).catch(err => console.log(err))
+            }
         }
-    }
 
-    avatar.addEventListener('click', ()=>{
-        profile.classList.toggle('show')
-    })
+        avatar.addEventListener('click', () => {
+            profile.classList.toggle('show')
+        })
 
-    function reload(){
-        window.location.href = 'http://system-admin.herokuapp.com/accounts'
+        function reload() {
+            window.location.href = 'http://system-admin.herokuapp.com/accounts'
         }
-    
-    const searchUser = document.getElementById('search-user')
-    const searchBtn = document.querySelector('.btn-search')
 
-    searchUser.addEventListener('change', ()=>{
-                if(searchUser.value !='' && searchUser.value != null){
-                    const url = new URL('http://system-admin.herokuapp.com/accounts');
-                    url.searchParams.append('name', searchUser.value);
-                    const urlString = url.toString();
-                    window.location.href = urlString;
+        const searchUser = document.getElementById('search-user')
+        const searchBtn = document.querySelector('.btn-search')
+
+        searchUser.addEventListener('change', () => {
+            if (searchUser.value != '' && searchUser.value != null) {
+                const url = new URL('http://system-admin.herokuapp.com/accounts');
+                url.searchParams.append('name', searchUser.value);
+                const urlString = url.toString();
+                window.location.href = urlString;
             }
         })
-    
-    profileBtn.addEventListener('click', () => {
-        profileOverView.classList.toggle('active');
-    })
 
-    allBtn.addEventListener('click', () => {
-        tables[0].classList.add('show');
-        tables[1].classList.remove('show');
-        allBtn.classList.add('active');
-        secondBtn.classList.remove('active')
-        console.log('all button is clicked')
-    });
-
-    secondBtn.addEventListener('click', () => {
-        tables[0].classList.remove('show');
-        tables[1].classList.add('show');
-        allBtn.classList.remove('active');
-        secondBtn.classList.add('active')
-        console.log('second button is clicked')
-    })
-
-    rowSelect.forEach(row => {
-        row.addEventListener('click', (e) => {
-            console.log(e.target.id)
-            rightViewer.innerHTML = ''
-            getUserInformation(e.target.id)
+        profileBtn.addEventListener('click', () => {
+            profileOverView.classList.toggle('active');
         })
-    })
 
-    function getUserInformation(userId){
-        axios.get('api/accounts/search/'+userId).then(res =>{
-            displayUserInfo(res.data['user'][0])
-        }).catch(err => console.log(err))
-    }
+        allBtn.addEventListener('click', () => {
+            tables[0].classList.add('show');
+            tables[1].classList.remove('show');
+            allBtn.classList.add('active');
+            secondBtn.classList.remove('active')
+            console.log('all button is clicked')
+        });
 
-function displayUserInfo(data){
-    if(data['banned']){
-        rightViewer.innerHTML =
-        `<div class="account">
+        secondBtn.addEventListener('click', () => {
+            tables[0].classList.remove('show');
+            tables[1].classList.add('show');
+            allBtn.classList.remove('active');
+            secondBtn.classList.add('active')
+            console.log('second button is clicked')
+        })
+
+        rowSelect.forEach(row => {
+            row.addEventListener('click', (e) => {
+                console.log(e.target.id)
+                rightViewer.innerHTML = ''
+                getUserInformation(e.target.id)
+            })
+        })
+
+        function getUserInformation(userId) {
+            axios.get('api/accounts/search/' + userId).then(res => {
+                displayUserInfo(res.data['user'][0])
+            }).catch(err => console.log(err))
+        }
+
+        function displayUserInfo(data) {
+            if (data['banned']) {
+                rightViewer.innerHTML =
+                    `<div class="account">
                     <div class="top">
                         <div class='user-details'>
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -281,9 +287,9 @@ function displayUserInfo(data){
                         <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${ (data['completedRequests']/data['all']*100).toFixed(2)}%</h4></div>
                     </div>
                 </div>`
-    }else{
-        rightViewer.innerHTML =
-        `<div class="account">
+            } else {
+                rightViewer.innerHTML =
+                    `<div class="account">
                     <div class="top">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="35" height="35" viewBox="0 0 24 24" stroke-width="1" stroke="#323232" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -332,12 +338,12 @@ function displayUserInfo(data){
                             <h5>Bogus</h5>
                             </span>
                         </div>
-                        <div class='accuracy' style="justify-self:center"><h4>Accuracy Reports: ${ (data['completedRequests']/data['all']*100).toFixed(2)}%</h4></div>
+                        <div class='    accuracy' style="justify-self:center"><h4>Accuracy Reports: ${ (data['completedRequests']/data['all']*100).toFixed(2)}%</h4></div>
                     </div>
                 </div>
                 <center>
 
-                <button class="custom-btn" onclick="manageAccount(${data['id']})">
+                <button class="custom-btn" onclick="viewID(${data['id']})">
   ${data['accVerify'] ? 'Unverify Account' : 'Verify Account'}
 </button>
                 </center>
@@ -366,12 +372,49 @@ function displayUserInfo(data){
 
                 `
 
-    }
-}
-function manageAccount(userId){
-   //redirect to account management page
-    window.location.href = '/user-update/'+userId;
-}
+            }
+        }
 
-</script>
+        function manageAccount(userId) {
+            //redirect to account management page
+            window.location.href = '/user-update/' + userId;
+        }
+    </script>
+    <script>
+        function viewID(id) {
+            console.log("ID + " + id);
+            axios.get('/api/users/idphoto/' + id)
+                .then(function(response) {
+                    console.log(response);
+
+                    if (response.data.idPhoto != null) {
+                        Swal.fire({
+
+                            title: 'Attached ID!',
+                            text: response.data.message,
+                            //image path from id_photo column
+                            imageUrl: response.data.idPhoto,
+                            imageWidth: 400,
+                            imageHeight: 200,
+                            imageAlt: 'User ID',
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'No ID Photo',
+                            text: 'User has not uploaded an ID photo.',
+                        })
+                    }
+                })
+                .catch(function(error) {
+                    console.log(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'User ID Failure',
+                        text: 'Could not retrieve user ID. Please contact the administrator.\n\n' + error + '\n\n' + error.response.data.message,
+                    })
+                });
+        }
+    </script>
+
 </x-layout>
