@@ -33,12 +33,13 @@ class ResponseController extends Controller
     public function store(Request $request)
     {
 
-        if(Response::where('requestId', $request['requestId'])->first()){
-            return response([
-                'message' => 'Request is already assigned to a first responder.',
-            ], 205);
+        // if(Response::where('requestId', $request['requestId'])->first()){
+        //     return response([
+        //         'message' => 'Request is already assigned to a first responder.',
+        //     ], 205);
 
-        }else if(Response::where('responderId', $request['responderId'])->first()){
+        // }else 
+        if(Response::where('responderId', $request['responderId'])->first()){
             return response([
                 'message' => 'Responder is already assigned to a request.',
             ], 205);
