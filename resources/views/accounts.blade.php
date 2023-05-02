@@ -3,6 +3,10 @@
         <h2>Accounts</h2>
     </header>
 
+    <head>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="/js/sweetalert2@10.js"></script>
+    </head>
     <header class="header2">
         <div class="avatar">
             <span>
@@ -346,6 +350,11 @@
                 <button class="custom-btn" onclick="viewID(${data['id']})">
   ${data['accVerify'] ? 'Unverify Account' : 'Verify Account'}
 </button>
+<br>
+<br>
+<button class="custom-btn" onclick="verifyUser(${data['id']})">
+  ${data['accVerify'] ? 'Unverify Account' : 'Verify Account'}
+</button>
                 </center>
 
 <style>
@@ -392,7 +401,7 @@
 
                             title: 'Attached ID!',
                             text: response.data.message,
-                            //image path from id_photo column
+
                             imageUrl: response.data.idPhoto,
                             imageWidth: 400,
                             imageHeight: 200,
@@ -416,5 +425,47 @@
                 });
         }
     </script>
+    <script>
+                                    function verifyUser(id) {
+                                        console.log("ID + " + id);
+                                        axios.get('/api/users/verify/' + id)
+                                            .then(function(response) {
+                                                if (response.data.message == 'User unverified!') {
+                                                    Swal.fire({
+                                                        icon: 'warning',
+                                                        title: 'Verification Revoked!',
+                                                        text: 'User has been unverified successfully.',
+                                                        timer: 2000
+                                                    })
+                                                    //refresh
+                                                    setTimeout(function() {
+                                                        location.reload();
+                                                    }, 1500);
+                                                    return;
+                                                } else if (response.data.message == 'User verified!') {
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        title: 'User Verification Complete!',
+                                                        text: 'User has been verified successfully.',
+                                                        timer: 2000
+                                                    })
+                                                    //refresh
+                                                    setTimeout(function() {
+                                                        location.reload();
+                                                    }, 1500);
+                                                    return;
+                                                }
+
+                                            })
+                                            .catch(function(error) {
+                                                console.log(error);
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Verification Failure',
+                                                    text: 'Could not verify user. Please contact the administrator.\n\n' + error + '\n\n' + error.response.data.message,
+                                                })
+                                            });
+                                    }
+                                </script>
 
 </x-layout>
