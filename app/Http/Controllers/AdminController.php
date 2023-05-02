@@ -239,34 +239,33 @@ class AdminController extends Controller
             'type' => ['nullable'],
             'contactNumber' => ['nullable', 'regex:/^(09|\+639)\d{9}$/', 'max:13',  Rule::unique('users', 'contactNumber')],
         ]);
-       
+
 
         $formInputs['password'] = bcrypt($formInputs['password']);
-        if ($formInputs['role'] == 'User') {
+        if ($formInputs['role'] == 'User' || $formInputs['role'] == 'Admin') {
             $user = User::create($formInputs);
         } else if ($formInputs['role'] == 'Responder') {
             $user = User::create($formInputs);
-           
+
             $unit = Unit::find($formInputs['unit']);
-          
+
             $responderInfo = [
-                
+
                 'userId' => $user->id,
-                
+
                 'unit_id' => $unit->id,
 
                 'type' => $formInputs['type'],
 
             ];
 
-      
-        
+
+
             $responderInfo['userId'] = $user->id;
 
 
             $responder = Responder::create($responderInfo);
             $responder->save();
-
         }
 
 
