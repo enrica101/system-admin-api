@@ -4,7 +4,7 @@
     </header>
 
     <head>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="/js/sweetalert2@10.js"></script>
     </head>
