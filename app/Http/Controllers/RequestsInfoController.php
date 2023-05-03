@@ -234,6 +234,7 @@ class RequestsInfoController extends Controller
                 'responder' => $responder,
                 'responderUserDetails' => $responderUserDetails,
                 'response_created_at' => $responseCreateDateTime
+
             ];
         }
         
@@ -242,6 +243,7 @@ class RequestsInfoController extends Controller
             'request' => $request,
             'request_created_at' => $requestCreateDateTime,
             'responses' => $responseList,
+    
         ], 200);
     }
     

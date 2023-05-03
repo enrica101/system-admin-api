@@ -11,15 +11,6 @@
         const footer = document.querySelector('.footer')
 
 
-        /*Daryll's MapMarker Code
-         */
-
-
-
-        //     profileBtn.addEventListener('click', () => {
-        //     profileOverView.classList.toggle('active');
-        // })
-
         let marker, map, placeMarkers = [];
         let allMarkers = [];
         //array of array of polygon vertices
@@ -317,9 +308,141 @@
                 }
             ],
 
-
-
         ];
+
+        
+         
+        const fireStations = [{
+                        lat: 10.29777159357524,
+                        lng: 123.89194542056934,
+                        title: 'BFP CEBU REGION VII OFFICE',
+                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                        type: 'Fire & Rescue',
+                        unit: 'BUREAU OF FIRE PROTECTION',
+
+                    },
+                    {
+
+                        lat: 10.27916636106637,
+                        lng: 123.85490164776354,
+                        title: 'BFP PARDO FIRE SUBSTATION',
+                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                        type: 'Fire & Rescue',
+                        unit: 'BUREAU OF FIRE PROTECTION',
+
+                    },
+                    {
+
+                        lat: 10.300269662239069,
+                        lng: 123.88178984919715,
+                        title: 'BFP LABANGON FIRE STATION',
+                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                        type: 'Fire & Rescue',
+                        unit: 'BUREAU OF FIRE PROTECTION',
+
+
+                    },
+                    {
+
+                        lat: 10.325073099409664,
+                        lng: 123.89826662158048,
+                        title: 'BFP LAHUG FIRE SUBSTATION',
+                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                        type: 'Fire & Rescue',
+                        unit: 'BUREAU OF FIRE PROTECTION',
+
+                    },
+                    {
+                        lat: 10.323549318797818,
+                        lng: 123.88410563595791,
+                        title: 'BFP GUADALUPE FIRE SUBSTATION',
+                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                        type: 'Fire & Rescue',
+                        unit: 'BUREAU OF FIRE PROTECTION',
+                    },
+                    {
+
+                        lat: 10.31389853808104,
+                        lng: 123.9160416092285,
+                        title: 'BFP MABOLO FIRE SUBSTATION',
+                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                        type: 'Fire & Rescue',
+                        unit: 'BUREAU OF FIRE PROTECTION',
+
+                    },
+                    {
+                        lat: 10.293435002195197,
+                        lng: 123.89406257912542,
+                        title: 'BFP SAN NICOLAS FIRE SUBSTATION',
+                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                        type: 'Fire & Rescue',
+                        unit: 'BUREAU OF FIRE PROTECTION',
+                    },
+                ];
+
+                const policeStations = [{
+                lat: 10.281018662550558,
+                lng: 123.85509967667018,
+                title: 'PNP POLICE STATION 7 - PARDO',
+                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+                type: 'Police',
+                unit: 'PHILIPPINE NATIONAL POLICE',
+            },
+            {
+
+                lat: 10.293432951989331,
+                lng: 123.89767169731381,
+                title: 'PNP POLICE STATION 5 - CARBON',
+                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+                type: 'Police',
+                unit: 'PHILIPPINE NATIONAL POLICE',
+
+            },
+            {
+
+                lat: 10.29664200873103,
+                lng: 123.87260913719784,
+                title: 'PNP POLICE STATION 10 - PUNTA PRINCESA',
+                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+                type: 'Police',
+                unit: 'PHILIPPINE NATIONAL POLICE',
+            },
+            {
+
+                lat: 10.303820043688352,
+                lng: 123.89518260805069,
+                title: 'PNP POLICE STATION 2 - FUENTE',
+                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+                type: 'Police',
+                unit: 'PHILIPPINE NATIONAL POLICE',
+            }
+        ];
+
+        const medicalStations = [{
+                lat: 10.333936486502663,
+                lng: 123.91044978984485,
+                title: 'ERUF BANILAD',
+                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+                type: 'Medical',
+                unit: 'ERUF',
+            },{
+                lat: 10.29130021704532, 
+                lng: 123.87753201725641,
+                title: 'CCDRRMO',
+                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+                type: 'Medical',
+                unit: 'LGU',
+            },
+            {
+                lat: 10.310403310627603,
+                lng:  123.9084781007516,
+                title: 'CEBU CITY HEALTH CENTER',
+                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+                type: 'Medical',
+                unit: 'LGU',
+            },
+        ];
+
 
         //Create a function creates a button that controls the filtering of requests on the map.
         function createFireFilter(map, allMarkers) {
@@ -344,155 +467,19 @@
             fireControlButton.title = "Click to display only fire emergency requests.";
             fireControlButton.type = "button";
 
+            
+
             // Setup the click eent listeners
             fireControlButton.addEventListener("click", () => {
-                // fireControlButton.style.backgroundColor = "#f4f4f4";
-
-                var options = {
-                    center: {
-                        lat: 10.298099450420516,
-                        lng: 123.88947252856845
-                    },
-                    zoom: 14,
-                    mapId: '39d7b83c8e09ed62',
-                    disableDefaultUI: true,
-                    zoomControl: true,
-                    scaleControl: true
-                }
-                map = new google.maps.Map(document.getElementById('map'), options);
-
-                const fireFilterControlDiv = document.createElement("div")
-            const medicalFilterControlDiv = document.createElement("div")
-            const policeFilterControlDiv = document.createElement("div")
-            const resetFilterControlDiv = document.createElement("div")
-
-            const fireFilterControl = createFireFilter(map, allMarkers)
-            const medicalFilterControl = createMedicalFilter(map, allMarkers)
-            const policeFilterControl = createPoliceFilter(map, allMarkers)
-            const resetFilterControl = createResetFilter(map, allMarkers)
-
-            fireFilterControlDiv.appendChild(fireFilterControl)
-            medicalFilterControlDiv.appendChild(medicalFilterControl)
-            policeFilterControlDiv.appendChild(policeFilterControl)
-            resetFilterControlDiv.appendChild(resetFilterControl)
-
-            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(fireFilterControlDiv)
-            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(medicalFilterControlDiv)
-            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(policeFilterControlDiv)
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(resetFilterControlDiv)
-         
-                const locations = [{
-                        lat: 10.29777159357524,
-                        lng: 123.89194542056934,
-                        title: 'BFP CEBU REGION VII OFFICE',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-
-                    },
-                    {
-
-                        lat: 10.27916636106637,
-                        lng: 123.85490164776354,
-                        title: 'BFP PARDO FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-
-                    },
-                    {
-
-                        lat: 10.300269662239069,
-                        lng: 123.88178984919715,
-                        title: 'BFP LABANGON FIRE STATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-
-
-                    },
-                    {
-
-                        lat: 10.325073099409664,
-                        lng: 123.89826662158048,
-                        title: 'BFP LAHUG FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-
-                    },
-                    {
-                        lat: 10.323549318797818,
-                        lng: 123.88410563595791,
-                        title: 'BFP GUADALUPE FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-                    },
-                    {
-
-                        lat: 10.31389853808104,
-                        lng: 123.9160416092285,
-                        title: 'BFP MABOLO FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-
-                    },
-                    {
-                        lat: 10.293435002195197,
-                        lng: 123.89406257912542,
-                        title: 'BFP SAN NICOLAS FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-                    },
-                ];
-                locations.forEach((location) => {
-                    const marker = new google.maps.Marker({
-                        position: {
-                            lat: location.lat,
-                            lng: location.lng
-                        },
-                        type: location.type,
-                        unit: location.unit,
-                        map: map,
-                        title: location.title,
-                        icon: location.icon
-                    });
-               
-                    placeMarkers.push(marker);
-
-                });
-         
-                placeMarkers.forEach((marker) => {
-             
-                    marker.setMap(map);
-                    marker.addListener('click', function() {
-                        var infoWindow = new google.maps.InfoWindow({
-                            content: '<b>' + marker.title + '</b><br>' + marker.position.lat() + ', ' +
-                                marker.position.lng() + '<br><b>' + marker.type + '</b>' + '<br><b>' +
-                                marker.unit + '</b>'
-                        });
-                        infoWindow.open(map, marker);
-                        marker.setVisible(true);
-                    })
-                }
-                );
-
-                geo();
-                displayAllMarkers(placeMarkers);
-
-                allMarkers.forEach((marker) => {
-                    if (marker['title'] != 'Fire and Rescue') {
+                displayAllMarkers(allMarkers)
+                allMarkers.forEach(marker =>{
+                    if(marker['title'] != 'Fire & Rescue'){
                         marker.setVisible(false)
                     }
-                    
-                });
-
-                displayAllMarkers(allMarkers);
-
-               
+                })
+                placeMarkers.forEach(polygon =>{
+                    polygon.setVisible(false)
+                })
             });
 
             return fireControlButton;
@@ -520,49 +507,18 @@
 
 
             medicalControlButton.addEventListener("click", () => {
-                
-                var options = {
-                    center: {
-                        lat: 10.298099450420516,
-                        lng: 123.88947252856845
-                    },
-                    zoom: 14,
-                    mapId: '39d7b83c8e09ed62',
-                    disableDefaultUI: true,
-                    zoomControl: true,
-                    scaleControl: true
-                }
-                map = new google.maps.Map(document.getElementById('map'), options);
-
-                const fireFilterControlDiv = document.createElement("div")
-            const medicalFilterControlDiv = document.createElement("div")
-            const policeFilterControlDiv = document.createElement("div")
-            const resetFilterControlDiv = document.createElement("div")
-
-            const fireFilterControl = createFireFilter(map, allMarkers)
-            const medicalFilterControl = createMedicalFilter(map, allMarkers)
-            const policeFilterControl = createPoliceFilter(map, allMarkers)
-            const resetFilterControl = createResetFilter(map, allMarkers)
-
-            fireFilterControlDiv.appendChild(fireFilterControl)
-            medicalFilterControlDiv.appendChild(medicalFilterControl)
-            policeFilterControlDiv.appendChild(policeFilterControl)
-            resetFilterControlDiv.appendChild(resetFilterControl)
-
-            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(fireFilterControlDiv)
-            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(medicalFilterControlDiv)
-            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(policeFilterControlDiv)
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(resetFilterControlDiv)
-           
                 displayAllMarkers(allMarkers)
-                allMarkers.forEach((marker) => {
-                    if (marker['title'] != 'Medical') {
+                allMarkers.forEach(marker =>{
+                    if(marker['title'] != 'Medical'){
                         marker.setVisible(false)
                     }
+                })
+                placeMarkers.forEach(polygon =>{
+                    polygon.setVisible(false)
+                })
 
-                });
             });
-
+               
             return medicalControlButton;
 
         }
@@ -587,145 +543,18 @@
             policeControlButton.type = "button";
             policeControlButton.addEventListener("click", () => {
 
-                var options = {
-                    center: {
-                        lat: 10.298099450420516,
-                        lng: 123.88947252856845
-                    },
-                    zoom: 14,
-                    mapId: '39d7b83c8e09ed62',
-                    disableDefaultUI: true,
-                    zoomControl: true,
-                    scaleControl: true
-                }
-                map = new google.maps.Map(document.getElementById('map'), options);
-
-                const fireFilterControlDiv = document.createElement("div")
-            const medicalFilterControlDiv = document.createElement("div")
-            const policeFilterControlDiv = document.createElement("div")
-            const resetFilterControlDiv = document.createElement("div")
-
-            const fireFilterControl = createFireFilter(map, allMarkers)
-            const medicalFilterControl = createMedicalFilter(map, allMarkers)
-            const policeFilterControl = createPoliceFilter(map, allMarkers)
-            const resetFilterControl = createResetFilter(map, allMarkers)
-
-            fireFilterControlDiv.appendChild(fireFilterControl)
-            medicalFilterControlDiv.appendChild(medicalFilterControl)
-            policeFilterControlDiv.appendChild(policeFilterControl)
-            resetFilterControlDiv.appendChild(resetFilterControl)
-
-            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(fireFilterControlDiv)
-            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(medicalFilterControlDiv)
-            map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(policeFilterControlDiv)
-            map.controls[google.maps.ControlPosition.TOP_LEFT].push(resetFilterControlDiv)
-
+           displayAllMarkers(allMarkers)
             allMarkers.forEach((marker) => {
-                console.log(marker);
+                
                     if (marker['title'] != 'Police') {
                         marker.setVisible(false)
                     }
-
                 });
-                // displayAllMarkers(allMarkers)
-                // allMarkers.forEach(marker => {
-                //     if (marker['title'] != 'Police') {
-                //         marker.setVisible(false)
-                //     }
-                // });
-
-
-                const policeLocs = [{
-
-                        lat: 10.281018662550558,
-                        lng: 123.85509967667018,
-                        title: 'PNP POLICE STATION 7 - PARDO',
-                        icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                        type: 'POLICE',
-                        unit: 'PHILIPPINE NATIONAL POLICE',
-                    },
-                    {
-
-                        lat: 10.293432951989331,
-                        lng: 123.89767169731381,
-                        title: 'PNP POLICE STATION 5 - CARBON',
-                        icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                        type: 'POLICE',
-                        unit: 'PHILIPPINE NATIONAL POLICE',
-
-                    },
-                    {
-
-                        lat: 10.29664200873103,
-                        lng: 123.87260913719784,
-                        title: 'PNP POLICE STATION 10 - PUNTA PRINCESA',
-                        icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                        type: 'POLICE',
-                        unit: 'PHILIPPINE NATIONAL POLICE',
-                    },
-                    {
-
-                        lat: 10.303820043688352,
-                        lng: 123.89518260805069,
-                        title: 'PNP POLICE STATION 2 - FUENTE',
-                        icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                        type: 'POLICE',
-                        unit: 'PHILIPPINE NATIONAL POLICE',
-                    }
-                ];
-
-                // geo();
-
-                policeLocs.forEach((location) => {
-                    const marker = new google.maps.Marker({
-                        position: {
-                            lat: location.lat,
-                            lng: location.lng
-                        },
-                        type: location.type,
-                        unit: location.unit,
-                        map: map,
-                        title: location.title,
-                        icon: location.icon
-                    });
-                    if(marker.unit == 'PHILIPPINE NATIONAL POLICE')
-                    allMarkers.push(marker);
-                });
-
-                placeMarkers.forEach((marker) => {
-                    marker.setMap(map);
-                    marker.addListener('click', function() {
-                        var infoWindow = new google.maps.InfoWindow({
-                            content: '<b>' + marker.title + '</b><br>' + marker.position.lat() + ', ' +
-                                marker.position.lng() + '<br><b>' + marker.type + '</b>' + '<br><b>' +
-                                marker.unit + '</b>'
-                        });
-                        if(marker.unit == 'PHILIPPINE NATIONAL POLICE')
-                        infoWindow.open(map, marker);
-                    })
-                });
-
-                 //iterate through array of array of polygon vertices
-                 polygonCoords.forEach((polygonCoord) => {
-                    // Construct the polygon.
-                    const polygon = new google.maps.Polygon({
-                        paths: polygonCoord,
-                        strokeColor: 'blue',
-                        strokeOpacity: 0.8,
-
-                        strokeWeight: 2,
-                        fillColor: 'rgba(173, 216, 230, 1)', //light blue
-
-                        fillOpacity: 0.35
-                    });
-                    // Set the polygon on the map
-                    polygon.setMap(map);
-                    polygon.setVisible(true);
-                });
+                placeMarkers.forEach(polygon =>{
+                    polygon.setVisible(true)
+                })
+                
             });
-
-
-
 
             return policeControlButton;
         }
@@ -751,179 +580,9 @@
 
             resetControlButton.addEventListener("click", () => {
                 displayAllMarkers(allMarkers)
-
-
-                const locations = [{
-                        lat: 10.29777159357524,
-                        lng: 123.89194542056934,
-                        title: 'BFP CEBU REGION VII OFFICE',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-
-                    },
-                    {
-
-                        lat: 10.27916636106637,
-                        lng: 123.85490164776354,
-                        title: 'BFP PARDO FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-
-                    },
-                    {
-
-                        lat: 10.300269662239069,
-                        lng: 123.88178984919715,
-                        title: 'BFP LABANGON FIRE STATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-
-
-                    },
-                    {
-
-                        lat: 10.325073099409664,
-                        lng: 123.89826662158048,
-                        title: 'BFP LAHUG FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-
-                    },
-                    {
-                        lat: 10.323549318797818,
-                        lng: 123.88410563595791,
-                        title: 'BFP GUADALUPE FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-                    },
-                    {
-
-                        lat: 10.31389853808104,
-                        lng: 123.9160416092285,
-                        title: 'BFP MABOLO FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-
-                    },
-                    {
-                        lat: 10.293435002195197,
-                        lng: 123.89406257912542,
-                        title: 'BFP SAN NICOLAS FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'FIRE & RESCUE',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-                    },
-                    //Police Stations
-                    {
-
-                        lat: 10.281018662550558,
-                        lng: 123.85509967667018,
-                        title: 'PNP POLICE STATION 7 - PARDO',
-                        icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                        type: 'POLICE',
-                        unit: 'PHILIPPINE NATIONAL POLICE',
-                    },
-                    {
-
-                        lat: 10.293432951989331,
-                        lng: 123.89767169731381,
-                        title: 'PNP POLICE STATION 5 - CARBON',
-                        icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                        type: 'POLICE',
-                        unit: 'PHILIPPINE NATIONAL POLICE',
-
-                    },
-                    {
-
-                        lat: 10.29664200873103,
-                        lng: 123.87260913719784,
-                        title: 'PNP POLICE STATION 10 - PUNTA PRINCESA',
-                        icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                        type: 'POLICE',
-                        unit: 'PHILIPPINE NATIONAL POLICE',
-                    },
-                    {
-
-                        lat: 10.303820043688352,
-                        lng: 123.89518260805069,
-                        title: 'PNP POLICE STATION 2 - FUENTE',
-                        icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                        type: 'POLICE',
-                        unit: 'PHILIPPINE NATIONAL POLICE',
-                    }
-
-                ];
-
-
-                locations.forEach((location) => {
-                    const marker = new google.maps.Marker({
-                        position: {
-                            lat: location.lat,
-                            lng: location.lng
-                        },
-                        type: location.type,
-                        unit: location.unit,
-                        map: map,
-                        title: location.title,
-                        icon: location.icon
-                    });
-                    allMarkers.push(marker);
-                });
-
-                placeMarkers.forEach((marker) => {
-                    marker.setMap(map);
-                    marker.addListener('click', function() {
-                        var infoWindow = new google.maps.InfoWindow({
-                            content: '<b>' + marker.title + '</b><br>' + '<br><b>' + marker.type + '</b>' + '<br><b>' +
-                                marker.unit + '</b>'
-                        });
-                        if(marker.unit == 'BUREAU OF FIRE PROTECTION') {
-                            infoWindow = new google.maps.InfoWindow({
-                                content: '<b>' + marker.title + '</b><br>' + '<br><b>' + marker.type + '</b>' + '<br><b>' +
-                                    marker.unit + '</b>' + '<br><a href="https://www.facebook.com/BFP-National-Headquarters-Official-Page-100327218383997/" target="_blank">Visit Page</a>'
-                            });
-                        }else if(marker.unit == 'PHILIPPINE NATIONAL POLICE') {
-                            infoWindow = new google.maps.InfoWindow({
-                                content: '<b>' + marker.title + '</b><br>' + '<br><b>' + marker.type + '</b>' + '<br><b>' +
-                                    marker.unit + '</b>' + '<br><a href="https://www.facebook.com/pnp.pio/" target="_blank">Visit Page</a>'
-                            });
-                        }
-
-                        infoWindow.open(map, marker);
-                    })
-                });
-                displayAllMarkers(placeMarkers);
-
-
-
-
-
-                //iterate through array of array of polygon vertices
-                polygonCoords.forEach(polygonCoord => {
-                    // Construct the polygon.
-                    const polygon = new google.maps.Polygon({
-                        paths: polygonCoord,
-                        strokeColor: 'blue',
-                        strokeOpacity: 0.8,
-
-                        strokeWeight: 2,
-                        fillColor: 'rgba(173, 216, 230, 1)', //light blue
-
-                        fillOpacity: 0.35
-                    });
-                    // Set the polygon on the map
-                    polygon.setMap(map);
-                    polygon.setVisible(true);
-                });
-
-                // Set the polygon on the map
-                polygon.setMap(map);
+                placeMarkers.forEach(polygon =>{
+                    polygon.setVisible(true)
+                })
 
             });
 
@@ -934,14 +593,12 @@
             allMarkers.forEach((marker) => {
                 marker.setVisible(true)
             })
-
-
         }
-
 
         function geo() {
             axios.get('/api/requests')
                 .then(res => {
+                    
                     res.data.forEach((location) => {
                         var requestType = location['type']
                         var status = location['status']
@@ -953,23 +610,42 @@
                             lng: lng
                         }, requestType, status); //creates each map marker
 
+                        fireStations.forEach((location) => {
+                        addMarker({lat: location.lat, lng: location.lng}, location.type, location.unit, location.title)
+                        });
+
+                        policeStations.forEach((location) => {
+                        addMarker({lat: location.lat, lng: location.lng}, location.type, location.unit, location.title)
+                        });
+
+                        medicalStations.forEach((location) => {
+                        addMarker({lat: location.lat, lng: location.lng}, location.type, location.unit, location.title)
+                        });
                     });
                 }).catch(err => console.log(err));
         }
 
 
-
-        function addMarker(coordinates, type, status) {
+        function addMarker(coordinates, type, status, title) {
 
             // The conditional statement below distinguishes 
             // each markers by request type and assigns 
             // the corresponding marker icon.
             if (type == 'Police') {
+                if (status == 'PHILIPPINE NATIONAL POLICE') {
+                iconMarker = 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png';
+            } else
                 iconMarker = 'https://img.icons8.com/stickers/100/000000/public-safety.png';
             } else
+            if (status == 'BUREAU OF FIRE PROTECTION') {
+                iconMarker = 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png';
+            } else
             if (type == 'Medical') {
-                iconMarker = 'https://img.icons8.com/stickers/100/000000/doctors-bag.png';
-            } else {
+                if (status == 'ERUF' || status == 'LGU') {
+                    iconMarker = 'https://img.icons8.com/stickers/100/null/hospital-3.png';
+                }else
+                    iconMarker = 'https://img.icons8.com/stickers/100/000000/doctors-bag.png';
+            }else {
                 iconMarker = 'https://img.icons8.com/stickers/100/000000/fires.png';
             }
 
@@ -977,28 +653,71 @@
                 position: coordinates,
                 map: map,
                 title: type,
+                type: title,
                 animation: google.maps.Animation.DROP,
+                unit: status,
                 icon: {
                     url: iconMarker,
                     scaledSize: new google.maps.Size(31,
                         33) // this customly sets the height and width dimensions of all icon markers on map
                 },
             });
-console.log(marker);
             allMarkers.push(marker)
 
-            var infoWindow = new google.maps.InfoWindow({
-                content: '<b>Request Type: </b><br>' + type +
-                    '<br><b>Request Status: </b><br>' + status
-            });
+            if (type == 'Police') {
+                if (status == 'PHILIPPINE NATIONAL POLICE') {
+                    var infoWindow = new google.maps.InfoWindow({
+                            content: '<b>' + title + '</b>' 
+                                    + '<br><b>' + type + '</b>' 
+                                    + '<br><b>' +status + '</b>'
+                        });
+                } else{
+                    var infoWindow = new google.maps.InfoWindow({
+                            content: '<b>Request Type: </b><br>' + type +
+                                '<br><b>Request Status: </b><br>' + status
+                    });}
+            } else
+            if (status == 'BUREAU OF FIRE PROTECTION') {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: '<b>' + title + '</b>' 
+                            + '<br><b>' + type + '</b>' 
+                            + '<br><b>' +status + '</b>'
+                });
+            } else
+            if (type == 'Medical') {
+                if (status == 'ERUF' || status == 'LGU') {
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: '<b>' + title + '</b>' 
+                                + '<br><b>' + type + '</b>' 
+                                + '<br><b>' +status + '</b>'
+                        });
+                }else{
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: '<b>Request Type: </b><br>' + type +
+                            '<br><b>Request Status: </b><br>' + status
+                    });}
+            }else {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: '<b>Request Type: </b><br>' + type +
+                            '<br><b>Request Status: </b><br>' + status
+                });
+            }
 
-            allMarkers.forEach((marker) => {
-                marker.addListener('click', function() {
-                    infoWindow.open(map, marker);
+            allMarkers.forEach(marker => {
+                marker.addListener('click', ()=>{
+                    let info = infoWindow.content
+                    console.log(marker)
+                    if(info.includes(marker.type)){
+                        infoWindow.open(map, marker)
+                    }else if(info.includes('Request Type') && info.includes(marker.title)){
+                        infoWindow.open(map, marker)
+
+                    }
+                    })
                 })
-            })
-
+            
         }
+
 
         function initMap() {
             var options = {
@@ -1013,8 +732,26 @@ console.log(marker);
                 scaleControl: true
             }
 
-
             map = new google.maps.Map(document.getElementById('map'), options);
+
+                //iterate through array of array of polygon vertices
+            polygonCoords.forEach((polygonCoord) => {
+                // Construct the polygon.
+                const polygon = new google.maps.Polygon({
+                    paths: polygonCoord,
+                    strokeColor: 'blue',
+                    strokeOpacity: 0.8, 
+
+                    strokeWeight: 2,
+                    fillColor: 'rgba(173, 216, 230, 1)', //light blue
+
+                    fillOpacity: 0.35
+                });
+                placeMarkers.push(polygon)
+                // Set the polygon on the map
+                polygon.setMap(map);
+                polygon.setVisible(true);
+            });
 
             const fireFilterControlDiv = document.createElement("div")
             const medicalFilterControlDiv = document.createElement("div")
@@ -1036,12 +773,10 @@ console.log(marker);
             map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(policeFilterControlDiv)
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(resetFilterControlDiv)
 
-
             geo()
 
-
-
         }
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xcAyCALx3yLmzfs7cS3gjeYkV7bg_AU&map_ids=39d7b83c8e09ed62&callback=initMap" defer></script>
 </x-layout>

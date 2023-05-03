@@ -87,6 +87,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::put('/responders/responses/status/{id}', [ResponseController::class, 'updateStatus']);
         Route::put('/responders/responses/location/{id}', [ResponseController::class, 'updateLocation']);
         Route::delete('/responders/responses/{id}', [ResponseController::class, 'destroy']);
+        Route::get('/escalate/responses/{id}', [ResponseController::class, 'escalateResponse']);
 
         Route::get('/archive/users', [ArchiveController::class, 'usersArchive']);
         Route::get('/archive/responders', [ArchiveController::class, 'respondersArchive']);

@@ -104,6 +104,7 @@ class ResponseController extends Controller
                 'message' => 'Found',
                 'response' => $responseInfo,
                 'requestInfo' => $requestInfo,
+                'escalation' => $responseInfo->escalation,
                 'responder' => [
                     'type' => $responder->type,
                     'responderFname' => $userResponderDetails->fname,
@@ -112,8 +113,24 @@ class ResponseController extends Controller
             ], 200);
         }
     }
+// ID passed must be of Request ID.
+    public function escalateResponse(Request $request){
+        $responses = Response::where('requestId',$request->id)->get()->count();
+        if($responses == 1){
+            $message = 'First Alert';
+        }else if($responses == 2){
+            $message = 'Second Alert';
+        }else{
+            $message = 'Third Alert';
+        }
 
-
+        return response(
+            [
+                'response' => $message
+            ], 200
+        );
+    
+    }
 
     /**
      * Update the specified resource in storage.
@@ -131,7 +148,11 @@ class ResponseController extends Controller
             case '1':
                 $responseUpdated = Response::where('requestId', $id)->update(['status' => "Searching Responder..."]);
                 if($responseUpdated){
+
                     $requestUpdated = RequestsInfo::where('id', $id)->update(['status' => 'Searching Responder...']);
+                    //check first if request type is Fire
+                    $requestHandle = RequestsInfo::find($id);
+                    
                     if($requestUpdated){
                         $message = "Succesfully updated request and response statuses.";
                     }
