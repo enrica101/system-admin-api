@@ -348,12 +348,12 @@
                 <center>
 
                 <button class="custom-btn" onclick="viewID(${data['id']})">
-View ID
+View User ID Photo
 </button>
 <br>
 <br>
 <button class="custom-btn" onclick="verifyUser(${data['id']})">
-  ${data['accVerify'] ? '' : 'Verify Account'}
+  ${data['accVerify'] ? 'Unverify Account' : 'Verify Account'}
 </button>
                 </center>
 
