@@ -150,20 +150,41 @@ class ResponseController extends Controller
                     $responseUpdated = Response::where('requestId', $id)->update(['status' => "Searching Responder..."]);
 
                     $responses = Response::where('requestId', $request->id)->get()->count();
-                    if ($responses == 1) {
-                        $message = 'First Alert';
-                    } else if ($responses == 2) {
-                        $message = 'Second Alert';
-                        return response([
-                            'message' => 'Second Alert reached!',
-                        ], 204);
-                    } else {
-                        $message = 'Third Alert';
-                        return response([
-                            'message' => 'Maximum Escalation reached!',
-                        ], 204);
-                        //return "Maximum Escalation Reached - Contact your Base Station for support!"
+                    // if ($responses == 1) {
+                    //     $message = 'First Alert';
+                    // } else if ($responses == 2) {
+                    //     $message = 'Second Alert';
+                    //     return response([
+                    //         'message' => 'Second Alert reached!',
+                    //     ], 204);
+                    // } else {
+                    //     $message = 'Third Alert';
+                    //     return response([
+                    //         'message' => 'Maximum Escalation reached!',
+                    //     ], 204);
+                    //     //return "Maximum Escalation Reached - Contact your Base Station for support!"
 
+                    // }
+                        
+                    if($responses != 0){
+                        if($responses == 1){
+                            $message = 'First Alert';
+                            $responseToEscalate = Response::where('requestId', $id)->first();
+                            $responseToEscalate->escalation = "First Alert Escalation";
+                            $responseToEscalate->save();
+                        }else if($responses == 2){
+                            $message = 'Second Alert';
+                            $responseToEscalate = Response::where('requestId', $id)->first();
+                            $responseToEscalate->escalation = "Second Alert Escalation";
+                            $responseToEscalate->save();
+
+                        }else{
+                            $message = 'Third Alert';
+                            $responseToEscalate = Response::where('requestId', $id)->first();
+                            $responseToEscalate->escalation = "Third Alert Escalation";
+                            $responseToEscalate->save();
+                        }
+                   
                     }
 
 
