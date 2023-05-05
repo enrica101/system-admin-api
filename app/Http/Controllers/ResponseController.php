@@ -12,7 +12,6 @@ use App\Http\Controllers\UserController;
 
 class ResponseController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -74,10 +73,18 @@ class ResponseController extends Controller
             ]);
             $fields['status'] = 'Received Request';
 
-            //escalation carryover
-            if($setRespEscalation){
-              $fields['escalation'] = $setRespEscalation;
+           $responseArrayOfSameID = Response::where('requestId', $request['requestId'])->get();
+           if($responseArrayOfSameID->count() > 0){
+            if($responseArrayOfSameID->count() === 1){
+                $fields['escalation'] = 'Second Alert Escalation';
+            }else if($responseArrayOfSameID->count() === 2){
+                $fields['escalation'] = 'Third Alert Escalation';
+            }else if($responseArrayOfSameID->count() === 3){
+                $fields['escalation'] = 'General Alert Escalation';
+            }else{
+                $fields['escalation'] = 'General Alert Escalation';
             }
+           };
             $responseInfo = Response::create($fields);
             RequestsInfo::where('id', $request->requestId)->update(['status' => 'Responder Found']);
 
