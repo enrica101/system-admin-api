@@ -77,7 +77,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 
         //daryll here - escalate Response
-        Route::post('/responses/escalate/{id}', [ResponseController::class, 'escalateResponse']);
+        Route::post('/responses/escalate/', [ResponseController::class, 'escalateResponse']);
         Route::get('/responders', [ResponderController::class, 'index']);
         Route::get('/responders/{id}', [ResponderController::class, 'show']);
         Route::put('/responders/{id}', [ResponderController::class, 'update']);
