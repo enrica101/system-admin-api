@@ -45,6 +45,8 @@ class ResponseController extends Controller
             ], 205);
         }
 
+
+
         $requestInfo = RequestsInfo::find($request['requestId']);
         $responder = Responder::find($request['responderId']);
 
@@ -55,7 +57,11 @@ class ResponseController extends Controller
         }
 
         $user = User::find($requestInfo->userId);
-
+        
+        if($requestInfo->status === 'First Alert Escalation' || $requestInfo->status === 'Second Alert Escalation' || $requestInfo->status === 'Third Alert Escalation'){
+          $setRespEscalation = $requestInfo->status;
+        }
+        
         if ($requestInfo->type === $responder->type) {
             $fields = $request->validate([
                 'requestId' => 'required',
@@ -64,8 +70,14 @@ class ResponseController extends Controller
                 'lat' => 'required',
                 'lng' => 'required',
                 'status' => 'required',
+               
             ]);
             $fields['status'] = 'Received Request';
+
+            //escalation carryover
+            if($setRespEscalation){
+              $fields['escalation'] = $setRespEscalation;
+            }
             $responseInfo = Response::create($fields);
             RequestsInfo::where('id', $request->requestId)->update(['status' => 'Responder Found']);
 
