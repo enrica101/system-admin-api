@@ -75,6 +75,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         // Delete Message
         Route::delete('requests/{id}/chat/delete', [ChatController::class, 'destroy']);
 
+
+        //daryll here - escalate Response
+        Route::post('/responses/escalate/{id}', [ResponseController::class, 'escalateResponse']);
         Route::get('/responders', [ResponderController::class, 'index']);
         Route::get('/responders/{id}', [ResponderController::class, 'show']);
         Route::put('/responders/{id}', [ResponderController::class, 'update']);
