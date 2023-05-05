@@ -118,63 +118,26 @@ class ResponseController extends Controller
     {
         $responses = Response::where('requestId', $request->id)->get()->count();
         $responseArray = Response::where('requestId', $request->id)->get();
+        $requestInfo = RequestsInfo::find($request->id);
+        if($responses > 0){
+            foreach($responseArray as $response){
+                $response->update(['escalation' => 'Second Alert Escalation']);
 
-        if ($responses == 1) {
-            $message = 'First Alert';
-            $responseArray = Response::where('requestId', $request->id)->update(['escalation' => 'First Alert Escalation']);
-            $requestToEscalate = RequestsInfo::find($request->id);
-            $requestToEscalate->status = 'First Alert Escalation';
-            $requestToEscalate->save();
-            return response(
-                [
-                    'response' => $message
-                ],
-                200
-            );
-        } else if ($responses == 2) {
-            $message = 'Second Alert';
-            foreach ($responseArray as $response) {
-                $response->escalation = 'Second Alert Escalation';
-                $response->save();
             }
-
-            $requestsToEscalate = RequestsInfo::find($request->id);
-            foreach ($requestsToEscalate as $request) {
-                $request->status = 'Second Alert Escalation';
-                $request->save();
-            }
-            return response(
-                [
-                    'response' => $message
-                ],
-                200
-            );
-        } else {
-            $message = 'Third Alert';
-            foreach ($responseArray as $response) {
-                $response->escalation = 'Third Alert Escalation';
-
-                $response->save();
-            }
-            $requestsToEscalate = RequestsInfo::find($request->id);
-            foreach ($requestsToEscalate as $request) {
-                $request->status = 'Third Alert Escalation';
-                $request->save();
-            }
-            return response(
-                [
-                    'response' => $message
-                ],
-                200
-            );
+            $requestInfo->update(['status' => 'Second Alert Escalation']);
         }
+        if($responses > 1){
+            foreach($responseArray as $response){
+                $response->update(['escalation' => 'Third Alert Escalation']);
 
-        return response(
-            [
-                'response' => "Escalation Failed"
-            ],
-            200
-        );
+            }
+            $requestInfo->update(['status' => 'Third Alert Escalation']);
+        }
+        return response([
+            'message' => 'Escalated',
+            'requestInfo' => $requestInfo,
+            'responses' => $responseArray,
+        ], 200);
     }
 
     /**
