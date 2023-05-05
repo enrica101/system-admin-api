@@ -144,47 +144,21 @@ class ResponseController extends Controller
     {
         //should receive a requestId to serach through responses table 
         if (RequestsInfo::find($id)) {
+            $responseCount = Response::where('requestId', $id)->count();
+
+            if ($responseCount > 1) {
+                Response::where('requestId', $id)->update(['escalation' => 'Second Alert Escalation']);
+            }
+
+            if ($responseCount > 2) {
+                Response::where('requestId', $id)->update(['escalation' => 'Third Alert Escalation']);
+            }
+
             $trigger = $request->trigger;
             switch ($trigger) {
                 case '1':
                     $responseUpdated = Response::where('requestId', $id)->update(['status' => "Searching Responder..."]);
 
-                    $responses = Response::where('requestId', $request->id)->get()->count();
-                   
-                    if($responses != 0){
-                        if($responses == 1){
-                            //get ALL responses with the same requestId
-                            $responseArray = Response::where('requestId', $id)->get();
-                            $message = 'First Alert';
-                            //loop through all the responses and add the escalation alert
-                            foreach($responseArray as $response){
-                                $response->escalation = "First Alert Escalation";
-                                $response->save();
-                            }
-                        
-                        }else if($responses == 2){
-                             //get ALL responses with the same requestId
-                             $responseArray = Response::where('requestId', $id)->get();
-                             $message = 'Second Alert';
-                             //loop through all the responses and add the escalation alert
-                             foreach($responseArray as $response){
-                                 $response->escalation = "Second Alert Escalation";
-                                 $response->save();
-                             }
-                       
-                        }else{
-                            //get ALL responses with the same requestId
-                            $responseArray = Response::where('requestId', $id)->get();
-                            $message = 'Third Alert';
-                            //loop through all the responses and add the escalation alert
-                            foreach($responseArray as $response){
-                                $response->escalation = "Third Alert Escalation";
-                                $response->save();
-                            }
-                           
-                        }
-                   
-                    }
 
 
 
