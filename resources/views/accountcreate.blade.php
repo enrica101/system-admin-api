@@ -7,8 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <!-- Font Awesome CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">        <!-- Font Awesome CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- <link rel="stylesheet" href="css/style.css"> -->
         <title>User Data Entry System</title>
@@ -153,17 +152,11 @@
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
-                            <div class="form-group mt-4">
-                                <label for="avatar">Upload Profile Picture <small>[Optional]</small></label><br>
-                                <input type="file" class="form-control-file" name="avatar" accept="image/*"><br>
-                                @error('avatar')
-                                <small class="text-danger">{{$message}}</small>
-                                @enderror
-                            </div>
+                         
                             <br>
                             <br>
                             <button type="submit" class="btn btn-primary">Register</button><br>
-                            <small>Already have an account? <a href="/">Login</a></small>
+                            <!-- <small>Already have an account? <a href="/">Login</a></small> -->
                         </form>
                     </div>
                 </div>
