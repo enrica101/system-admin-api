@@ -475,10 +475,12 @@
                 allMarkers.forEach(marker =>{
                     if(marker['title'] != 'Fire & Rescue'){
                         marker.setVisible(false)
+                        console.log(marker);
                     }
                 })
                 placeMarkers.forEach(polygon =>{
                     polygon.setVisible(false)
+                    console.log(polygon)
                 })
             });
 
@@ -507,11 +509,13 @@
 
 
             medicalControlButton.addEventListener("click", () => {
+                console.log("medical pressed!");
                 displayAllMarkers(allMarkers)
                 allMarkers.forEach(marker =>{
                     if(marker['title'] != 'Medical'){
                         marker.setVisible(false)
                     }
+                    console.log(marker)
                 })
                 placeMarkers.forEach(polygon =>{
                     polygon.setVisible(false)
@@ -552,6 +556,7 @@ console.log("police");
                 });
                 placeMarkers.forEach(polygon =>{
                     polygon.setVisible(true)
+                    console.log(polygon)
                 })
                 
             });
