@@ -620,7 +620,12 @@ console.log("police");
                             lng: lng
                         }, requestType, status); //creates each map marker
 
-                        fireStations.forEach((location) => {
+                     
+                    });
+                }).catch(err => console.log(err));
+        }
+
+        fireStations.forEach((location) => {
                         addMarker({lat: location.lat, lng: location.lng}, location.type, location.unit, location.title)
                         });
 
@@ -631,11 +636,7 @@ console.log("police");
                         medicalStations.forEach((location) => {
                         addMarker({lat: location.lat, lng: location.lng}, location.type, location.unit, location.title)
                         });
-                    });
-                }).catch(err => console.log(err));
-        }
-
-
+                        
         function addMarker(coordinates, type, status, title) {
             console.log("Add Marker!");
 
