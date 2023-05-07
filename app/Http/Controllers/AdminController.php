@@ -236,7 +236,7 @@ class AdminController extends Controller
             'gender' => ['required'],
             'birthdate' => ['required'],
             'unit' => ['nullable'],
-            'type' => ['nullable'],
+            'type' => ['required'],
             'contactNumber' => ['nullable', 'regex:/^(09|\+639)\d{9}$/', 'max:13',  Rule::unique('users', 'contactNumber')],
         ]);
 
@@ -246,24 +246,15 @@ class AdminController extends Controller
             $user = User::create($formInputs);
         } else if ($formInputs['role'] == 'Responder') {
             $user = User::create($formInputs);
-
             $unit = Unit::find($formInputs['unit']);
 
             $responderInfo = [
-
                 'userId' => $user->id,
-
                 'unit_id' => $unit->id,
-
                 'type' => $formInputs['type'],
-
             ];
 
-
-
-            $responderInfo['userId'] = $user->id;
-
-
+            // $responderInfo['userId'] = $user->id;
             $responder = Responder::create($responderInfo);
             $responder->save();
         }

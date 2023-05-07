@@ -80,9 +80,9 @@ class ResponseController extends Controller
             }else if($responseArrayOfSameID->count() === 2){
                 $fields['escalation'] = 'Third Alert Escalation';
             }else if($responseArrayOfSameID->count() === 3){
-                $fields['escalation'] = 'General Alert Escalation';
+                $fields['escalation'] = 'Enhanced Alert Escalation';
             }else{
-                $fields['escalation'] = 'General Alert Escalation';
+                $fields['escalation'] = 'Enhanced Alert Escalation';
             }
            };
             $responseInfo = Response::create($fields);
