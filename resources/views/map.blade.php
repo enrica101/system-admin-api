@@ -525,7 +525,7 @@
 
         function createPoliceFilter(map, allMarkers) {
             const policeControlButton = document.createElement("button");
-
+console.log("police");
             policeControlButton.style.backgroundColor = "#fff";
             policeControlButton.style.border = "2px solid #fff";
             policeControlButton.style.borderRadius = "3px";
@@ -560,6 +560,7 @@
         }
 
         function createResetFilter(map, allMarkers) {
+            console.log("Reset!");
             const resetControlButton = document.createElement("button");
 
             resetControlButton.style.backgroundColor = "#fff";
@@ -596,6 +597,7 @@
         }
 
         function geo() {
+            console.log("Geo!");
             axios.get('/api/requests')
                 .then(res => {
                     
@@ -627,6 +629,7 @@
 
 
         function addMarker(coordinates, type, status, title) {
+            console.log("Add Marker!");
 
             // The conditional statement below distinguishes 
             // each markers by request type and assigns 
@@ -662,6 +665,7 @@
                         33) // this customly sets the height and width dimensions of all icon markers on map
                 },
             });
+            console.log("New Marker: " + marker);
             allMarkers.push(marker)
 
             if (type == 'Police') {
@@ -720,6 +724,7 @@
 
 
         function initMap() {
+            console.log("Init Map");
             var options = {
                 center: {
                     lat: 10.298099450420516,
