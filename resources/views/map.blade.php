@@ -623,9 +623,8 @@ console.log("police");
                      
                     });
                 }).catch(err => console.log(err));
-        }
 
-        fireStations.forEach((location) => {
+                fireStations.forEach((location) => {
                         addMarker({lat: location.lat, lng: location.lng}, location.type, location.unit, location.title)
                         });
 
@@ -636,6 +635,9 @@ console.log("police");
                         medicalStations.forEach((location) => {
                         addMarker({lat: location.lat, lng: location.lng}, location.type, location.unit, location.title)
                         });
+        }
+
+      
                         
         function addMarker(coordinates, type, status, title) {
             console.log("Add Marker!");
