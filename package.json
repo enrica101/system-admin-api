@@ -15,16 +15,17 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
-        "chart.js": "^4.2.1",
-        "flatpickr": "^4.6.13",
-        "js-datepicker": "^5.18.2",
-        "sweetalert2": "^11.7.3",
-        "vite": "^3.0.0",
-        "laravel-vite-plugin": "^0.7.0",
         "@popperjs/core": "^2.11.7",
         "axios": "^1.3.4",
         "bootstrap": "^5.2.3",
+        "chart.js": "^4.2.1",
+        "flatpickr": "^4.6.13",
+        "js-datepicker": "^5.18.2",
+        "laravel-vite-plugin": "^0.7.0",
+        "popper.js": "^1.16.1",
         "postcss": "^8.1.14",
-        "sass": "^1.62.1"
+        "sass": "^1.62.1",
+        "sweetalert2": "^11.7.3",
+        "vite": "^3.0.0"
     }
 }
