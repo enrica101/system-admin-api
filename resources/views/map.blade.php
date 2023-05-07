@@ -310,77 +310,77 @@
 
         ];
 
-        
-         
+
+
         const fireStations = [{
-                        lat: 10.29777159357524,
-                        lng: 123.89194542056934,
-                        title: 'BFP CEBU REGION VII OFFICE',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'Fire & Rescue',
-                        unit: 'BUREAU OF FIRE PROTECTION',
+                lat: 10.29777159357524,
+                lng: 123.89194542056934,
+                title: 'BFP CEBU REGION VII OFFICE',
+                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                type: 'Fire & Rescue',
+                unit: 'BUREAU OF FIRE PROTECTION',
 
-                    },
-                    {
+            },
+            {
 
-                        lat: 10.27916636106637,
-                        lng: 123.85490164776354,
-                        title: 'BFP PARDO FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'Fire & Rescue',
-                        unit: 'BUREAU OF FIRE PROTECTION',
+                lat: 10.27916636106637,
+                lng: 123.85490164776354,
+                title: 'BFP PARDO FIRE SUBSTATION',
+                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                type: 'Fire & Rescue',
+                unit: 'BUREAU OF FIRE PROTECTION',
 
-                    },
-                    {
+            },
+            {
 
-                        lat: 10.300269662239069,
-                        lng: 123.88178984919715,
-                        title: 'BFP LABANGON FIRE STATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'Fire & Rescue',
-                        unit: 'BUREAU OF FIRE PROTECTION',
+                lat: 10.300269662239069,
+                lng: 123.88178984919715,
+                title: 'BFP LABANGON FIRE STATION',
+                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                type: 'Fire & Rescue',
+                unit: 'BUREAU OF FIRE PROTECTION',
 
 
-                    },
-                    {
+            },
+            {
 
-                        lat: 10.325073099409664,
-                        lng: 123.89826662158048,
-                        title: 'BFP LAHUG FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'Fire & Rescue',
-                        unit: 'BUREAU OF FIRE PROTECTION',
+                lat: 10.325073099409664,
+                lng: 123.89826662158048,
+                title: 'BFP LAHUG FIRE SUBSTATION',
+                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                type: 'Fire & Rescue',
+                unit: 'BUREAU OF FIRE PROTECTION',
 
-                    },
-                    {
-                        lat: 10.323549318797818,
-                        lng: 123.88410563595791,
-                        title: 'BFP GUADALUPE FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'Fire & Rescue',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-                    },
-                    {
+            },
+            {
+                lat: 10.323549318797818,
+                lng: 123.88410563595791,
+                title: 'BFP GUADALUPE FIRE SUBSTATION',
+                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                type: 'Fire & Rescue',
+                unit: 'BUREAU OF FIRE PROTECTION',
+            },
+            {
 
-                        lat: 10.31389853808104,
-                        lng: 123.9160416092285,
-                        title: 'BFP MABOLO FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'Fire & Rescue',
-                        unit: 'BUREAU OF FIRE PROTECTION',
+                lat: 10.31389853808104,
+                lng: 123.9160416092285,
+                title: 'BFP MABOLO FIRE SUBSTATION',
+                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                type: 'Fire & Rescue',
+                unit: 'BUREAU OF FIRE PROTECTION',
 
-                    },
-                    {
-                        lat: 10.293435002195197,
-                        lng: 123.89406257912542,
-                        title: 'BFP SAN NICOLAS FIRE SUBSTATION',
-                        icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                        type: 'Fire & Rescue',
-                        unit: 'BUREAU OF FIRE PROTECTION',
-                    },
-                ];
+            },
+            {
+                lat: 10.293435002195197,
+                lng: 123.89406257912542,
+                title: 'BFP SAN NICOLAS FIRE SUBSTATION',
+                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+                type: 'Fire & Rescue',
+                unit: 'BUREAU OF FIRE PROTECTION',
+            },
+        ];
 
-                const policeStations = [{
+        const policeStations = [{
                 lat: 10.281018662550558,
                 lng: 123.85509967667018,
                 title: 'PNP POLICE STATION 7 - PARDO',
@@ -415,7 +415,18 @@
                 icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
                 type: 'Police',
                 unit: 'PHILIPPINE NATIONAL POLICE',
+            },
+            {
+
+                lat: 10.312710666710414,
+                lng: 123.91580799545001,
+                title: 'PNP POLICE STATION 4 - MABOLO',
+                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+                type: 'Police',
+                unit: 'PHILIPPINE NATIONAL POLICE',
+
             }
+
         ];
 
         const medicalStations = [{
@@ -425,8 +436,8 @@
                 icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
                 type: 'Medical',
                 unit: 'ERUF',
-            },{
-                lat: 10.29130021704532, 
+            }, {
+                lat: 10.29130021704532,
                 lng: 123.87753201725641,
                 title: 'CCDRRMO',
                 icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
@@ -435,7 +446,7 @@
             },
             {
                 lat: 10.310403310627603,
-                lng:  123.9084781007516,
+                lng: 123.9084781007516,
                 title: 'CEBU CITY HEALTH CENTER',
                 icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
                 type: 'Medical',
@@ -467,20 +478,20 @@
             fireControlButton.title = "Click to display only fire emergency requests.";
             fireControlButton.type = "button";
 
-            
+
 
             // Setup the click eent listeners
             fireControlButton.addEventListener("click", () => {
                 console.log(allMarkers)
                 displayAllMarkers(allMarkers)
-                allMarkers.forEach(marker =>{
-                    if(marker['title'] != 'Fire & Rescue'){
+                allMarkers.forEach(marker => {
+                    if (marker['title'] != 'Fire & Rescue') {
                         marker.setVisible(false)
                         console.log(marker);
                     }
                     console.log(marker);
                 })
-                placeMarkers.forEach(polygon =>{
+                placeMarkers.forEach(polygon => {
                     polygon.setVisible(false)
                     console.log(polygon)
                 })
@@ -513,25 +524,25 @@
             medicalControlButton.addEventListener("click", () => {
                 console.log("medical pressed!");
                 displayAllMarkers(allMarkers)
-                allMarkers.forEach(marker =>{
-                    if(marker['title'] != 'Medical'){
+                allMarkers.forEach(marker => {
+                    if (marker['title'] != 'Medical') {
                         marker.setVisible(false)
                     }
                     console.log(marker)
                 })
-                placeMarkers.forEach(polygon =>{
+                placeMarkers.forEach(polygon => {
                     polygon.setVisible(false)
                 })
 
             });
-               
+
             return medicalControlButton;
 
         }
 
         function createPoliceFilter(map, allMarkers) {
             const policeControlButton = document.createElement("button");
-console.log("police");
+            console.log("police");
             policeControlButton.style.backgroundColor = "#fff";
             policeControlButton.style.border = "2px solid #fff";
             policeControlButton.style.borderRadius = "3px";
@@ -549,19 +560,19 @@ console.log("police");
             policeControlButton.type = "button";
             policeControlButton.addEventListener("click", () => {
 
-           displayAllMarkers(allMarkers)
-            allMarkers.forEach((marker) => {
-                
+                displayAllMarkers(allMarkers)
+                allMarkers.forEach((marker) => {
+
                     if (marker['title'] != 'Police') {
                         marker.setVisible(false)
                     }
                     console.log(marker);
                 });
-                placeMarkers.forEach(polygon =>{
+                placeMarkers.forEach(polygon => {
                     polygon.setVisible(true)
                     console.log(polygon)
                 })
-                
+
             });
 
             return policeControlButton;
@@ -589,7 +600,7 @@ console.log("police");
 
             resetControlButton.addEventListener("click", () => {
                 displayAllMarkers(allMarkers)
-                placeMarkers.forEach(polygon =>{
+                placeMarkers.forEach(polygon => {
                     polygon.setVisible(true)
                 })
 
@@ -608,7 +619,7 @@ console.log("police");
             console.log("Geo!");
             axios.get('/api/requests')
                 .then(res => {
-                    
+
                     res.data.forEach((location) => {
                         var requestType = location['type']
                         var status = location['status']
@@ -620,25 +631,34 @@ console.log("police");
                             lng: lng
                         }, requestType, status); //creates each map marker
 
-                     
+
                     });
                 }).catch(err => console.log(err));
 
-                fireStations.forEach((location) => {
-                        addMarker({lat: location.lat, lng: location.lng}, location.type, location.unit, location.title)
-                        });
+            fireStations.forEach((location) => {
+                addMarker({
+                    lat: location.lat,
+                    lng: location.lng
+                }, location.type, location.unit, location.title)
+            });
 
-                        policeStations.forEach((location) => {
-                        addMarker({lat: location.lat, lng: location.lng}, location.type, location.unit, location.title)
-                        });
+            policeStations.forEach((location) => {
+                addMarker({
+                    lat: location.lat,
+                    lng: location.lng
+                }, location.type, location.unit, location.title)
+            });
 
-                        medicalStations.forEach((location) => {
-                        addMarker({lat: location.lat, lng: location.lng}, location.type, location.unit, location.title)
-                        });
+            medicalStations.forEach((location) => {
+                addMarker({
+                    lat: location.lat,
+                    lng: location.lng
+                }, location.type, location.unit, location.title)
+            });
         }
 
-      
-                        
+
+
         function addMarker(coordinates, type, status, title) {
             console.log("Add Marker!");
 
@@ -647,9 +667,9 @@ console.log("police");
             // the corresponding marker icon.
             if (type == 'Police') {
                 if (status == 'PHILIPPINE NATIONAL POLICE') {
-                iconMarker = 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png';
-            } else
-                iconMarker = 'https://img.icons8.com/stickers/100/000000/public-safety.png';
+                    iconMarker = 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png';
+                } else
+                    iconMarker = 'https://img.icons8.com/stickers/100/000000/public-safety.png';
             } else
             if (status == 'BUREAU OF FIRE PROTECTION') {
                 iconMarker = 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png';
@@ -657,9 +677,9 @@ console.log("police");
             if (type == 'Medical') {
                 if (status == 'ERUF' || status == 'LGU') {
                     iconMarker = 'https://img.icons8.com/stickers/100/null/hospital-3.png';
-                }else
+                } else
                     iconMarker = 'https://img.icons8.com/stickers/100/000000/doctors-bag.png';
-            }else {
+            } else {
                 iconMarker = 'https://img.icons8.com/stickers/100/000000/fires.png';
             }
 
@@ -682,55 +702,57 @@ console.log("police");
             if (type == 'Police') {
                 if (status == 'PHILIPPINE NATIONAL POLICE') {
                     var infoWindow = new google.maps.InfoWindow({
-                            content: '<b>' + title + '</b>' 
-                                    + '<br><b>' + type + '</b>' 
-                                    + '<br><b>' +status + '</b>'
-                        });
-                } else{
+                        content: '<b>' + title + '</b>' +
+                            '<br><b>' + type + '</b>' +
+                            '<br><b>' + status + '</b>'
+                    });
+                } else {
                     var infoWindow = new google.maps.InfoWindow({
-                            content: '<b>Request Type: </b><br>' + type +
-                                '<br><b>Request Status: </b><br>' + status
-                    });}
+                        content: '<b>Request Type: </b><br>' + type +
+                            '<br><b>Request Status: </b><br>' + status
+                    });
+                }
             } else
             if (status == 'BUREAU OF FIRE PROTECTION') {
                 var infoWindow = new google.maps.InfoWindow({
-                    content: '<b>' + title + '</b>' 
-                            + '<br><b>' + type + '</b>' 
-                            + '<br><b>' +status + '</b>'
+                    content: '<b>' + title + '</b>' +
+                        '<br><b>' + type + '</b>' +
+                        '<br><b>' + status + '</b>'
                 });
             } else
             if (type == 'Medical') {
                 if (status == 'ERUF' || status == 'LGU') {
                     var infoWindow = new google.maps.InfoWindow({
-                        content: '<b>' + title + '</b>' 
-                                + '<br><b>' + type + '</b>' 
-                                + '<br><b>' +status + '</b>'
-                        });
-                }else{
+                        content: '<b>' + title + '</b>' +
+                            '<br><b>' + type + '</b>' +
+                            '<br><b>' + status + '</b>'
+                    });
+                } else {
                     var infoWindow = new google.maps.InfoWindow({
                         content: '<b>Request Type: </b><br>' + type +
                             '<br><b>Request Status: </b><br>' + status
-                    });}
-            }else {
+                    });
+                }
+            } else {
                 var infoWindow = new google.maps.InfoWindow({
                     content: '<b>Request Type: </b><br>' + type +
-                            '<br><b>Request Status: </b><br>' + status
+                        '<br><b>Request Status: </b><br>' + status
                 });
             }
 
             allMarkers.forEach(marker => {
-                marker.addListener('click', ()=>{
+                marker.addListener('click', () => {
                     let info = infoWindow.content
                     console.log(marker)
-                    if(info.includes(marker.type)){
+                    if (info.includes(marker.type)) {
                         infoWindow.open(map, marker)
-                    }else if(info.includes('Request Type') && info.includes(marker.title)){
+                    } else if (info.includes('Request Type') && info.includes(marker.title)) {
                         infoWindow.open(map, marker)
 
                     }
-                    })
                 })
-            
+            })
+
         }
 
 
@@ -750,13 +772,13 @@ console.log("police");
 
             map = new google.maps.Map(document.getElementById('map'), options);
 
-                //iterate through array of array of polygon vertices
+            //iterate through array of array of polygon vertices
             polygonCoords.forEach((polygonCoord) => {
                 // Construct the polygon.
                 const polygon = new google.maps.Polygon({
                     paths: polygonCoord,
                     strokeColor: 'blue',
-                    strokeOpacity: 0.8, 
+                    strokeOpacity: 0.8,
 
                     strokeWeight: 2,
                     fillColor: 'rgba(173, 216, 230, 1)', //light blue
@@ -792,7 +814,6 @@ console.log("police");
             geo()
 
         }
-
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xcAyCALx3yLmzfs7cS3gjeYkV7bg_AU&map_ids=39d7b83c8e09ed62&callback=initMap" defer></script>
 </x-layout>
