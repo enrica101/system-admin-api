@@ -9,7 +9,9 @@ body{
 
 .container.login,
 .container.register{
-     background-color: #323232;
+     background-img: url('../img/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     /* flex-direction: column; */
     justify-content: center;
