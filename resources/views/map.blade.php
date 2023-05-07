@@ -471,12 +471,14 @@
 
             // Setup the click eent listeners
             fireControlButton.addEventListener("click", () => {
+                console.log(allMarkers)
                 displayAllMarkers(allMarkers)
                 allMarkers.forEach(marker =>{
                     if(marker['title'] != 'Fire & Rescue'){
                         marker.setVisible(false)
                         console.log(marker);
                     }
+                    console.log(marker);
                 })
                 placeMarkers.forEach(polygon =>{
                     polygon.setVisible(false)
@@ -553,6 +555,7 @@ console.log("police");
                     if (marker['title'] != 'Police') {
                         marker.setVisible(false)
                     }
+                    console.log(marker);
                 });
                 placeMarkers.forEach(polygon =>{
                     polygon.setVisible(true)
