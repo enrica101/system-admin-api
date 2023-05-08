@@ -153,17 +153,17 @@
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
-                            <div class="form-group mt-4">
+                            <!-- <div class="form-group mt-4">
                                 <label for="avatar">Upload Profile Picture <small>[Optional]</small></label><br>
                                 <input type="file" class="form-control-file" name="avatar" accept="image/*"><br>
                                 @error('avatar')
                                 <small class="text-danger">{{$message}}</small>
                                 @enderror
-                            </div>
+                            </div> -->
                             <br>
                             <br>
                             <button type="submit" class="btn btn-primary">Register</button><br>
-                            <small>Already have an account? <a href="/">Login</a></small>
+                            <!-- <small>Already have an account? <a href="/">Login</a></small> -->
                         </form>
                     </div>
                 </div>
