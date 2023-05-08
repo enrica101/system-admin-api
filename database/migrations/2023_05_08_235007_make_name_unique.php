@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('responses', function (Blueprint $table) {
-            $table->string('escalation')->nullable();
-            //
+        //make unit name unique
+        Schema::table('units', function (Blueprint $table) {
+            $table->unique('name');
         });
     }
 
@@ -26,9 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('responses', function (Blueprint $table) {
-            //
-
-        });
+        //
     }
 };

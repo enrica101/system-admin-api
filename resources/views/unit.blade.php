@@ -15,7 +15,20 @@
     </head>
 
     <body>
+    
+        
+
         <div class="container mt-4 daryllcard">
+
+        @if(session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+        @elseif(session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session()->get('error') }}
+        </div>
+        @endif
             <div class="card daryllcard">
                 <div class="card-body ">
                     <h4 class="card-title">Unit Data Entry System</h4>
@@ -27,6 +40,11 @@
                             <div class="form-group">
                                 <label for="name">Unit Name</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter Unit Name" required>
+                                @error('name')
+                                <br>
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
                             </div>
 
                             <div class="form-group">

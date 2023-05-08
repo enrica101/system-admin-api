@@ -35,7 +35,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/unit', function () {
     return view('unit');
-})->middleware('auth');
+})->middleware('auth')->name('unit');
 
 Route::get('/map', function () {
     return view('map');

@@ -15,7 +15,7 @@ class UnitController{
 
     public function store(Request $request){
         $fields = $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:units,name',
             'type' => 'required|string',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric'
@@ -29,7 +29,16 @@ class UnitController{
         ]);
        
         if($unit){
-          return view('unit');
+           
+        //  return response()->with('success', 'Unit created successfully');
+        if($unit){
+            return redirect()->route('unit')->with('success', $unit->name .' created successfully');
+        }
+        else{
+            return redirect()->route('unit')->with('error', 'Unit creation failed');
+        }
+        
+        
         }
     }
 

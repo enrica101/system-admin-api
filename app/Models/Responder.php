@@ -26,4 +26,8 @@ class Responder extends Model
     {
         return $this->belongsTo(Response::class, 'responderId');
     }
+
+    public function unit(){
+        return $this->belongsTo(Unit::class, 'unit_id');
+    }
 }

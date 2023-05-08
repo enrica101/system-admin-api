@@ -53,6 +53,11 @@
                         src="http://system-admin.herokuapp.com/icons/users.svg" 
                         alt="User Entry">
                         User Entry</li></a>
+                        <a href="/unit/">
+                    <li><img 
+                        src="http://system-admin.herokuapp.com/icons/speakerphone.svg" 
+                        alt="Speakerphone"> 
+                        Unit Data Entry</li></a>        
                 <a href="http://system-admin.herokuapp.com/responders">
                     <li><img 
                         src="http://system-admin.herokuapp.com/icons/speakerphone.svg" 
