@@ -91,7 +91,7 @@
                     @enderror
                 </div> --}}
                 
-                {{-- <div class="field">
+                <!-- {{-- <div class="field">
                     <label for="avatar">
                         Upload Profile Picture <small>[Optional]</small>
                     </label><br>
@@ -103,10 +103,10 @@
                     @error('avatar')
                     <p>{{$message}}</p>
                     @enderror
-                </div> --}}
+                </div> --}} -->
                 
                 <input type="submit" value="Register"><br>
-                <small>Already have an account? <a href="/">Login </a></small>
+                <!-- <small>Already have an account? <a href="/">Login </a></small> -->
             </form>
         </div>
     </div>
