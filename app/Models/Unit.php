@@ -20,6 +20,6 @@ class Unit extends Model
     ];
 
    public function responders(){
-      return $this->hasMany(Responder::class, 'unit');
+      return $this->belongsTo(Responder::class, 'unit');
    }
 }

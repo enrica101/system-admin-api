@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('lng', 255);
             $table->foreignId('unit')->references('id')->on('units')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

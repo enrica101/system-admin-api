@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArchiveController;
@@ -104,6 +105,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         
         Route::get('archive/requests/search/{id}', [ArchiveController::class, 'searchRequestArchive']);
         Route::get('archive/responses/search/{id}', [ArchiveController::class, 'searchResponsesArchive']);
+
+        //Units
+        Route::get('/units', [UnitController::class, 'index']);
 
 
 

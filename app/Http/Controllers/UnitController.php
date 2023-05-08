@@ -13,6 +13,10 @@ use App\Http\Controllers\UserController;
 
 class UnitController{
 
+    public function index(){
+        return Unit::all();
+    }
+
     public function store(Request $request){
         $fields = $request->validate([
             'name' => 'required|string|unique:units,name',
@@ -51,9 +55,4 @@ class UnitController{
         $unit = Unit::find($id);
         return $unit;
     }
-
-
-
-
-
 }

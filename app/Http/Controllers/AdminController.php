@@ -156,7 +156,6 @@ class AdminController extends Controller
     //daryll was here
     public function editUser($id)
     {
-
         $user = User::where('id', $id)->first();
 
         // $user = User::findOrFail(user()->id);
@@ -186,10 +185,6 @@ class AdminController extends Controller
             unset($formInputs['password']);
         }
 
-
-
-
-
         if ($user->role == 'Responder') {
 
             if ($formInputs['role'] == 'User') {
@@ -198,8 +193,6 @@ class AdminController extends Controller
                 $respData = Responder::where('userId', $user->id)->first();
                 //dd($respData);
                 $respData->delete();
-
-
                 $user->role = $formInputs['role'];
                 $user->save();
             }
@@ -269,9 +262,6 @@ class AdminController extends Controller
         }
 
 
-
-
-        //auth()->login($user);
 
         return redirect('/dashboard');
     }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('lat');
             $table->string('lng');
             $table->string('status');
-            $table->string('escalation');
+            $table->string('escalation')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
