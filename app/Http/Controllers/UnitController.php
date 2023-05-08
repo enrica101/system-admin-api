@@ -50,7 +50,8 @@ class UnitController{
             'unit' => $fields['unit'],
         ]);
        
-        return [$coord['unit']=>[$coord]];
+        // return [$coord['unit']=>[$coord]];
+        return redirect()->route('unit')->with('success', 'Jurisictional boundary vertice for' . $fields['unit'] . 'created successfully');
     }
 
     public function store(Request $request){

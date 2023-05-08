@@ -38,9 +38,9 @@
                         <form method="POST" action="/unit/create" enctype="multipart/form-data" class="daryllwashere">
                             @csrf
                             <div class="form-group">
-                                <label for="name">Unit Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Unit Name" required>
-                                @error('name')
+                                <label for="title">Unit Name</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Enter Unit Name" required>
+                                @error('title')
                                 <br>
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -53,6 +53,22 @@
                                 <option value="Fire & Rescue">Fire & Rescue</option>
                                 <option value="Medical-ERUF">Medical-ERUF</option>
                                 <option value="Police">Police</option>
+                            </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="unit">Unit Office</label>
+                            <select class="form-control" id="unit" name="unit" required>
+                     <option value="BUREAU OF FIRE PROTECTION">Bureau of Fire Protection</option>
+                        <option value="BUREAU OF JAIL MANAGEMENT AND PENOLOGY">Bureau of Jail Management and Penology</option>
+                        <option value="BUREAU OF CORRECTION">Bureau of Correction</option>
+                        <option value="PHILIPPINE NATIONAL POLICE">Philippine National Police</option>
+                        <option value="PHILIPPINE COAST GUARD">Philippine Coast Guard</option>
+                        <option value="PHILIPPINE DRUG ENFORCEMENT AGENCY">Philippine Drug Enforcement Agency</option>
+                        <option value="PHILIPPINE PORTS AUTHORITY">Philippine Ports Authority</option>
+                        <option value="CEBU CITY GOVERNMENT">Cebu City Government</option>
+                        <option value="EMERGENCY RESCUE UNIT FOUNDATION">Emergency Rescue Unit Foundation</option>
+                            
                             </select>
                             </div>
 

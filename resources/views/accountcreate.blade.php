@@ -45,7 +45,7 @@ use App\Models\Unit;
                                 @endphp
                                 <select class="form-control" name="unit" id="unit">
                                     @foreach($units as $unit)
-                                    <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                    <option value="{{$unit->id}}">{{$unit->title}}</option>
                                     @endforeach
                                 </select>
                             </div>

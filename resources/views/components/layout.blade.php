@@ -53,6 +53,11 @@
                         src="http://system-admin.herokuapp.com/icons/users.svg" 
                         alt="User Entry">
                         User Entry</li></a>
+                        <a href="/juris">
+                    <li><img 
+                        src="http://system-admin.herokuapp.com/icons/users.svg" 
+                        alt="User Entry">
+                        Jurisdiction Data Entry</li></a>
                         <a href="/unit/">
                     <li><img 
                         src="http://system-admin.herokuapp.com/icons/speakerphone.svg" 

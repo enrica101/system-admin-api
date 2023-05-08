@@ -14,7 +14,7 @@
         let marker, map, placeMarkers = [];
         let allMarkers = [];
         //array of array of polygon vertices
-        const polygonCoords = [
+        polygonCoords = [
             [
                 //Cebu Central BFP
                 {
@@ -633,7 +633,7 @@
                     });
                 }).catch(err => console.log(err));
 
-                axios.get('/api/units')
+            axios.get('/api/units')
                 .then(res => {
 
                     res.data.forEach((location) => {
@@ -652,7 +652,90 @@
                     });
                 }).catch(err => console.log(err));
 
-                // console.log(allMarkers)
+                axios.get('/api/polygons').then(response => {
+  const data = response.data;
+  const result = {};
+
+  data.forEach(item => {
+    if(!result[item.unit]) {
+      result[item.unit] = [];
+    }
+
+    result[item.unit].push({ lat: parseFloat(item.lat), lng: parseFloat(item.lng)});
+  });
+
+  const finalResult = Object.values(result);
+  console.log("FINAL RESULT")
+  console.log(finalResult);
+
+    finalResult.forEach(polygon => {
+       placeMarkers.push(new google.maps.Polygon({
+                    paths: polygon,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35,
+                    map: map
+                }));
+    });
+});
+
+
+            // axios.get('/api/polygons')
+            //     .then(res => {
+            //         const polygons = res.data.map(row => {
+            //             console.log("NEW ROW")
+            //             console.log(row.lat, row.lng);
+            //             var lat = parseFloat(location['lat'])
+            //             var lng = parseFloat(location['lng'])
+            //             return [
+            //                 new google.maps.LatLng(lat, lng),
+
+            //             ];
+            //         });
+
+            //         console.log("FULL POLYGON ARRAY")
+            //         console.log(polygons)
+
+            //         polygons.forEach(polygon => {
+
+            //             new google.maps.Polygon({
+            //                 paths: polygon,
+            //                 strokeColor: '#FF0000',
+            //                 strokeOpacity: 0.8,
+            //                 strokeWeight: 2,
+            //                 fillColor: '#FF0000',
+            //                 fillOpacity: 0.35,
+            //                 map: map
+            //             });
+            //             placeMarkers.push(polygon);
+            //             polygon.setVisible(true);
+            //         });
+
+            //     })
+            //     .catch(err => console.log(err));
+
+
+            //     polygonCoords.forEach((polygonCoord) => {
+            //     // Construct the polygon.
+            //     const polygon = new google.maps.Polygon({
+            //         paths: polygonCoord,
+            //         strokeColor: 'blue',
+            //         strokeOpacity: 0.8,
+
+            //         strokeWeight: 2,
+            //         fillColor: 'rgba(173, 216, 230, 1)', //light blue
+
+            //         fillOpacity: 0.35
+            //     });
+            //     placeMarkers.push(polygon)
+            //     // Set the polygon on the map
+            //     polygon.setMap(map);
+            //     polygon.setVisible(true);
+            // });
+
+            // console.log(allMarkers)
 
             // fireStations.forEach((location) => {
             //     addMarker({
@@ -697,7 +780,7 @@
                 if (status == 'BUREAU OF FIRE PROTECTION') {
                     iconMarker = 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png';
                 } else
-                iconMarker = 'https://img.icons8.com/stickers/100/000000/fires.png';
+                    iconMarker = 'https://img.icons8.com/stickers/100/000000/fires.png';
             }
 
             marker = new google.maps.Marker({
@@ -738,7 +821,7 @@
                 });
             } else
             if (type == 'Medical') {
-                if (status == 'ERUF' || status == 'LGU') {
+                if (status == 'EMERGENCY RESCUE UNIT FOUNDATION' || status == 'CEBU CITY DISASTER RISK REDUCTION AND MANAGEMENT OFFICE' || status == 'LGU') {
                     var infoWindow = new google.maps.InfoWindow({
                         content: '<b>' + title + '</b>' +
                             '<br><b>' + type + '</b>' +

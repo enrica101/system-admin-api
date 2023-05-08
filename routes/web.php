@@ -37,6 +37,10 @@ Route::get('/unit', function () {
     return view('unit');
 })->middleware('auth')->name('unit');
 
+Route::get('/juris/', function () {
+    return view('jurisdiction');
+})->middleware('auth')->name('juris');
+
 Route::get('/map', function () {
     return view('map');
 })->middleware('auth');
@@ -64,6 +68,8 @@ Route::get('/mail', function () {
 Route::get('/success-restore', function () {
     return view('success-restore');
 });
+
+Route::post('/unit/add-vertices', [UnitController::class, 'postPolygon'])->name('unit.add-vertices');
 
 Route::get('/user-entry', [AccountController::class, 'create'])->name('account.create');
 Route::put('/user-manage/{user}', [AdminController::class, 'updateInfo'])->name('account.manage');
