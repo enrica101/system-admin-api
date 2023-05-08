@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Unit;
-use App\Models\Response;
-use App\Models\Responder;
-use App\Models\RequestsInfo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\UserController;
+use App\Models\Polygon;
 
 class UnitController{
 
@@ -17,33 +12,75 @@ class UnitController{
         return Unit::all();
     }
 
-    public function store(Request $request){
+    public function allPolygons(){
+        $polygon = Polygon::all();
+        return $polygon;
+    }
+
+    public function create(Request $request){
         $fields = $request->validate([
-            'name' => 'required|string|unique:units,name',
+            'title' => 'required|string|unique:units,title',
+            'unit' => 'required|string',
             'type' => 'required|string',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric'
         ]);
 
         $unit = Unit::create([
-            'name' => $fields['name'],
+            'title' => $fields['title'],
+            'unit' => $fields['unit'],
+            'type' => $fields['type'],
+            'lat' => $fields['lat'],
+            'lng' => $fields['lng']
+        ]);
+       
+        return $unit;
+    }
+
+    public function postPolygon(Request $request){
+        $fields = $request->validate([
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
+            'unit' => 'required|string',
+        ]);
+
+        $coord = Polygon::create([
+            'lat' => $fields['lat'],
+            'lng' => $fields['lng'],
+            'unit' => $fields['unit'],
+        ]);
+       
+        return [$coord['unit']=>[$coord]];
+    }
+
+    public function store(Request $request){
+        $fields = $request->validate([
+            'title' => 'required|string|unique:units,title',
+            'unit' => 'required|string',
+            'type' => 'required|string',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric'
+        ]);
+
+        $unit = Unit::create([
+            'title' => $fields['title'],
+            'unit' => $fields['unit'],
             'type' => $fields['type'],
             'lat' => $fields['lat'],
             'lng' => $fields['lng']
         ]);
        
         if($unit){
-           
-        //  return response()->with('success', 'Unit created successfully');
-        if($unit){
-            return redirect()->route('unit')->with('success', $unit->name .' created successfully');
-        }
-        else{
+            return redirect()->route('unit')->with('success', $unit->title .' created successfully');
+        }else{
             return redirect()->route('unit')->with('error', 'Unit creation failed');
         }
-        
-        
-        }
+    }
+
+    public function deleteCoord(Request $request){
+        $coord = Polygon::find($request->unit);
+        return $coord->delete();
+
     }
 
     public function getLatLng($id){

@@ -13,9 +13,9 @@ class Polygon extends Model{
     protected $table = 'polygons';
     protected $fillable = [
         'lat',
-        'lng'
+        'lng',
+        'unit'
     ];
-
 
     public function unit(){
         return $this->belongsTo(Unit::class, 'unit');

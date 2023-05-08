@@ -15,8 +15,11 @@ return new class extends Migration
 {
     Schema::create('units', function (Blueprint $table) {
         $table->id();
-        $table->string('name');
+        $table->string('title');
+        $table->string('unit');
         $table->string('type');
+        $table->string('lat', 255);
+        $table->string('lng', 255);
         $table->timestamps();
         $table->softDeletes();
 

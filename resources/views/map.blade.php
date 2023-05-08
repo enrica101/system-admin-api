@@ -46,7 +46,7 @@
                     lng: 123.87958
                 },
                 {
-                    lat: 10.30297,
+                    lat: 10.30297, //stopped here
                     lng: 123.87718
                 },
                 {
@@ -312,147 +312,147 @@
 
 
 
-        const fireStations = [{
-                lat: 10.29777159357524,
-                lng: 123.89194542056934,
-                title: 'BFP CEBU REGION VII OFFICE',
-                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                type: 'Fire & Rescue',
-                unit: 'BUREAU OF FIRE PROTECTION',
+        // const fireStations = [{
+        //         lat: 10.29777159357524,
+        //         lng: 123.89194542056934,
+        //         title: 'BFP CEBU REGION VII OFFICE',
+        //         icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+        //         type: 'Fire & Rescue',
+        //         unit: 'BUREAU OF FIRE PROTECTION',
 
-            },
-            {
+        //     },
+        //     {
 
-                lat: 10.27916636106637,
-                lng: 123.85490164776354,
-                title: 'BFP PARDO FIRE SUBSTATION',
-                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                type: 'Fire & Rescue',
-                unit: 'BUREAU OF FIRE PROTECTION',
+        //         lat: 10.27916636106637,
+        //         lng: 123.85490164776354,
+        //         title: 'BFP PARDO FIRE SUBSTATION',
+        //         icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+        //         type: 'Fire & Rescue',
+        //         unit: 'BUREAU OF FIRE PROTECTION',
 
-            },
-            {
+        //     },
+        //     {
 
-                lat: 10.300269662239069,
-                lng: 123.88178984919715,
-                title: 'BFP LABANGON FIRE STATION',
-                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                type: 'Fire & Rescue',
-                unit: 'BUREAU OF FIRE PROTECTION',
+        //         lat: 10.300269662239069,
+        //         lng: 123.88178984919715,
+        //         title: 'BFP LABANGON FIRE STATION',
+        //         icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+        //         type: 'Fire & Rescue',
+        //         unit: 'BUREAU OF FIRE PROTECTION',
 
 
-            },
-            {
+        //     },
+        //     {
 
-                lat: 10.325073099409664,
-                lng: 123.89826662158048,
-                title: 'BFP LAHUG FIRE SUBSTATION',
-                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                type: 'Fire & Rescue',
-                unit: 'BUREAU OF FIRE PROTECTION',
+        //         lat: 10.325073099409664,
+        //         lng: 123.89826662158048,
+        //         title: 'BFP LAHUG FIRE SUBSTATION',
+        //         icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+        //         type: 'Fire & Rescue',
+        //         unit: 'BUREAU OF FIRE PROTECTION',
 
-            },
-            {
-                lat: 10.323549318797818,
-                lng: 123.88410563595791,
-                title: 'BFP GUADALUPE FIRE SUBSTATION',
-                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                type: 'Fire & Rescue',
-                unit: 'BUREAU OF FIRE PROTECTION',
-            },
-            {
+        //     },
+        //     {
+        //         lat: 10.323549318797818,
+        //         lng: 123.88410563595791,
+        //         title: 'BFP GUADALUPE FIRE SUBSTATION',
+        //         icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+        //         type: 'Fire & Rescue',
+        //         unit: 'BUREAU OF FIRE PROTECTION',
+        //     },
+        //     {
 
-                lat: 10.31389853808104,
-                lng: 123.9160416092285,
-                title: 'BFP MABOLO FIRE SUBSTATION',
-                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                type: 'Fire & Rescue',
-                unit: 'BUREAU OF FIRE PROTECTION',
+        //         lat: 10.31389853808104,
+        //         lng: 123.9160416092285,
+        //         title: 'BFP MABOLO FIRE SUBSTATION',
+        //         icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+        //         type: 'Fire & Rescue',
+        //         unit: 'BUREAU OF FIRE PROTECTION',
 
-            },
-            {
-                lat: 10.293435002195197,
-                lng: 123.89406257912542,
-                title: 'BFP SAN NICOLAS FIRE SUBSTATION',
-                icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
-                type: 'Fire & Rescue',
-                unit: 'BUREAU OF FIRE PROTECTION',
-            },
-        ];
+        //     },
+        //     {
+        //         lat: 10.293435002195197,
+        //         lng: 123.89406257912542,
+        //         title: 'BFP SAN NICOLAS FIRE SUBSTATION',
+        //         icon: 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png',
+        //         type: 'Fire & Rescue',
+        //         unit: 'BUREAU OF FIRE PROTECTION',
+        //     },
+        // ];
 
-        const policeStations = [{
-                lat: 10.281018662550558,
-                lng: 123.85509967667018,
-                title: 'PNP POLICE STATION 7 - PARDO',
-                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                type: 'Police',
-                unit: 'PHILIPPINE NATIONAL POLICE',
-            },
-            {
+        // const policeStations = [{
+        //         lat: 10.281018662550558,
+        //         lng: 123.85509967667018,
+        //         title: 'PNP POLICE STATION 7 - PARDO',
+        //         icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+        //         type: 'Police',
+        //         unit: 'PHILIPPINE NATIONAL POLICE',
+        //     },
+        //     {
 
-                lat: 10.293432951989331,
-                lng: 123.89767169731381,
-                title: 'PNP POLICE STATION 5 - CARBON',
-                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                type: 'Police',
-                unit: 'PHILIPPINE NATIONAL POLICE',
+        //         lat: 10.293432951989331,
+        //         lng: 123.89767169731381,
+        //         title: 'PNP POLICE STATION 5 - CARBON',
+        //         icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+        //         type: 'Police',
+        //         unit: 'PHILIPPINE NATIONAL POLICE',
 
-            },
-            {
+        //     },
+        //     {
 
-                lat: 10.29664200873103,
-                lng: 123.87260913719784,
-                title: 'PNP POLICE STATION 10 - PUNTA PRINCESA',
-                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                type: 'Police',
-                unit: 'PHILIPPINE NATIONAL POLICE',
-            },
-            {
+        //         lat: 10.29664200873103,
+        //         lng: 123.87260913719784,
+        //         title: 'PNP POLICE STATION 10 - PUNTA PRINCESA',
+        //         icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+        //         type: 'Police',
+        //         unit: 'PHILIPPINE NATIONAL POLICE',
+        //     },
+        //     {
 
-                lat: 10.303820043688352,
-                lng: 123.89518260805069,
-                title: 'PNP POLICE STATION 2 - FUENTE',
-                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                type: 'Police',
-                unit: 'PHILIPPINE NATIONAL POLICE',
-            },
-            {
+        //         lat: 10.303820043688352,
+        //         lng: 123.89518260805069,
+        //         title: 'PNP POLICE STATION 2 - FUENTE',
+        //         icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+        //         type: 'Police',
+        //         unit: 'PHILIPPINE NATIONAL POLICE',
+        //     },
+        //     {
 
-                lat: 10.312710666710414,
-                lng: 123.91580799545001,
-                title: 'PNP POLICE STATION 4 - MABOLO',
-                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                type: 'Police',
-                unit: 'PHILIPPINE NATIONAL POLICE',
+        //         lat: 10.312710666710414,
+        //         lng: 123.91580799545001,
+        //         title: 'PNP POLICE STATION 4 - MABOLO',
+        //         icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+        //         type: 'Police',
+        //         unit: 'PHILIPPINE NATIONAL POLICE',
 
-            }
+        //     }
 
-        ];
+        // ];
 
-        const medicalStations = [{
-                lat: 10.333936486502663,
-                lng: 123.91044978984485,
-                title: 'ERUF BANILAD',
-                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                type: 'Medical',
-                unit: 'ERUF',
-            }, {
-                lat: 10.29130021704532,
-                lng: 123.87753201725641,
-                title: 'CCDRRMO',
-                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                type: 'Medical',
-                unit: 'LGU',
-            },
-            {
-                lat: 10.310403310627603,
-                lng: 123.9084781007516,
-                title: 'CEBU CITY HEALTH CENTER',
-                icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
-                type: 'Medical',
-                unit: 'LGU',
-            },
-        ];
+        // const medicalStations = [{
+        //         lat: 10.333936486502663,
+        //         lng: 123.91044978984485,
+        //         title: 'ERUF BANILAD',
+        //         icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+        //         type: 'Medical',
+        //         unit: 'ERUF',
+        //     }, {
+        //         lat: 10.29130021704532,
+        //         lng: 123.87753201725641,
+        //         title: 'CCDRRMO',
+        //         icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+        //         type: 'Medical',
+        //         unit: 'LGU',
+        //     },
+        //     {
+        //         lat: 10.310403310627603,
+        //         lng: 123.9084781007516,
+        //         title: 'CEBU CITY HEALTH CENTER',
+        //         icon: 'https://img.icons8.com/?size=32&id=K6DcBh6Fr34j&format=png',
+        //         type: 'Medical',
+        //         unit: 'LGU',
+        //     },
+        // ];
 
 
         //Create a function creates a button that controls the filtering of requests on the map.
@@ -479,7 +479,6 @@
             fireControlButton.type = "button";
 
 
-
             // Setup the click eent listeners
             fireControlButton.addEventListener("click", () => {
                 console.log(allMarkers)
@@ -498,7 +497,6 @@
             });
 
             return fireControlButton;
-
         }
 
         function createMedicalFilter(map, allMarkers) {
@@ -635,29 +633,48 @@
                     });
                 }).catch(err => console.log(err));
 
-            fireStations.forEach((location) => {
-                addMarker({
-                    lat: location.lat,
-                    lng: location.lng
-                }, location.type, location.unit, location.title)
-            });
+                axios.get('/api/units')
+                .then(res => {
 
-            policeStations.forEach((location) => {
-                addMarker({
-                    lat: location.lat,
-                    lng: location.lng
-                }, location.type, location.unit, location.title)
-            });
+                    res.data.forEach((location) => {
+                        console.log(location)
+                        var requestType = location['type']
+                        var status = location['status']
+                        var lat = parseFloat(location['lat'])
+                        var lng = parseFloat(location['lng'])
+                        console.log(typeof lat)
+                        console.log(typeof lng)
+                        addMarker({
+                            lat: lat,
+                            lng: lng
+                        }, location.type, location.unit, location.title); //creates each map marker
 
-            medicalStations.forEach((location) => {
-                addMarker({
-                    lat: location.lat,
-                    lng: location.lng
-                }, location.type, location.unit, location.title)
-            });
+                    });
+                }).catch(err => console.log(err));
+
+                // console.log(allMarkers)
+
+            // fireStations.forEach((location) => {
+            //     addMarker({
+            //         lat: location.lat,
+            //         lng: location.lng
+            //     }, location.type, location.unit, location.title)
+            // });
+
+            // policeStations.forEach((location) => {
+            //     addMarker({
+            //         lat: location.lat,
+            //         lng: location.lng
+            //     }, location.type, location.unit, location.title)
+            // });
+
+            // medicalStations.forEach((location) => {
+            //     addMarker({
+            //         lat: location.lat,
+            //         lng: location.lng
+            //     }, location.type, location.unit, location.title)
+            // });
         }
-
-
 
         function addMarker(coordinates, type, status, title) {
             console.log("Add Marker!");
@@ -671,15 +688,15 @@
                 } else
                     iconMarker = 'https://img.icons8.com/stickers/100/000000/public-safety.png';
             } else
-            if (status == 'BUREAU OF FIRE PROTECTION') {
-                iconMarker = 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png';
-            } else
             if (type == 'Medical') {
                 if (status == 'ERUF' || status == 'LGU') {
                     iconMarker = 'https://img.icons8.com/stickers/100/null/hospital-3.png';
                 } else
                     iconMarker = 'https://img.icons8.com/stickers/100/000000/doctors-bag.png';
             } else {
+                if (status == 'BUREAU OF FIRE PROTECTION') {
+                    iconMarker = 'https://img.icons8.com/?size=32&id=Q0TVUon5Lln9&format=png';
+                } else
                 iconMarker = 'https://img.icons8.com/stickers/100/000000/fires.png';
             }
 

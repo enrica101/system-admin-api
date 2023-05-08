@@ -13,7 +13,8 @@ class Unit extends Model
 
     protected $table = 'units';
     protected $fillable = [
-      'name',
+      'title',
+      'unit',
       'type',
       'lat',
       'lng'

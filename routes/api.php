@@ -108,8 +108,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
         //Units
         Route::get('/units', [UnitController::class, 'index']);
+        Route::post('/units', [UnitController::class, 'create']);
 
-
+        //Polygons
+        Route::get('/polygons', [UnitController::class, 'allPolygons']);
+        Route::post('/polygons', [UnitController::class, 'postPolygon']);
+        Route::delete('/polygons', [UnitController::class, 'deleteCoord']);
 
 
 
