@@ -9,6 +9,7 @@ use App\Http\Controllers\ResponderController;
 use App\Http\Controllers\RequestsInfoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\UnitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,13 @@ Route::post('/send-email', [AdminController::class, 'sendEmail']);
 Route::get('/', function () {
     return view('login');
 })->name('login');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
+})->middleware('auth');
+
+Route::get('/unit', function () {
+    return view('unit');
 })->middleware('auth');
 
 Route::get('/map', function () {
@@ -63,7 +69,7 @@ Route::get('/user-entry', [AccountController::class, 'create'])->name('account.c
 Route::put('/user-manage/{user}', [AdminController::class, 'updateInfo'])->name('account.manage');
 // Route::get('/{id}', [AdminController::class, 'editUser'])->name('account.edit');
 Route::get('/user-update/{id}', [AdminController::class, 'editUser'])->name('account.edit');
-
+Route::post('/unit/create', [UnitController::class, 'store'])->name('unit.create');
 
 Route::get('/accounts', [AdminController::class, 'getRoleUsers'])->middleware('auth');
 

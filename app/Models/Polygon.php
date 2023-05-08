@@ -2,24 +2,22 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Unit extends Model
-{
+class Polygon extends Model{
     use HasFactory, SoftDeletes;
 
-    protected $table = 'units';
+    protected $table = 'polygons';
     protected $fillable = [
-      'name',
-      'type',
-      'lat',
-      'lng'
+        'lat',
+        'lng'
     ];
 
-   public function responders(){
-      return $this->hasMany(Responder::class, 'unit');
-   }
+
+    public function unit(){
+        return $this->belongsTo(Unit::class, 'unit');
+    }
 }
