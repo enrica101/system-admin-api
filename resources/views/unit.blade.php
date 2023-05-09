@@ -85,8 +85,8 @@
                             <label for="type">Unit Type</label>
                             <select class="form-control" id="type" name="type" required>
                                 <option value="Fire & Rescue">Fire & Rescue</option>
-                                <option value="LGU">Medical - CITY GOVERNMENT</option>
-                                <option value="EMERGENCY RESCUE UNIT FOUNDATION">Medical - ERUF</option>
+                                <option value="Medical">Medical - CITY GOVERNMENT</option>
+                                <option value="Medical">Medical - ERUF</option>
                                 <option value="Police">Police</option>
                             </select>
                         </div>
