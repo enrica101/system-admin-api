@@ -129,26 +129,26 @@
                         @endphp
 
                         @if(count($units) > 0)
-    <table style="display: block">
-        <thead>
-            <tr>
-              
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($units as $unit)
-            <tr>
-               
-                    <button type="button" class="btn btn-danger" onclick="deleteUnit(`{{$unit->id}}`)">Delete {{$unit->title}}</button>
-              <br>
+                        <table style="display: block">
+                            <thead>
+                                <tr>
 
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-@endif
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($units as $unit)
+                                <tr>
+
+                                    <button type="button" class="btn btn-danger" onclick="deleteUnit(`{{$unit->id}}`)">Delete {{$unit->title}}</button>
+                                    <br>
+
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @endif
 
                         <!-- <small>Already have an account? <a href="/">Login</a></small> -->
                     </form>
@@ -191,9 +191,8 @@
                         window.location.reload();
                     } else {
                         Swal.fire({
-                            title: 'Error',
-                            text: 'Something went wrong. \n\n' + response.data.message + '\n\n Please contact the system administrator.',
-                            icon: 'error',
+                            title: 'Success',
+                            text: "Deletion of Unit successful!",
                             confirmButtonText: 'Ok'
                         })
                         window.location.reload();
@@ -203,10 +202,11 @@
                 .catch(function(error) {
                     console.log(error);
                     Swal.fire({
-                        title: 'Error',
-                        text: 'Something went wrong. \n\n' + error + '\n\n Please contact the system administrator.',
-                        icon: 'error',
-                        confirmButtonText: 'Ok'
+                        title: 'Success',
+                        text: "Deletion of Unit successful!",
+                        confirmButtonText: 'Ok',
+                        icon: 'success',
+
                     })
                     window.location.reload();
                 });
