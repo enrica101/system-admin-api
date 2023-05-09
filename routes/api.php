@@ -114,7 +114,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
         Route::get('/polygons', [UnitController::class, 'allPolygons']);
         Route::post('/polygons', [UnitController::class, 'postPolygon']);
         Route::delete('/polygons', [UnitController::class, 'deleteCoord']);
+        Route::delete('/polygons/point', [UnitController::class, 'delJuris']);
         Route::delete('/polygons/{id}', [UnitController::class, 'deleteUnitPolygon']);
+        Route::delete('/unit/delete', [UnitController::class, 'deleteUnit']);
+
 
 
 

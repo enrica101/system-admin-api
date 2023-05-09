@@ -23,6 +23,10 @@
 }
 
 /* SIDE NAV */
+body{
+    overflow: scroll;
+
+}
 .sidenav{
     position: relative;
     height: 100%;
@@ -379,10 +383,19 @@ section.wrapper{
                         border-radius: 25px;
                     }
                 }
+
+                &:has(#map){
+                        #map{
+                            width: 300px;
+                            // height: 100%;
+                        }
+                }
             }
         }
     }
 }
+
+
 
 // MAP
 #map{

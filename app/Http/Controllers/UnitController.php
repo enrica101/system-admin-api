@@ -56,7 +56,7 @@ class UnitController
         ]);
 
         // return [$coord['unit']=>[$coord]];
-        return redirect()->route('juris')->with('success', 'Jurisictional boundary vertice' . ' created successfully');
+        return redirect()->route('juris')->with('success', 'Jurisdictional boundary vertice' . ' created successfully');
     }
 
     public function store(Request $request)
@@ -84,6 +84,25 @@ class UnitController
         }
     }
 
+    public function delJuris(Request $request){
+        $coord = Polygon::find($request->id);
+        $coord->delete();
+         return response([
+            'message' => 'Jurisdictional data deleted successfully',
+            'response' => 'success'
+
+         ], 200);
+    }
+
+    public function deleteUnit(Request $request){
+        $unit = Unit::find($request->id);
+        $unit->delete();
+         return response([
+            'message' => 'Unit deleted successfully',
+            'response' => 'success'
+
+         ], 200);
+    }
     public function deleteCoord(Request $request)
     {
         $coords = Polygon::where('unit', $request->unit)->get();
@@ -126,7 +145,7 @@ class UnitController
       $polygons->delete();
         return ([
             'message' => 'Polygons deleted successfully',
-
+            'status' => 'success',
             'response' => 'success'
 
         ]);
