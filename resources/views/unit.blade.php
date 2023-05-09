@@ -24,12 +24,10 @@
                     var latitude = event.latLng.lat();
                     var longitude = event.latLng.lng();
                     console.log(latitude, longitude);
-
                     // Remove previous marker if exists
                     if (marker) {
                         marker.setMap(null);
                     }
-
                     // Add new marker at clicked location
                     marker = new google.maps.Marker({
                         position: {
@@ -38,10 +36,6 @@
                         },
                         map: map
                     });
-
-
-
-
                     // Update text boxes
                     document.getElementById("lat").value = latitude;
                     document.getElementById("lng").value = longitude;
@@ -85,8 +79,8 @@
                             <label for="type">Unit Type</label>
                             <select class="form-control" id="type" name="type" required>
                                 <option value="Fire & Rescue">Fire & Rescue</option>
-                                <option value="Medical">Medical - CITY GOVERNMENT</option>
-                                <option value="Medical">Medical - ERUF</option>
+                                <option value="MEDICAL">Medical - CITY GOVERNMENT</option>
+                                <option value="MEDICAL">Medical - ERUF</option>
                                 <option value="Police">Police</option>
                             </select>
                         </div>

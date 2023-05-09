@@ -481,8 +481,8 @@
                 } else
                     iconMarker = 'https://img.icons8.com/stickers/100/000000/public-safety.png';
             } else
-            if (type == 'Medical') {
-                if (status == 'ERUF' || status == 'LGU') {
+            if (type == 'MEDICAL') {
+                if (status == 'ERUF' || status == 'LGU' || status == 'EMERGENCY RESCUE UNIT FOUNDATION' || status == 'CEBU CITY GOVERNMENT') {
                     iconMarker = 'https://img.icons8.com/stickers/100/null/hospital-3.png';
                 } else
                     iconMarker = 'https://img.icons8.com/stickers/100/000000/doctors-bag.png';
@@ -530,8 +530,8 @@
                         '<br><b>' + status + '</b>'
                 });
             } else
-            if (type == 'Medical') {
-                if (status == 'EMERGENCY RESCUE UNIT FOUNDATION' || status == 'CEBU CITY DISASTER RISK REDUCTION AND MANAGEMENT OFFICE' || status == 'LGU') {
+            if (type == 'MEDICAL') {
+                if (status == 'EMERGENCY RESCUE UNIT FOUNDATION' || status == 'CEBU CITY DISASTER RISK REDUCTION AND MANAGEMENT OFFICE' || status == 'LGU' || status == 'CEBU CITY GOVERNMENT') {
                     var infoWindow = new google.maps.InfoWindow({
                         content: '<b>' + title + '</b>' +
                             '<br><b>' + type + '</b>' +
