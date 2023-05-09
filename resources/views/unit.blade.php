@@ -141,6 +141,8 @@
             <tr>
                
                     <button type="button" class="btn btn-danger" onclick="deleteUnit(`{{$unit->id}}`)">Delete {{$unit->title}}</button>
+              <br>
+
                 </td>
             </tr>
             @endforeach

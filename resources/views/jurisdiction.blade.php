@@ -6,6 +6,7 @@
         <script>
             document.body.style.overflowY = 'hidden'
             var marker = null;
+
             function initMap() {
 
                 map = new google.maps.Map(document.getElementById('map'), {
@@ -16,31 +17,33 @@
                     zoom: 12
                 });
                 google.maps.event.addListener(map, "click", function(event) {
-  var latitude = event.latLng.lat();
-  var longitude = event.latLng.lng();
-  console.log(latitude, longitude);
+                    var latitude = event.latLng.lat();
+                    var longitude = event.latLng.lng();
+                    console.log(latitude, longitude);
 
-    // Remove previous marker if exists
-    if (marker) {
-            marker.setMap(null);
-        }
+                    // Remove previous marker if exists
+                    if (marker) {
+                        marker.setMap(null);
+                    }
 
-        // Add new marker at clicked location
-        marker = new google.maps.Marker({
-            position: { lat: latitude, lng: longitude },
-            map: map
-        });
+                    // Add new marker at clicked location
+                    marker = new google.maps.Marker({
+                        position: {
+                            lat: latitude,
+                            lng: longitude
+                        },
+                        map: map
+                    });
 
 
 
 
-  // Update text boxes
-  document.getElementById("lat").value = latitude;
-  document.getElementById("lng").value = longitude;
-});
+                    // Update text boxes
+                    document.getElementById("lat").value = latitude;
+                    document.getElementById("lng").value = longitude;
+                });
             }
-            
-</script>
+        </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xcAyCALx3yLmzfs7cS3gjeYkV7bg_AU&map_ids=39d7b83c8e09ed62&callback=initMap" defer></script>
 
     </section>
