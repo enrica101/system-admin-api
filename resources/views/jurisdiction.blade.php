@@ -119,7 +119,8 @@
                                     icon: 'success',
                                     confirmButtonText: 'Ok'
                                 })
-                            
+//refresh
+window.location.reload();                            
                                 }else{
                                     Swal.fire({
                                     title: 'Error',

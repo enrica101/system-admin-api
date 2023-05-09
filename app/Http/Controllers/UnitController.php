@@ -92,7 +92,8 @@ class UnitController
             return response([
                 'message' => 'No polygons found',
                 'response' => 'error',
-                'code' => '404'
+                'code' => '404',
+                'status' => 'error'
             ], 404);
             
          }
@@ -103,8 +104,9 @@ class UnitController
 
      if($coords){
         return response([
-            'message' => $request['unit'] . ' deleted successfully',
+            'message' => 'Jurisdictional data deleted successfully',
             'response' => 'success',
+            'status' => 'success'
             
         ], 200);
         
